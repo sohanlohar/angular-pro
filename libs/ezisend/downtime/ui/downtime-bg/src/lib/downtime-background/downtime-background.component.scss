@@ -1,0 +1,106 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+.background {
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.9) 4.77%,
+      rgba(149, 185, 240, 0.18) 78.59%,
+      rgba(149, 185, 240, 0.18) 82.36%,
+      rgba(212, 216, 222, 0) 100.68%);
+  bottom: 0;
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100vw;
+  z-index: -1;
+}
+
+.container_downtime {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+  padding-top: 2rem;
+
+  .logo {
+    width: 6rem;
+
+    img {
+      height: 100%;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+
+  .container-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 7rem;
+
+    .sad-face {
+      position: relative;
+      height: 5rem;
+      width: 6rem;
+
+      img {
+        position: absolute;
+        width: 7rem;
+      }
+
+      .left-eye {
+        left: 28%;
+        top: 30%;
+      }
+
+      .right-eye {
+        right: 28%;
+        top: 30%;
+      }
+
+      .mouth {
+        left: 28%;
+        top: 55%;
+      }
+    }
+
+    .error {
+      color: v.$primary_color;
+      white-space: nowrap;
+      line-height: 1;
+    }
+
+    .error-code {
+      @extend .error;
+      font-size: 3.75rem;
+      font-weight: 700;
+      margin: 3.5rem 0 .5rem 0;
+    }
+
+    .error-title {
+      @extend .error;
+      font-size: 1.875rem;
+    }
+
+    .error-description {
+      @extend .error;
+      font-size: 0.875rem;
+      line-height: 1.3;
+      margin: 2rem 0;
+      white-space: break-spaces;
+    }
+
+    .return-home {
+      background-color: v.$primary_color;
+      border-radius: 5px;
+      color: #FFFFFF;
+      max-width: 16.4rem;
+      padding: .5rem;
+      text-align: center;
+      text-decoration: none;
+      width: 80%;
+    }
+  }
+}

@@ -1,0 +1,206 @@
+<div class="title">{{languageData.performance_insights}}</div>
+<div class="insights_container-parent">
+    <div class="insights_container">
+        <!-- npx charts starts -->
+        <div class="npx-chart-parent">
+            <div *ngIf="loading_1">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+            <div fxLayout="row" fxLayout.xs="column" class="npx-charts scrollable">
+                <div fxFlex="100" class="chart_container npx-product-chart ml-2 mobile-chart">
+                    <!-- Vertical Bar Chart for Total Shipments Sent by Product -->
+                    <p class="description"><span>{{languageData.total_shipment_sent}} <br> <span class="total-count">{{this.statistics.byShipment}}</span></span><span
+                            class="end">{{languageData.last}}</span></p>
+                        <canvas class="bar-chart" height="124" baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptionsForSingleBar"
+                            [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType"
+                            [colors]="barChartColor">
+                        </canvas>
+                </div>
+            </div>
+            <div *ngIf="loading_2">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+            <!-- row 2 starts -->
+            <div class="npx-charts">
+                <div class="chart-container" fxLayout="column" fxLayout.gt-sm="row">
+                <div fxFlex="49" class="advance-pie-chart mr-2">
+                    <div class="chart_container pie_container doughnut_container" *ngIf="doughnutChartData !== []">
+                        <div class="pieChart">
+                            <p class="description"><span>COD/NON COD <br> <span class="total-count">{{this.statistics.byPayment}}</span></span><span
+                                    class="end">{{languageData.last}}</span></p>
+                                    <canvas baseChart height="124" [data]="doughnutChartData" [labels]="doughnutChartLabels"
+                                    [chartType]="doughnutChartType" [options]="doughnutChartOptions" [plugins]="doughnutChartPlugins"
+                                    [legend]="doughnutChartLegend" [colors]="doughnutColors">
+                                </canvas>
+                        </div>
+                        <div class="pieTable scrollable">
+                            <p class="description mb-5"><span style="color: white;">----</span></p>
+                            <table mat-table [dataSource]="dataSource2" class="mat-elevation-z8">
+        
+                                <ng-container matColumnDef="delivery_type">
+                                    <th mat-header-cell *matHeaderCellDef class="align-left"> {{languageData.delivery_type}} </th>
+                                    <td mat-cell *matCellDef="let element" class="align-left nowrap"> <span class="color-box" [ngStyle]="{'background-color': element.color}"></span> {{element.name}} </td>
+                                </ng-container>
+        
+                                <ng-container matColumnDef="order_count">
+                                    <th class="nowrap" mat-header-cell *matHeaderCellDef> {{languageData.order_count}} </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.value}} </td>
+                                </ng-container>
+        
+                                <ng-container matColumnDef="percentage">
+                                    <th class="pl-10" mat-header-cell *matHeaderCellDef> {{languageData.percentage}} </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.percentage}}% </td>
+                                </ng-container>
+        
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex="2">
+                </div>
+                <div fxFlex="49" class="advance-pie-chart mr-2">
+                    <div class="chart_container pie_container doughnut_container" *ngIf="pieChartData !== []">
+                        <div class="pieChart">
+                            <p class="description"><span>{{languageData.sent_by_state}} <br> <span class="total-count">{{this.statistics.byState}}</span></span><span
+                                class="end">{{languageData.last}}</span></p>
+                                    <canvas baseChart height="124" [data]="pieChartData" [labels]="pieChartLabels"
+                                    [chartType]="pieChartType" [options]="pieChartOptions" [plugins]="pieChartPlugins"
+                                    [legend]="pieChartLegend" [colors]="colors">
+                                </canvas>
+                        </div>
+                        <div class="pieTable scrollable">
+                            <p class="description mb-5"><span>{{languageData.top_state_shipments}}</span></p>
+                            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        
+                                <ng-container matColumnDef="state">
+                                    <th mat-header-cell *matHeaderCellDef class="align-left"> {{languageData.state}} </th>
+                                    <td mat-cell *matCellDef="let element" class="align-left nowrap">  <span class="color-box" [ngStyle]="{'background-color': element.color}"></span> {{element.Key}} </td>
+                                </ng-container>
+        
+                                <ng-container matColumnDef="order_count">
+                                    <th class="nowrap pl-10" mat-header-cell *matHeaderCellDef> {{languageData.order_count}} </th>
+                                    <td class="pl-10" mat-cell *matCellDef="let element"> {{element.Count}} </td>
+                                </ng-container>
+        
+                                <ng-container matColumnDef="percentage">
+                                    <th class="pl-10" mat-header-cell *matHeaderCellDef> {{languageData.percentage}} </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.Percentage}}% </td>
+                                </ng-container>
+        
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div *ngIf="loading_4">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+            <!-- row 3 starts -->
+            <div fxLayout="row" fxLayout.xs="column" class="npx-charts scrollable">
+                <div fxFlex="100" class="chart_container npx-product-chart ml-2 mobile-chart">
+                    <!-- Vertical Bar Chart for Total Shipments Sent by Product -->
+                    <p class="description"><span>{{languageData.sent_by_product}} <br> <span class="total-count">{{this.statistics.byProduct}}</span></span><span
+                            class="end">{{languageData.last}}</span></p>
+                    <canvas baseChart height="124" [datasets]="multiStackChartData" [labels]="multiStackChartLabels"
+                        [options]="barChartOptions" [plugins]="multiStackChartPlugins" [legend]="multiStackChartLegend"
+                        [chartType]="multiStackChartType">
+                    </canvas>
+                </div>
+            </div>
+        </div>
+        <!-- npx charts ends -->
+        <!-- ************** old charts hided for now and too be removed from html and ts when new one is approved **************  -->
+        <div class="old-charts d-none">
+            <div *ngIf="loading_1; else content_1">
+                <!-- Show progress bar while loading -->
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+            <ng-template #content_1>
+                <div class="chart_container" *ngIf="barChartData !== []">
+                    <p class="description"><span>{{languageData.total_shipment_sent}}</span><span
+                            class="end">{{languageData.last}}</span></p>
+                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                        [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType"
+                        [colors]="barChartColor">
+                    </canvas>
+                </div>
+            </ng-template>
+
+            <div *ngIf="loading_2; else content_2">
+                <!-- Show progress bar while loading -->
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+            <ng-template #content_2>
+                <div class="chart_container" *ngIf="stackBarChartData !== []">
+                    <p class="description"><span>{{languageData.cod_noncod}}</span><span
+                            class="end">{{languageData.last}}</span></p>
+                    <canvas baseChart [datasets]="stackBarChartData" [labels]="stackBarChartLabels"
+                        [options]="barChartOptions" [plugins]="stackBarChartPlugins" [legend]="stackBarChartLegend"
+                        [chartType]="stackBarChartType">
+                    </canvas>
+                </div>
+            </ng-template>
+
+            <div *ngIf="loading_3; else content_3">
+                <!-- Show progress bar while loading -->
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+            <ng-template #content_3>
+                <div class="chart_container" *ngIf="multiStackChartData !== []">
+                    <p class="description"><span>{{languageData.sent_by_product}}</span><span
+                            class="end">{{languageData.last}}</span></p>
+                    <canvas baseChart [datasets]="multiStackChartData" [labels]="multiStackChartLabels"
+                        [options]="barChartOptions" [plugins]="multiStackChartPlugins" [legend]="multiStackChartLegend"
+                        [chartType]="multiStackChartType">
+                    </canvas>
+                </div>
+            </ng-template>
+
+            <div *ngIf="loading_4; else content_4">
+                <!-- Show progress bar while loading -->
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </div>
+            <ng-template #content_4>
+                <div class="chart_container pie_container" *ngIf="pieChartData !== []">
+                    <div class="pieChart">
+                        <p class="description"><span>{{languageData.sent_by_state}}</span><span
+                                class="end">{{languageData.last}}</span></p>
+                        <canvas baseChart height="400" width="400" [data]="pieChartData" [labels]="pieChartLabels"
+                            [chartType]="pieChartType" [options]="pieChartOptions" [plugins]="pieChartPlugins"
+                            [legend]="pieChartLegend" [colors]="colors">
+                        </canvas>
+                    </div>
+                    <div class="pieTable">
+                        <p class="description"><span>{{languageData.top_state_shipments}}</span><span
+                                class="end">{{languageData.last}}</span></p>
+                        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                            <ng-container matColumnDef="state">
+                                <th mat-header-cell *matHeaderCellDef> {{languageData.state}} </th>
+                                <td mat-cell *matCellDef="let element"> {{element.Key}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="order_count">
+                                <th mat-header-cell *matHeaderCellDef> {{languageData.order_count}} </th>
+                                <td mat-cell *matCellDef="let element"> {{element.Count}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="percentage">
+                                <th mat-header-cell *matHeaderCellDef> {{languageData.percentage}} </th>
+                                <td mat-cell *matCellDef="let element"> {{element.Percentage}}% </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

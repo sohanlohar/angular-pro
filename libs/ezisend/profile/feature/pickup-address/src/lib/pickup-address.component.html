@@ -1,0 +1,20 @@
+<div class="container">
+  <pos-pickup-card-list #pickupCard
+    (selectedAddress)="dataPickupAddress = $event; isNewPickupAddress = false;"
+    (eventAddEditPickup)="onEventAddEditPickup($event)"
+    (totalPickupList)="pickupListTotal($event);"
+    [pickupList$]="pickupList$">
+  </pos-pickup-card-list>
+
+  <pos-profile-form
+   *ngIf="!isMobile()"
+    [isHaveDeleteAction]="isHaveDeleteAction"
+    [dataPickupAddress]="dataPickupAddress"
+    [isNewPickupAddress]="isNewPickupAddress"
+    [totalPickupList]="totalPickupList"
+    [headerLabel]="languageData.personal_details"
+    [OnSubmitButton]="onSubmitButton"
+    (submitForm)="onSubmit($event)"
+    (deleteFormData)="onDeleteFormData($event)">
+  </pos-profile-form>
+</div>

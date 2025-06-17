@@ -1,0 +1,143 @@
+<div class="my-shipment-wrapper">
+  <div class="action-field">
+    <!-- search field -->
+    <div class="container">
+      <label class="container-label">{{ languageData.search_tracking }}</label>
+      <div class="container-action">
+        <pos-search-input
+          [placeholder]="languageData.search_tracking_placeholder"
+          [fullWidth]="true"
+          (searchEvent)="onSearchEvent($event)"
+        ></pos-search-input>
+      </div>
+    </div>
+    <!-- date range field -->
+    <div class="container">
+      <label class="container-label">{{ languageData.date_range }}</label>
+      <div class="container-action">
+        <form [formGroup]="dateRangePickerForm">
+          <pos-date-range-picker
+            (formChange)="onDateRangePickerFormChange($event)" [minDate]="minSelectableDate" [maxDate]="maxSelectableDate" class="px-3" 
+          ></pos-date-range-picker>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="wrapper">
+    <div class="action-button">
+      <div class="action__group-left">
+        <button
+          mat-flat-button
+          color="primary"
+          [class.action-disabled]="(!selectedMultipleData.length ) && !isSelectAllOrders"
+          (click)="onActionButtonIcon('gen-connote-v2', true)">
+          {{languageData.create_consignment}} <span *ngIf="selectedMultipleData.length && !isSelectAllOrders">({{selectedMultipleData.length}})</span>
+        </button>
+
+        <!-- disable for right now-->
+        <!-- <button
+          mat-flat-button
+          color="primary"
+          [class.action-disabled]="(!selectedMultipleData.length ) && !isSelectAllOrders"
+          (click)="onActionButtonIcon('gen-connote', true)">
+          {{languageData.create_consignment}} <span *ngIf="selectedMultipleData.length && !isSelectAllOrders">({{selectedMultipleData.length}})</span>
+        </button> -->
+        <!-- <button
+          mat-flat-button
+          color="warn"
+          class="action-button_warn"
+          [class.action-disabled]="(!selectedMultipleData.length || totalShipmentNotRequestPickup === 0) && !isSelectAllOrders"
+          (click)="onActionButtonIcon('requestPickup', true)">
+          Request Pick Up <span *ngIf="selectedMultipleData.length && !isSelectAllOrders">({{totalShipmentNotRequestPickup}})</span>
+        </button> -->
+      </div>
+      <div class="action__group-right">
+        <!-- <button
+          mat-flat-button
+          color="primary"
+          *ngIf="!commonService.checkIfMobile()"
+          [class.action-disabled]="
+            (!selectedMultipleData.length && !isSelectAllOrders) ||
+            isSelectedShipmentsNoTrackingId
+          "
+          [matMenuTriggerFor]="menu"
+        >
+          {{ languageData.download_as }}
+          <mat-icon class="material-icon-outlined" mat-icon-button>
+            arrow_drop_down
+          </mat-icon>
+        </button> -->
+        <mat-menu #menu="matMenu">
+          <button
+            mat-menu-item
+            (click)="onActionButtonIcon('tallysheet', true)"
+          >
+            {{ languageData.tallysheet }} (.xlsx)
+          </button>
+          <button
+            mat-menu-item
+            (click)="onActionButtonIcon('commercialinvoice', true)"
+            [class.action-icon_disabled]="!isShowCommercialinvoiceButton"
+          >
+            {{ languageData.commercialinvoice }} (.pdf)
+          </button>
+        </mat-menu>
+        <button
+          mat-flat-button
+          color="primary"
+          [class.action-disabled]="
+            !selectedMultipleData.length && !isSelectAllOrders
+          "
+          (click)="onActionButtonIcon('delete', true)"
+        >
+          {{ languageData.delete }}
+          <span *ngIf="selectedMultipleData.length"
+            >({{ selectedMultipleData.length }})</span
+          >
+        </button>
+      </div>
+    </div>
+    <pos-my-shipment-table
+      #shipmentTable
+      *ngIf="totalTrackingDetails > 0 && commonService.checkIfMobile()"
+      [shipment$]="shipment$"
+      [columnsToDisplay]="columns"
+      [iconActions]="actions"
+      [activeTab]="'request-pickup'"
+      (totalShipmentRecords)="totalShipmentRecords = $event"
+      (onSelectAllOrder)="isSelectAllOrders = $event"
+      (selectedData)="onSelectRow($event)"
+      (actionIconEvent)="onActionIconEvent($event)"
+      (pageEvent)="onPageEvent($event)"
+      (filterCheckbox)="onFilterCheckbox($event)"
+    >
+    </pos-my-shipment-table>
+    <pos-my-shipment-table
+      *ngIf="!commonService.checkIfMobile()"
+      #shipmentTable
+      [shipment$]="shipment$"
+      [columnsToDisplay]="columns"
+      [iconActions]="actions"
+      [activeTab]="'request-pickup'"
+      (totalShipmentRecords)="totalShipmentRecords = $event"
+      (onSelectAllOrder)="isSelectAllOrders = $event"
+      (selectedData)="onSelectRow($event)"
+      (actionIconEvent)="onActionIconEvent($event)"
+      (pageEvent)="onPageEvent($event)"
+      (filterCheckbox)="onFilterCheckbox($event)"
+    >
+    </pos-my-shipment-table>
+    <mat-progress-bar
+      *ngIf="
+        isLoading && commonService.checkIfMobile() && totalTrackingDetails == 0
+      "
+      mode="indeterminate"
+    ></mat-progress-bar>
+    <mat-card
+      style="margin-top: 10px; text-align: center"
+      *ngIf="totalTrackingDetails == 0 && commonService.checkIfMobile()"
+    >
+      <mat-card-content>{{ languageData.no_record_found }}</mat-card-content>
+    </mat-card>
+  </div>
+</div>

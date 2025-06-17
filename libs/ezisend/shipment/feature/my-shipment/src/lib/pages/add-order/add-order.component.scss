@@ -1,0 +1,93 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+@use '../../my-shipment.component.scss';
+
+.main-title {
+  font-weight: v.$font-weight-semibold;
+  font-size: v.$font_size_l;
+  text-transform: uppercase;
+  color: v.$primary_color;
+  margin-bottom: 0.6rem;
+}
+
+.action-field {
+  justify-content: space-between;
+}
+
+.container-group {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: auto;
+    gap: 16px;
+  }
+
+  @media (min-width: 1024px) {
+    width: auto;
+    flex-wrap: nowrap;
+  }
+
+  .mat-flat-button {
+    min-width: 200px;
+    margin-left: 2rem;
+  }
+}
+
+.container-action {
+  background-color: #d3e6f8;
+  border: 1px solid #d3e6f8;
+  color: v.$primary_color;
+}
+.container-action_address {
+  background-color: #fff;
+  border: 1px solid #fff;
+  color: v.$primary_color;
+  span {
+    white-space: break-spaces;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: auto;
+
+    @media (min-width: 768px) {
+      width: 25em;
+    }
+  }
+}
+
+::ng-deep .orders-input {
+  min-width: 230px;
+
+  .mat-form-field-flex {
+    padding-left: 0.75rem;
+  }
+
+  .mat-form-field-underline {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1156px) {
+  .action-field {
+    padding-right: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 1125px) {
+  .container-group .mat-flat-button {
+    margin-left: 0;
+  }
+  .container .container-action {
+    height: 3rem !important ;
+    justify-content: flex-start;
+  }
+  .my-shipment-wrapper .container {
+    padding-top: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  // .container-group {
+  //   display: block;
+  //   width: 100%;
+  // }
+}

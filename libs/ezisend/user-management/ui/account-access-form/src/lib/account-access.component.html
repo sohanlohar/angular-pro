@@ -1,0 +1,77 @@
+<div mat-dialog-title class="acccountAccessContainer">
+  <span (click)="dialogRef.close()">
+    <mat-icon class="close" svgIcon="close_icon">close</mat-icon>
+  </span>
+</div>
+
+<div class="activeUser">
+  <img src="assets/activeUser.svg" alt="active-user" />
+  <span> Currently logged in as <strong>{{loggedInAccountNumber || '-'}}</strong></span>
+</div>
+<div class="headerContatiner">
+  <!-- <div class="personText" ><mat-icon svgIcon="person_icon">person</mat-icon></div> -->
+  <div class="AccountText" class="accountsText">{{languageData.available_account}}</div>
+</div>
+<div  [ngClass]="showViewAccountButton ? 'wrapperaccount' : 'wrapper'">
+  <div class="table table-wrapper">
+    <table style="width: 100%;" class="tableContainer" mat-table [dataSource]="data.accounts">
+      <ng-container matColumnDef="logo" width="20px">
+        <th mat-header-cell *matHeaderCellDef class="alignCenter" width="30px"> </th>
+        <td mat-cell *matCellDef="let account" class="alignCenter" width="30px">
+          <img src="assets/activeUser.svg" alt="active-user"
+            [class.isVisible]="loggedInAccountNumber != account?.account_no" />
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="alignCenter" width="80px"> {{languageData.company_name}} </th>
+        <td mat-cell *matCellDef="let account" class="alignCenter companyName" width="80px">{{ account.name }}</td>
+      </ng-container>
+      <ng-container matColumnDef="account_no">
+        <th mat-header-cell *matHeaderCellDef class="alignCenter" width="160px">
+          {{languageData.account_number}} </th>
+        <td mat-cell *matCellDef="let account" class="alignCenter" width="160px"> {{
+          account.account_no }} </td>
+      </ng-container>
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef class="alignCenter" width="88px"> {{languageData.type}} </th>
+        <td mat-cell *matCellDef="let account" class="alignCenter" width="80px">
+          <ng-container
+            *ngIf="account.is_master || account.type==='Master'; else subType">{{languageData.master}}</ng-container>
+          <ng-template #subType>{{languageData.sub}}</ng-template>
+        </td>
+      </ng-container>
+      <ng-container *ngIf="showViewAccountButton && isMasterAccount" matColumnDef="permissions">
+        <th mat-header-cell *matHeaderCellDef class="alignCenter"> {{languageData.permission}}</th>
+        <td mat-cell *matCellDef="let account; let index = index" class="alignCenter">
+          <div class="button-container" [class.selectedLanguage]="selectedLanguage != 'en'">
+            <button class="download-button" mat-flat-button color="primary" (click)="handleViewAccount(account); isViewSubmitted.index = index;"
+              [disabled]="ispermissionDisabled(account) || ((isViewSubmitted?.index === index) && isViewSubmitted?.status)">
+              {{languageData.view_account}}
+              <mat-spinner *ngIf="(isViewSubmitted?.index === index) && isViewSubmitted?.status" [diameter]="20" 
+                            [ngClass]="{'login-loading-spinner': ((isViewSubmitted?.index === index) && isViewSubmitted?.status)}"></mat-spinner>
+            </button>
+            <button class="download-button" *ngIf="!account?.is_default_account" mat-stroked-button
+              [disabled]="account?.is_account_blocked || ((isSetDefaultSubmitted?.index === index) && isSetDefaultSubmitted?.status)" 
+              color="primary" (click)="handleDefaultAccount(account); isSetDefaultSubmitted.index = index;" type="button">
+              {{languageData.set_as_default}}
+              <mat-spinner *ngIf="(isSetDefaultSubmitted?.index === index) && isSetDefaultSubmitted?.status" [diameter]="20"
+                           [ngClass]="{'login-loading-spinner': ((isSetDefaultSubmitted?.index === index) && isSetDefaultSubmitted?.status)}"></mat-spinner>
+            </button>
+            <span *ngIf="account?.is_default_account" class="defaultAccount">{{languageData.default_account}}</span>
+          </div>
+        </td>
+      </ng-container>
+
+      <!-- Define the header and body rows -->
+      <thead>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      </thead>
+      <tbody>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </tbody>
+    </table>
+
+
+  </div>
+
+</div>

@@ -1,0 +1,60 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+.container {
+  .content-container, .pickup-container {
+    color: v.$teritary_color;
+    font-size: v.$font_size_m;
+    font-weight: v.$font-weight-medium;
+    padding: 0.4rem 0.4rem;
+    margin-bottom: 10px;
+  }
+
+  .button-container {
+    button {
+      width: 12rem;
+      &:hover {
+        box-shadow: 0px 0px 8px 0px #00498d;
+      }
+    }
+  }
+
+  .pickup_btn {
+    button {
+      &:hover {
+        box-shadow: 0px 0px 8px 0px #00498d;
+      }
+    }
+  }
+}
+
+.maintitle {
+  color: v.$main_title;
+  font-size: v.$font_size_l;
+  font-weight: v.$font-weight-semibold;
+  line-height: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.inner-box {
+  height: auto;
+  min-height: 8rem;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: 1px 1px 12px rgb(98 85 85 / 25%);
+}
+
+
+@media screen and (max-width: 599px) {
+  .box-container {
+    align-items: space-between !important;
+  }
+  .container .button-container button {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 960px) {
+  .box-container {
+    align-items: end !important;
+  }
+}

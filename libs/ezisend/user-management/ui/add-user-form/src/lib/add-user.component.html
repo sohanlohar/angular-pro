@@ -1,0 +1,65 @@
+<div [formGroup]="form">
+    <div mat-dialog-title  class="container">
+        <span (click)="dialogRef.close()" >
+            <mat-icon class="close" svgIcon="close_icon">close</mat-icon>
+        </span>
+    </div>
+<div class="buttonConatiner">
+    <div class="personIcon">
+        <mat-icon svgIcon="person_icon">person</mat-icon>
+        </div>
+    <div  class="buttonLabel">{{ data.getButtonLabel == 'Add User' ? languageData.add_user : languageData.update_user }}</div>
+</div>
+<mat-divider></mat-divider>
+<div class="addUserContainer">
+<div class="form-container">
+    <div class="input-container">
+        <mat-form-field class="input-field" appearance="outline">
+            <mat-label>{{languageData.full_name}}</mat-label>
+            <input formControlName="name" minlength="3" maxlength="30" matInput [(ngModel)]="username" required>
+            <mat-error *ngIf="nameControl.touched && nameControl.hasError('required')">{{languageData.please_enter_your_name}}</mat-error>
+        </mat-form-field>
+        <mat-form-field  class="input-field" appearance="outline">
+            <mat-label>{{languageData.account}}</mat-label>
+            <mat-select formControlName="accountNo" (selectionChange)="onSelectionChange($event)" [(ngModel)]="accountNumber" disableRipple [placeholder]="languageData.please_select_one_or_more" multiple="true">
+                <mat-select-trigger>
+                    <mat-chip-list>
+                        <ng-container *ngIf="selectedValues.length > 0">
+                            <mat-chip selected color="primary">
+                                {{selectedValues[0]}}
+                            </mat-chip>
+                        </ng-container>
+                        <span *ngIf="selectedValues?.length > 1" class="more">
+                            +{{selectedValues.length - 1 }} {{languageData.more}}
+                        </span>
+                    </mat-chip-list>
+                </mat-select-trigger>
+                <mat-option *ngFor="let account of filterAccount | async" [value]="account.account_no">
+                    {{ account.name.length > 18 ? account.name.slice(0, 18) + '...' : account.name }}  &nbsp; {{ account.account_no }}
+                </mat-option>
+            </mat-select>
+            <mat-error *ngIf="accountControl.touched && accountControl.hasError('required')">{{languageData.please_select_an_account}}</mat-error>
+        </mat-form-field>
+
+    </div>
+    <mat-form-field class="inputEmail-field" appearance="outline">
+        <mat-label>{{languageData.email_address}}</mat-label>
+        <input formControlName="email" [disabled]="data.getButtonLabel === 'Edit User'" type="email" matInput [(ngModel)]="email" name="email" required
+                [ngClass]="{disableInput: data.getButtonLabel == 'Edit User'}">
+        <mat-error *ngIf="emailControl.touched && emailControl.hasError('required')">{{languageData.require_email}}</mat-error>
+        <mat-error *ngIf="emailControl.touched && emailControl.hasError('email') || emailControl.hasError('pattern')">{{languageData.require_valid_email}} ({{languageData.email_example}})</mat-error>
+    </mat-form-field>
+</div>
+
+<div class="submitButton">
+    <button class="removeUser" *ngIf="data.getButtonLabel==='Edit User'" (click)="removeUser()" [disabled]="!data.isMasterAccount" mat-button>
+      <mat-icon>delete</mat-icon>&nbsp;
+      <span>{{languageData.remove_user}}</span>
+    </button>
+    <button mat-flat-button color="primary" (click)="handleSubmit()" [disabled]="isSubmitting">
+        {{data.getButtonLabel==='Edit User'? languageData.update : languageData.submit}}
+        <mat-spinner *ngIf="isSubmitting" [diameter]="20" class="login-loading-spinner"></mat-spinner>
+    </button>
+</div>
+</div>
+</div>

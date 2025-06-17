@@ -1,0 +1,71 @@
+kind: Rollout
+apiVersion: argoproj.io/v1alpha1
+metadata:
+  name: spp-webserver
+  namespace: spp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spp-webserver
+  template:
+    metadata:
+      labels:
+        app: spp-webserver
+    spec:
+      # imagePullSecrets:
+      #   - name: aws-ecr    
+          
+      containers:
+        - name: spp-webserver
+          image: 972277210775.dkr.ecr.ap-southeast-1.amazonaws.com/spp-webserver:dockercicd
+          ports:
+            - name: httpport
+              containerPort: 80
+              protocol: TCP
+          env:
+            - name: SENDGRID_API_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: SENDGRID_API_KEY
+            - name: SENDGRID_SENDER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: SENDGRID_SENDER_NAME
+            - name: SENDGRID_SENDER_EMAIL
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: SENDGRID_SENDER_EMAIL
+            - name: SENDGRID_ENABLED
+              valueFrom:
+                configMapKeyRef:
+                  name: env
+                  key: SENDGRID_ENABLED
+          imagePullPolicy: Always
+          resources:
+            limits:
+              memory: 500Mi
+            requests:
+              cpu: 50m
+              memory: 500Mi
+  strategy:
+   canary:
+    steps:
+      - setWeight: 10
+      - pause:
+          duration: 2m
+      - setWeight: 20
+      - pause:
+          duration: 2m
+      - setWeight: 40
+      - pause:
+          duration: 2m
+      - setWeight: 60
+      - pause:
+          duration: 2m
+      - setWeight: 80
+      - pause:
+          duration: 2m

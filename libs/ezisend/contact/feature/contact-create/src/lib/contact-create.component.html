@@ -1,0 +1,18 @@
+<pos-page-layout [breadcrumbItems]="breadcrumbItems">
+  <div class="title">{{languageData.create_new_contact1}}</div>
+  <pos-contact-form
+    (contactFormStatus)="onContactFormStatus($event)"
+    (formSubmit)="onContactFormSubmit($event)"
+  >
+    <ng-container confirmButton>
+      <button
+        class="button"
+        disabled="{{ hasChange }}"
+        mat-flat-button
+        color="primary"
+      >
+        {{languageData.save_contact}}
+      </button>
+    </ng-container>
+  </pos-contact-form>
+</pos-page-layout>

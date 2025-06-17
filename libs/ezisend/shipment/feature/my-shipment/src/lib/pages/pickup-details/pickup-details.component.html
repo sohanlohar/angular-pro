@@ -1,0 +1,132 @@
+<pos-page-layout [breadcrumbItems]="breadcrumbItems" [backData]="backData">
+    <div class="main-title">{{data.pickup_details_title}}</div>
+
+    <div class="pickup_top_panel">
+        <mat-form-field class="state" appearance="outline">
+            <mat-label>{{data.pick_up_no}}</mat-label>
+            <mat-select [(value)]="selectedPickUpNumber" (selectionChange)="getSelectedPickUp($event.value)">
+                <mat-option *ngFor="let list of pickUpNumbers?.data?.shipments"
+                    [value]="list">
+                    {{list.pickup_details.pickup_number}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>
+                {{data.pick_up_date}}
+            </mat-label>
+            <input readonly matInput [value]="changeDateFormat(pickUpDate)">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>
+                {{data.pick_up_address}}
+            </mat-label>
+            <input readonly matInput [value]="pickUpAddress">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>
+              {{data.total_parcel}}
+            </mat-label>
+            <input readonly matInput [value]="totalShipmentRecords">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>
+              {{data.total_weight}}
+            </mat-label>
+            <input readonly matInput [value]="pickUpTotalWeight">
+        </mat-form-field>
+
+    </div>
+    <div class="wrapper">
+        <div class="action-field">
+          <div class="action__input-search">
+            <!-- date range field -->
+            <div class="date">
+              <form [formGroup]="dateRangePickerForm">
+                <pos-date-range-picker (formChange)="onDateRangePickerFormChange($event)" class="px-3"></pos-date-range-picker>
+              </form>
+            </div>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="action-button">
+          <div class="action__input-search">
+            <!-- <button
+              mat-flat-button
+              color="primary"
+              (click)="onActionButtonIcon('update', true)">
+              {{data.change_pick_up_date}}
+            </button> -->
+            <!-- <button
+              mat-flat-button
+              color="warn"
+              class="action-button_warn"
+              (click)="onActionButtonIcon('close', true)">
+              Cancel Pick Up
+            </button> -->
+            <button
+              mat-flat-button
+              color="primary"
+              class="action-button_warn"
+              [class.action-disabled]="isDisableOrder"
+              (click)="onActionButtonIcon('add', true)">
+              {{data.add_orders}}
+            </button>
+          </div>
+          <div class="action__group-button">
+            <!-- <mat-slide-toggle [labelPosition]="'before'" (change)="onSelectAllOrders($event)">Select All Orders</mat-slide-toggle> -->
+            <button
+            mat-flat-button
+            color="primary"
+            *ngIf="!_commonService.checkIfMobile()"
+            [class.action-disabled]="(!selectedMultipleData.length || totalShipmentNotRequestPickup === 0) && !isSelectAllOrders"
+            (click)="onActionButtonIcon('print', true)">
+            {{data.print_label}}
+          </button>
+
+            <button
+              mat-flat-button
+              *ngIf="!_commonService.checkIfMobile()"
+              [class.action-disabled]="!selectedMultipleData.length && !isSelectAllOrders"
+              color="primary"
+              [matMenuTriggerFor]="menu">
+             {{data.download_as}}
+              <mat-icon
+                class="material-icon-outlined"
+                mat-icon-button>
+                arrow_drop_down
+              </mat-icon>
+            </button>
+
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="onActionButtonIcon('connote', true)">Thermal Label (.prn)</button>
+              <button mat-menu-item (click)="onActionButtonIcon('tallysheet', true)">Tallysheet (.xlsx)</button>
+              <button
+                mat-menu-item
+                (click)="onActionButtonIcon('commercialinvoice', true)"
+                [class.action-icon_disabled]="isHideCommercialinvoiceButton">
+                Commercial Invoice (.pdf)
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+        <pos-my-shipment-table
+          [shipment$]="shipment$"
+          [columnsToDisplay]="columns"
+          [iconActions]="actions"
+          [activeTab]="'pickup details'"
+          (onSelectAllOrder)="onSelectAllOrders($event)"
+          (totalShipmentRecords)="totalShipmentRecords = $event"
+          (selectedData)="onSelectedData($event)"
+          (actionIconEvent)="onActionIconEvent($event)"
+          (pageEvent)="onPageEvent($event)"
+          #myShipment
+                  >
+        </pos-my-shipment-table>
+      </div>
+</pos-page-layout>
+

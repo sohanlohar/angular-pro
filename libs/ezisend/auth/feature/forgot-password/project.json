@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/ezisend/auth/feature/forgot-password/src",
+  "prefix": "pos",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ezisend/auth/feature/forgot-password"],
+      "options": {
+        "jestConfig": "libs/ezisend/auth/feature/forgot-password/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ezisend/auth/feature/forgot-password/**/*.ts",
+          "libs/ezisend/auth/feature/forgot-password/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

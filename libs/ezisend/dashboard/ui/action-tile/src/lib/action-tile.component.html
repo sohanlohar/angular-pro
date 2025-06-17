@@ -1,0 +1,33 @@
+<div class="maintitle">{{ action?.mainTitle }}</div>
+<div class="container">
+  <div class="content">
+    <div class="title"> {{action?.title}}</div>
+    <div *ngIf="action?.copy" class="copy">{{ action?.copy }}</div>
+  </div>
+  <div class="actions">
+    <ng-container *ngFor="let action of action?.actions">
+      <a
+        [routerLink]="
+          action.routerLink && action.routerLink.length
+            ? action.routerLink[0]
+            : ''
+        "
+      >
+        <button
+          *ngIf="action.color === 'none'; else elseButton"
+          mat-button
+          mat-stroked-button
+          color="primary"
+        >
+          <span [outerHTML]="action.title"></span>
+        </button>
+        <ng-template #elseButton>
+          <button mat-button mat-flat-button [color]="action.color"
+          (click)="onActionButton(action);">
+            <span [outerHTML]="action.title"></span>
+          </button>
+        </ng-template>
+      </a>
+    </ng-container>
+  </div>
+</div>

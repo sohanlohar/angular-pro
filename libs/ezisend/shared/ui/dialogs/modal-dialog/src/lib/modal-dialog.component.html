@@ -1,0 +1,45 @@
+<div class="steps_container">
+    <div *ngIf="!isreturnOrder" class="modal-top-section" fxLayout="row">
+        <div class="progress-icon-wrapper" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="0.5rem">
+            <mat-icon class="material-icons-outlined progress-icon done-icon">done</mat-icon>
+            <label class="progress-label green">{{languageData.create_shipment}}</label>
+        </div>
+        <div class="dashed-line green"></div>
+        <div class="progress-icon-wrapper" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="0.5rem">
+            <div class="progress-icon number-icon">2</div>
+            <label class="progress-label blue">{{languageData.get_consignment_note}}</label>
+        </div>
+        <div class="dashed-line blue"></div>
+        <div class="progress-icon-wrapper" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="0.5rem">
+            <div class="progress-icon number-icon">3</div>
+            <label class="progress-label blue">{{languageData.request_for_pickup}}</label>
+        </div>
+    </div>
+</div>
+<div class="dialog_title"> {{ isreturnOrder ? 'Your reverse shipment has been created!' : languageData.shipment_is + ' ' + messageNote + '!' }}</div>
+<div class="dialog_desc">
+  <ng-container *ngIf="isreturnOrder">
+    {{ languageData.please_proceed_to }}
+    <span class="highlight">{{ isreturnOrder ? 'Request for Pick Up tab' : languageData.generate_consignment_note }}</span>
+  </ng-container>
+
+  <ng-container *ngIf="!isreturnOrder">
+    {{languageData.download_consignment_note}}
+  </ng-container>
+</div>
+<div class="dialog_action">
+    <button mat-raised-button color="primary" (click)="navTo()">
+      <ng-container *ngIf="isreturnOrder">
+        {{languageData.continue}}
+      </ng-container>
+      <ng-container *ngIf="!isreturnOrder">
+        {{languageData.download}}
+      </ng-container>
+    </button>
+</div>
+<div class="dialog_footer" *ngIf="message !== 'updated'">
+    {{languageData.do_you_wish_to_create_more_orders}}
+    <a (click)="close()">
+        {{languageData.create_more_orders}}
+    </a>
+</div>

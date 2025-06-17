@@ -1,0 +1,134 @@
+<div class="maintitle">{{languageData.contact_all}}</div>
+<div class="wrapper">
+  <div class="action">
+    <div class="container">
+      <div class="container-action">
+        <pos-search-input [placeholder]="languageData.search"
+          (searchEvent)="onSearchEvent($event)"></pos-search-input>
+      </div>
+    </div>
+
+    <div class="action__group-button">
+      <button
+        mat-button
+        mat-flat-button
+        disabled="{{ isDisabledDeleteButton }}"
+        color="primary"
+        (click)="deleteContact()"
+      >
+        {{languageData.delet}} {{ selection.selected.length ? '(' + selection.selected.length + ')' : '' }}
+      </button>
+      <button mat-button mat-flat-button color="primary" (click)="downloadAllContact()">{{languageData.download}}</button>
+    </div>
+  </div>
+
+  <!-- <mat-divider></mat-divider> -->
+  <pos-paginator
+  #paginator
+  [length]="total"
+  [currentPage]="currentPage"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="pageSizeOptions"
+  (onCurrentPage)="onPageEvent($event)"
+></pos-paginator>
+
+  <div class="tablewrapper">
+    <ng-container *ngIf="contactList$ as data">
+      <table mat-table [dataSource]="dataTable">
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox
+              (change)="$event ? masterToggle() : null"
+              [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()"
+              [aria-label]="checkboxLabel()"
+            >
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox
+              (click)="$event.stopPropagation()"
+              (change)="onSelectRow($event, row)"
+              [checked]="selection.isSelected(row['id'])"
+              [aria-label]="checkboxLabel(row)"
+            >
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="contactPerson">
+          <th mat-header-cell *matHeaderCellDef>{{languageData.contact_person}}</th>
+          <td mat-cell *matCellDef="let data">
+            <a class="direct-link" [routerLink]="['/contact/details']" [queryParams]="{id: data.id}" (click)="onContactPersonClick(data.contact_person)">
+              {{ data.contact_person }}
+            </a>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="mobile">
+          <th mat-header-cell *matHeaderCellDef>{{languageData.contact_no}}</th>
+          <td mat-cell *matCellDef="let data">
+            {{ data.dialing_code }}{{ data.mobile }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>{{languageData.email}}</th>
+          <td mat-cell *matCellDef="let data">{{ (data.email.length > 20) ? (data.email | slice:0:20)+'...' : data.email }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef>{{languageData.address}}</th>
+          <td mat-cell *matCellDef="let data">{{ (data.address1.length > 20) ? (data.address1 | slice:0:20)+'...' : data.address1 }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="companyName">
+          <th mat-header-cell *matHeaderCellDef>{{languageData.company}}</th>
+          <td mat-cell *matCellDef="let data">
+            {{
+              (data.company_name.length > 20)
+              ? (data.company_name | slice:0:20)+'...'
+              : ((data.company_name.length <= 20) && data.company_name !== '')
+              ? data.company_name
+              : '-'
+            }}
+          </td>
+        </ng-container>
+
+        <tr
+          class="header"
+          mat-header-row
+          *matHeaderRowDef="columnsToDisplay"
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let myRowData; columns: columnsToDisplay"
+          [class.row--selected]="isChecked(myRowData)"
+        ></tr>
+
+        <ng-container matColumnDef="loading">
+          <td mat-footer-cell *matFooterCellDef [attr.colspan]="columnsToDisplay.length">
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="noData">
+          <td mat-footer-cell *matFooterCellDef [attr.colspan]="columnsToDisplay.length" class="no-data">No data</td>
+        </ng-container>
+
+        <tr class="my-shipment-footer-row" mat-footer-row *matFooterRowDef="['loading']" [class.show]="isListingLoading"></tr>
+        <tr class="my-shipment-footer-row" mat-footer-row *matFooterRowDef="['noData']" [class.show]="isListingEmpty()"></tr>
+
+      </table>
+    </ng-container>
+  </div>
+
+  <pos-paginator
+    #paginator
+    [length]="total"
+    [currentPage]="currentPage"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    (onCurrentPage)="onPageEvent($event)"
+  ></pos-paginator>
+</div>

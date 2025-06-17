@@ -1,0 +1,14 @@
+<div class="wrapper">
+    <div
+        class="item"
+        routerLinkActive="active-link"
+        *ngFor="let navigate of navigations"
+        [routerLinkActiveOptions]="routerLinkActiveOptions"
+        [routerLink]="navigate.displayName.toLocaleLowerCase() !== 'menu' ? navigate.routerLink : null"
+        (click)="navigate.displayName.toLocaleLowerCase() === 'menu' ? menuToggled.emit(): null">
+        <span class="icon">
+            <mat-icon class="material-icons-outlined"> {{ navigate.iconName }} </mat-icon>
+        </span>
+        <div class="label"> {{ navigate.displayName }} </div>
+    </div>
+</div>

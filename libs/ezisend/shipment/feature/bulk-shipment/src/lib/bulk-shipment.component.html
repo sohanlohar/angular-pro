@@ -1,0 +1,31 @@
+<pos-page-layout [breadcrumbItems]="breadcrumbItems">
+  <div class="main-title">{{data?.bulk_shipment}}</div>
+  <mat-tab-group color="transparent" class="my-shipment-tab-group searchindex" #stepper animationDuration="0ms"
+    mat-align-tabs="start" (selectedTabChange)="commonService.tabChanged($event); tabChanged($event)"
+    [selectedIndex]="selectedIndex" disableRipple>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <label>{{data.domestic}}</label>
+      </ng-template>
+      <pos-bulk-dom-intl-shipment [BU_type]="'dom'"></pos-bulk-dom-intl-shipment>
+    </mat-tab>
+    <mat-tab *ngIf="(commonService.isCODUbat | async) === false">
+      <ng-template mat-tab-label>
+        <label>{{data.international}}</label>
+      </ng-template>
+      <pos-bulk-dom-intl-shipment [BU_type]="'bulk'"></pos-bulk-dom-intl-shipment>
+    </mat-tab>
+    <mat-tab *ngIf="(commonService.isMelPlus | async) === true">
+      <ng-template mat-tab-label>
+        <label>MELPLUS</label>
+      </ng-template>
+      <pos-bulk-dom-intl-shipment [BU_type]="'melplus'"></pos-bulk-dom-intl-shipment>
+    </mat-tab>
+    <mat-tab *ngIf="(commonService.isMPS | async)">
+      <ng-template mat-tab-label>
+        <label>MPS</label>
+      </ng-template>
+      <pos-bulk-dom-intl-shipment [BU_type]="'mps'"></pos-bulk-dom-intl-shipment>
+    </mat-tab>
+  </mat-tab-group>
+</pos-page-layout>

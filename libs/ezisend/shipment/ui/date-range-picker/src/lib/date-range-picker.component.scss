@@ -1,0 +1,289 @@
+.input-container {
+  position: relative;
+  margin-bottom: 16px; // Adjust spacing as needed
+}
+.input-field {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+  &:focus {
+    outline: none;
+    border-color: #2196f3; // Example focus color
+  }
+}
+.input-label {
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  color: #999;
+  font-size: 16px;
+  transition: top 0.3s ease, font-size 0.3s ease;
+}
+.input-field:focus ~ .input-label,
+.input-field:not(:placeholder-shown) ~ .input-label {
+  top: 0;
+  font-size: 12px;
+  color: #555; // Example label color when active
+}
+.date-input-container {
+  position: relative;
+  margin-bottom: 16px; // Adjust spacing as needed
+}
+.date-input-field {
+  width: calc(100% - 40px); // Adjust for icon width
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+  &:focus {
+    outline: none;
+    border-color: #2196f3; // Example focus color
+  }
+}
+.date-input-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #888; // Example icon color
+}
+.mat-form-field-underline {
+  height: 0 !important;
+}
+::ng-deep {
+  .md-drppicker td.start-date.end-date {
+    border-radius: 30px !important;
+    background-color: #00498d !important;
+  }
+  .show-ranges {
+    top: 55px !important;
+    left: auto !important;
+  }
+  .md-drppicker td.active,
+  .md-drppicker td.active {
+    background-color: #00498d !important;
+    &:hover {
+      background-color: #00498d !important;
+    }
+  }
+  .md-drppicker {
+    transition: all 0.3s ease-in-out;
+    .ranges {
+      ul {
+        li {
+          font-family: 'Poppins', 'Helvetica Neue', sans-serif;
+          // hiding this last child which was custom range was coming from date picker as we added our own custom range label to make it clickable
+          &:last-child {
+            display: none !important;
+          }
+          &:hover {
+            background-color: #d6eaff !important;
+            button {
+              color: #00498d;
+            }
+          }
+          button {
+            font-size: 1rem;
+            color: #5e5873;
+            font-weight: 400;
+            padding: 10px 12px;
+            font-family: 'Poppins', 'Helvetica Neue', sans-serif;
+            &.active {
+              color: #00498d !important;
+              background-color: #d6eaff !important;
+              font-weight: 500;
+              font-size: 1rem;
+            }
+          }
+          &::last-child {
+            order: -1;
+          }
+        }
+      }
+    }
+    .btn {
+      border-radius: 5px !important;
+      padding: 3px 50px !important;
+      margin-right: 10px !important;
+      background-color: #00498d !important;
+      font-family: 'Poppins', 'Helvetica Neue', sans-serif;
+      font-weight: 500;
+      box-shadow: none !important;
+    }
+    .btn-default {
+      background-color: #fff !important;
+      color: #00498d;
+      border: 1px solid #00498d !important;
+      font-size: 14px;
+    }
+    .buttons {
+      flex: auto;
+      font-family: 'Poppins', 'Helvetica Neue', sans-serif;
+      border-top: 1px solid #d6eaff;
+      margin-top: 0.5rem !important;
+      padding: 1rem 0 0.4rem 0;
+    }
+    td {
+      font-size: 1rem;
+      font-weight: 500;
+      font-family: 'Poppins', 'Helvetica Neue', sans-serif;
+      &.in-range {
+        background-color: #efeeee !important;
+      }
+    }
+    th {
+      color: #c3c3c3;
+      font-size: 1rem;
+      font-weight: 500;
+      font-family: 'Poppins', 'Helvetica Neue', sans-serif;
+      &.month {
+        color: #00498d;
+        font-size: 1rem;
+        font-weight: 500;
+        font-family: 'Poppins', 'Helvetica Neue', sans-serif;
+        > div {
+          display: inline-flex !important;
+        }
+      }
+    }
+    &.ltr .calendar.left .calendar-table {
+      padding-right: 0px !important;
+    }
+    &.shown {
+      min-width: 680px !important;
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+  .custom-icon-button {
+    width: 27px;
+    height: 27px;
+    position: relative;
+    top: 5px;
+    background-image: url('/assets/calendar-icon.svg');
+    background-color: initial;
+    margin-left: 0.4rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    transition: 0.3s linear;
+    cursor: pointer;
+    &:hover {
+      scale: 1.2;
+      transition: 0.3s linear;
+    }
+  }
+  .custom-icon-button-2 {
+    margin-left: 0;
+    width: 10px;
+    height: 12px;
+    background-image: url('/assets/cross.png');
+    top: -1px;
+  }
+}
+@media (max-width: 768px) {
+  ::ng-deep .my-shipment-wrapper form {
+    width: 100%;
+    mat-form-field {
+      width: 95% !important;
+    }
+    .mat-form-field-wrapper .mat-form-field-flex {
+      position: relative;
+      .mat-form-field-infix {
+        position: initial;
+      }
+    }
+  }
+}
+@media (max-width: 665px) {
+  ::ng-deep {
+    .md-drppicker {
+      max-height: 80vh;
+      width: 100%;
+
+      &.shown {
+        position: absolute !important;
+        min-width: 102% !important;
+        display: block;
+        overflow: scroll;
+        left: -8px !important;
+        top: 70px !important;
+      }
+
+      // ❌ Hide calendars and buttons if NOT showing calendars
+      &:not(.show-calendars) {
+        .calendar {
+          &.left,
+          &.right {
+            display: none !important;
+          }
+        }
+
+        .buttons {
+          display: none !important;
+        }
+      }
+
+      // ✅ Show calendars and buttons when .show-calendars is active
+      &.show-calendars {
+        .calendar {
+          &.left,
+          &.right {
+            display: block !important;
+          }
+        }
+
+        .buttons {
+          display: block !important;
+        }
+      }
+
+      .ranges {
+        ul {
+          li {
+            button {
+              padding: 4px 8px;
+              font-size: 0.8rem;
+
+              &.active {
+                font-size: 0.85rem;
+              }
+            }
+          }
+        }
+      }
+
+      .drp-calendar {
+        width: 100% !important;
+        display: block;
+        float: none;
+
+        &.right,
+        &.left {
+          padding: 10px;
+          box-sizing: border-box;
+        }
+      }
+
+      .buttons_input {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+
+        .btn {
+          padding: 0 40px !important;
+          margin-right: 0 !important;
+          font-size: 12px;
+        }
+      }
+    }
+    .mat-tab-body-content {
+      overflow: auto !important;
+    }
+  }
+}

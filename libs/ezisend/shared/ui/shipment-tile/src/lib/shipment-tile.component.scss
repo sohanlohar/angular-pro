@@ -1,0 +1,117 @@
+$color-more: #2e398b;
+$color-current: #5e5873;
+
+.container {
+  background-color: #fff;
+  margin: 6px 6px 6px 0px;
+  padding: 1.5rem;
+  box-shadow: 1px 1px 12px rgba(98, 85, 85, 0.25);
+  border-radius: 6px;
+  cursor: pointer;
+
+  &__icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+
+    mat-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.yellow-theme-color {
+        background: #ffefd6;
+        color: #f39c12;
+      }
+
+      &.green-theme-color {
+        background: #e5f8ee;
+        color: #28c76f;
+      }
+
+      &.orange-theme-color {
+        background: #fff3e8;
+        color: #ff9f43;
+      }
+
+      &.blue-theme-color {
+        background: #cde7ff;
+        color: #3993e5;
+      }
+
+      &.red-theme-color {
+        background: #fdeaeb;
+        color: #ea5455;
+      }
+
+      &.purple-theme-color {
+        background: #f2eafd;
+        color: #7a3ecd;
+      }
+
+      &.gray-theme-color {
+        background: #e8e8e8;
+        color: #636e72;
+      }
+    }
+  }
+
+  &__summary {
+    margin-top: 10px;
+    // max-width: 5rem;
+    //   display:flex;
+    //   flex-direction: column;
+    //   justify-content: space-between;
+  }
+
+  &__count {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-family: Poppins;
+    font-weight: 600;
+    color: $color-current;
+    margin-bottom: 0.5rem;
+  }
+
+  &__title {
+    font-size: 0.9rem;
+    line-height: 1rem;
+    font-family: Poppins;
+    font-weight: 500;
+    color: $color-current;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .arrow-icon {
+    font-size: 1.2rem;
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  &:hover {
+    box-shadow: 0px 0px 8px 0px #75bcff;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .container {
+    // min-height: 100px !important;
+    .container {
+      padding: 0.4rem 1rem;
+      &__icon {
+        mat-icon {
+          width: 35px;
+          height: 35px;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}

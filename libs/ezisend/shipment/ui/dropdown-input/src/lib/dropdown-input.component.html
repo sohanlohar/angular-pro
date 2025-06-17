@@ -1,0 +1,5 @@
+<mat-form-field class="dropdown-input" appearance="standard">
+  <mat-select disableRipple [placeholder]="placeholder" (selectionChange)="onSelectChange($event)">
+    <mat-option [value]="option.value" *ngFor="let option of options">{{ option.viewValue }}</mat-option>
+  </mat-select>
+</mat-form-field>

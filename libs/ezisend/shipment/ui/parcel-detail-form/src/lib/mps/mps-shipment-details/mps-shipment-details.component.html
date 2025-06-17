@@ -1,0 +1,327 @@
+<div class="mps-shipment-container">
+  <div class="title">{{languageData.multi_piece_shipment_detail}}</div>
+  <ng-container *ngIf="parcelDetailsForm">
+    <form class="form-group-my" [formGroup]="parcelDetailsForm"
+      *ngIf="(commonService.getCurrentIsCountryMY$ | async) === true">
+
+      <!-- <mat-form-field class="dimensionWidth" appearance="outline">
+        <mat-label>No. of Shipments</mat-label>
+        <input matInput formControlName="noShipments" maxlength="7"/>
+      </mat-form-field> -->
+
+      <mat-form-field class="totalWeight" appearance="outline">
+        <mat-label>{{languageForm.total_weight}}</mat-label>
+        <pos-form-control-wrapper [name]="languageForm.total_weight" [control]="parcelDetailsForm.controls['totalWeight']"
+        [customErrorMessages]="{
+          required: languageForm.required_weight,
+          pattern: languageForm.required_valid_weight
+        }">
+          <input matInput formControlName="totalWeight" maxlength="7" />
+        </pos-form-control-wrapper>
+      </mat-form-field>
+
+      <mat-form-field class="totalInsured" appearance="outline">
+        <mat-label>{{languageForm.total_sum_insured}}</mat-label>
+        <pos-form-control-wrapper [name]="'TotalInsured'" [control]="parcelDetailsForm.controls['totalInsured']"
+          [customErrorMessages]="{
+            max: languageForm.required_total_sum_insured
+          }">
+          <input matInput formControlName="totalInsured" maxlength="7" />
+        </pos-form-control-wrapper>
+      </mat-form-field>
+
+      <mat-form-field class="totalPremiumAmount" appearance="outline">
+        <mat-label>{{languageForm.premium_amount}}</mat-label>
+        <pos-form-control-wrapper [name]="'TotalPremiumAmount'" [control]="parcelDetailsForm.controls['totalPremiumAmount']">
+          <input matInput formControlName="totalPremiumAmount" />
+        </pos-form-control-wrapper>
+      </mat-form-field>
+
+      <div class="parentShipment">{{languageForm.parent_shipment}}</div>
+
+      <mat-form-field class="dimensionWeight" appearance="outline">
+        <mat-label>{{languageForm.weigth}}</mat-label>
+        <pos-form-control-wrapper
+        [name]="languageForm.weigth" [control]="parcelDetailsForm.controls['weight']"
+        [customErrorMessages]="{
+          required: languageForm.required_weight,
+          pattern: languageForm.required_valid_weight
+        }">
+          <input matInput formControlName="weight" maxlength="7" (keyup)="onTotalWeightCalculation(-1)"/>
+        </pos-form-control-wrapper>
+      </mat-form-field>
+
+      <mat-form-field class="dimensionWidth" appearance="outline">
+        <mat-label>{{languageForm.width}}</mat-label>
+        <pos-form-control-wrapper
+        [name]="languageForm.width" [control]="parcelDetailsForm.controls['width']"
+        [customErrorMessages]="{
+          required: languageForm.required_width,
+          pattern: languageForm.required_valid_width
+        }">
+          <input matInput formControlName="width" maxlength="7" />
+        </pos-form-control-wrapper>
+      </mat-form-field>
+
+      <mat-form-field class="dimensionLength" appearance="outline">
+        <mat-label>{{languageForm.length}}</mat-label>
+        <pos-form-control-wrapper
+        [name]="languageForm.length" [control]="parcelDetailsForm.controls['length']"
+        [customErrorMessages]="{
+          required: languageForm.required_length,
+          pattern: languageForm.required_valid_length
+        }">
+          <input matInput formControlName="length" maxlength="7" />
+        </pos-form-control-wrapper>
+      </mat-form-field>
+
+      <mat-form-field class="dimensionHeight" appearance="outline">
+        <mat-label>{{languageForm.height}}</mat-label>
+        <pos-form-control-wrapper
+        [name]="languageForm.height" [control]="parcelDetailsForm.controls['height']"
+        [customErrorMessages]="{
+          required: languageForm.required_height,
+          pattern: languageForm.required_valid_height
+        }">
+          <input matInput formControlName="height" maxlength="7" />
+        </pos-form-control-wrapper>
+      </mat-form-field>
+
+      <mat-form-field class="volumetricWeight" appearance="outline">
+        <mat-label>{{languageForm.volumetric_weight}}</mat-label>
+        <input matInput formControlName="volumetricWeight" maxlength="7" />
+        <!-- <mat-error *ngIf="errorHandler('volumetricWeight', 'required')">
+          Volumetric Weight is required
+        </mat-error> -->
+      </mat-form-field>
+
+      <mat-form-field class="descriptionContent" appearance="outline">
+        <mat-label>{{languageForm.description_content}}</mat-label>
+
+        <pos-form-control-wrapper [name]="'Content'" [control]="parcelDetailsForm.controls['content']"
+        [customErrorMessages]="{
+          required: languageForm.required_description_content,
+          minlength: (languageForm.minlength +' '+ languageForm.five +' '+ languageForm.characters)
+        }">
+          <input #content matInput formControlName="content" minlength="5" maxlength="100" />
+        </pos-form-control-wrapper>
+      </mat-form-field>
+
+      <mat-form-field class="senderRefNo" appearance="outline">
+        <mat-label>{{languageForm.sender_ref}}</mat-label>
+
+        <pos-form-control-wrapper
+          [name]="'SenderRefNo'"
+          [control]="parcelDetailsForm.controls['sender_ref']"
+          >
+          <input matInput formControlName="sender_ref" maxlength="50" />
+        </pos-form-control-wrapper>
+      </mat-form-field>
+
+      <div class="insurance-label">
+        <mat-label><b>{{languageData.shipping_insurance}}</b></mat-label>
+      </div>
+      <div class="insurance-check">
+        <mat-checkbox formControlName="insuranceCheck" [checked]="isIssuredMps" color="primary"
+          (change)="getInsuranceValDOM($event)"
+          [disabled]="(isPendingPickup && isEditOrder)">
+         <div class="pos_coverage_text"> {{languageData.shipping_note1}}
+          <span class="highlightText">{{languageData.shipping_note2}}</span></div></mat-checkbox>
+      </div>
+
+      <div class="insurance-notes" *ngIf="isIssuredMps">
+        <p><b>{{languageData.insurance_note1_bold}}</b> {{languageData.insurance_note1}} <a [href]="insuranceUrl" target="_blank">{{languageData.insurance_note2}}</a>.</p>
+        <div>
+          <ul class="insurance_notes mt-0">
+            <li>
+              <b>{{languageData.insurance_note4_1_bold}}</b> {{languageData.insurance_note4_1}} <mat-icon class="info_style" matSuffix matTooltip="{{languageData.insurance_note4_1_tootlTip}}">info_outline</mat-icon>
+            </li>
+            <li>
+              <b>{{languageData.insurance_note4_2_bold}}</b> {{languageData.insurance_note4_2}} <mat-icon class="info_style" matSuffix matTooltip="{{languageData.insurance_note4_2_tootlTip}}">info_outline</mat-icon>
+            </li>
+          </ul>
+      </div>
+      </div>
+
+      <mat-form-field class="sumInsured" appearance="outline" *ngIf="isIssuredMps">
+        <mat-label>{{languageForm.sum_insured}}</mat-label>
+
+        <pos-form-control-wrapper
+          [name]="languageForm.sum_insured"
+          [control]="parcelDetailsForm.controls['sum_insured']"
+          [customErrorMessages]="{
+            required: languageForm.required_sum_insured,
+            pattern: languageForm.required_valid_sum_insured,
+            max: languageForm.required_max_sum_insured
+          }">
+          <input matInput formControlName="sum_insured" maxlength="8" (keyup)="onTotalSumInsured()"
+                [readonly]="isPendingPickup && isEditOrder" 
+                [ngClass]="{ 'disabled-input': isPendingPickup && isEditOrder }"/>
+        </pos-form-control-wrapper>
+      </mat-form-field>
+
+      <mat-form-field class="premiumAmt" appearance="outline" *ngIf="isIssuredMps">
+        <mat-label>{{languageForm.premium_amount}}</mat-label>
+        <input matInput formControlName="premiumAmt" />
+      </mat-form-field>
+
+      <div formArrayName="mps_child_declarations" class="customs_form" >
+        <ng-container>
+          <div [ngClass]="a.get('deleted')?.value === false ? 'customs_container' : 'd-none'" *ngFor="let a of mps_child_declarations.controls; let i = index"
+            [formGroupName]="i">
+
+            <mat-expansion-panel class="child_accordions" *ngIf="a.get('deleted')?.value === false" [expanded]="panelStates[i]">
+              <mat-expansion-panel-header class="accordion-header">
+                <mat-panel-title (click)="togglePanel(i)">
+                  {{languageForm.child_shipment}} {{i+1}}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <mat-form-field class="child_weight" appearance="outline">
+                <mat-label>{{languageForm.weigth}}</mat-label>
+                <pos-form-control-wrapper
+                [name]="languageForm.weigth"
+                  [control]="mps_child_declarations.controls[i].get('child_weight')"
+                  [customErrorMessages]="{
+                    required: languageForm.required_weight,
+                    pattern: languageForm.required_valid_weight
+                  }">
+                  <input matInput formControlName="child_weight" maxlength="7" (keyup)="onTotalWeightCalculation(i)" />
+                </pos-form-control-wrapper>
+              </mat-form-field>
+
+              <mat-form-field class="child_width" appearance="outline">
+                <mat-label>{{languageForm.width}}</mat-label>
+                <pos-form-control-wrapper
+                [name]="languageForm.width"
+                  [control]="mps_child_declarations.controls[i].get('child_width')"
+                  [customErrorMessages]="{
+                    required: languageForm.required_width,
+                    pattern: languageForm.required_valid_width
+                  }">
+                  <input matInput formControlName="child_width" maxlength="7"
+                    (blur)="onVolumetricWeightCalculation(i)" />
+                </pos-form-control-wrapper>
+              </mat-form-field>
+
+              <mat-form-field class="child_length" appearance="outline">
+                <mat-label>{{languageForm.length}}</mat-label>
+                <pos-form-control-wrapper
+                [name]="languageForm.length"
+                  [control]="mps_child_declarations.controls[i].get('child_length')"
+                  [customErrorMessages]="{
+                    required: languageForm.required_length,
+                    pattern: languageForm.required_valid_length
+                  }">
+                  <input matInput formControlName="child_length" maxlength="7"
+                    (blur)="onVolumetricWeightCalculation(i)" />
+                </pos-form-control-wrapper>
+              </mat-form-field>
+
+              <mat-form-field class="child_height" appearance="outline">
+                <mat-label>{{languageForm.height}}</mat-label>
+                <pos-form-control-wrapper
+                [name]="languageForm.height"
+                  [control]="mps_child_declarations.controls[i].get('child_height')"
+                  [customErrorMessages]="{
+                    required: languageForm.required_height,
+                    pattern: languageForm.required_valid_height
+                  }">
+                  <input matInput formControlName="child_height" maxlength="7"
+                     (blur)="onVolumetricWeightCalculation(i)" />
+                </pos-form-control-wrapper>
+              </mat-form-field>
+              <mat-checkbox class="child_checkMe" formControlName="child_copyParent"
+                [checked]="mps_child_declarations.controls[i].get('child_copyParent')?.value" color="primary" (change)="setChildDimensionValDOM($event,i)">Same dimension and description as parent shipment</mat-checkbox>
+
+              <mat-form-field class="child_volumetricWeight" appearance="outline">
+                <mat-label>{{languageForm.volumetric_weight}}</mat-label>
+                <pos-form-control-wrapper [name]="'Volumetric_weight'"
+                  [control]="mps_child_declarations.controls[i].get('child_volumetric_weight')"
+                  [customErrorMessages]="{
+                      required: languageForm.required_weight,
+                      pattern: languageForm.required_valid_weight
+                  }">
+                  <input matInput formControlName="child_volumetric_weight" maxlength="7" />
+                </pos-form-control-wrapper>
+              </mat-form-field>
+
+              <mat-form-field class="child_description" appearance="outline">
+                <mat-label>{{languageForm.description_content}}</mat-label>
+                <pos-form-control-wrapper [name]="'Description'"
+                  [control]="mps_child_declarations.controls[i].get('child_description')"
+                  [customErrorMessages]="{
+                    required: languageForm.required_description_content,
+                    minlength: (languageForm.minlength +' '+ languageForm.five +' '+ languageForm.characters)
+                  }">
+                  <input matInput formControlName="child_description" minlength="5" />
+                </pos-form-control-wrapper>
+              </mat-form-field>
+
+              <div class="child-insurance-label">
+                <mat-label><b>{{languageData.shipping_insurance}}</b></mat-label>
+              </div>
+              <div class="child-insurance-check">
+                <mat-checkbox formControlName="child_isInsurance" [checked]="a.get('child_isInsurance')?.value"
+                  color="primary" (change)="getChildInsuranceValDOM($event,i)"
+                  [disabled]="(isPendingPickup && isEditOrder)">
+                <div class="pos_coverage_text"> {{languageData.shipping_note1}}
+                  <span class="highlightText">{{languageData.shipping_note2}}</span></div></mat-checkbox>
+              </div>
+
+              <div class="child-insurance-notes" *ngIf="a.get('child_isInsurance')?.value">
+                <p><b>{{languageData.insurance_note1_bold}}</b> {{languageData.insurance_note1}} <a [href]="insuranceUrl" target="_blank">{{languageData.insurance_note2}}</a>.</p>
+                <div>
+                  <ul class="insurance_notes mt-0">
+                    <li>
+                      <b>{{languageData.insurance_note4_1_bold}}</b> {{languageData.insurance_note4_1}} <mat-icon class="info_style" matSuffix matTooltip="{{languageData.insurance_note4_1_tootlTip}}">info_outline</mat-icon>
+                    </li>
+                    <li>
+                      <b>{{languageData.insurance_note4_2_bold}}</b> {{languageData.insurance_note4_2}} <mat-icon class="info_style" matSuffix matTooltip="{{languageData.insurance_note4_2_tootlTip}}">info_outline</mat-icon>
+                    </li>
+                  </ul>
+              </div>
+              </div>
+
+              <mat-form-field class="child-sumInsured" appearance="outline" *ngIf="a.get('child_isInsurance')?.value">
+                <mat-label>{{languageForm.sum_insured}}</mat-label>
+
+                <pos-form-control-wrapper [name]="'Sum Insured'" [control]="mps_child_declarations.controls[i].get('child_sumInsured')"
+
+                    [customErrorMessages]="{
+                      required: languageForm.required_sum_insured,
+                      pattern: languageForm.required_valid_sum_insured,
+                      max: languageForm.required_max_sum_insured
+                    }">
+                  <input matInput formControlName="child_sumInsured" maxlength="8" required
+                    [readonly]="isPendingPickup && isEditOrder" 
+                    [ngClass]="{ 'disabled-input': isPendingPickup && isEditOrder }"
+                    (keyup)="onPremiumAmountCalculation(i)" />
+                </pos-form-control-wrapper>
+              </mat-form-field>
+
+              <mat-form-field class="child-premiumAmt" appearance="outline" *ngIf="a.get('child_isInsurance')?.value">
+                <mat-label>{{languageForm.premium_amount}}</mat-label>
+                <input matInput formControlName="child_premAmt" [disabled]="true" />
+              </mat-form-field>
+
+              <div class="delete_custom">
+                <button color="primary" type="button" [disabled]="isDisable" (click)="removeCustom(i)">
+                  {{languageForm.delete}}
+                </button>
+              </div>
+            </mat-expansion-panel>
+
+
+          </div>
+          <button class="add_btn" mat-stroked-button color="primary" type="button" [disabled]="isMaxChild" (click)="addItem()">
+            <mat-icon aria-hidden="false" class="material-icons-outlined">
+              add
+            </mat-icon>  {{languageData.add_shipment}}
+          </button>
+        </ng-container>
+      </div>
+
+    </form>
+  </ng-container>
+</div>

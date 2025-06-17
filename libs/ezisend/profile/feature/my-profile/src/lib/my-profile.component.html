@@ -1,0 +1,61 @@
+<pos-page-layout [breadcrumbItems]="breadcrumbItems">
+  <mat-tab-group *ngIf="!commonService.checkIfMobile()" color="transparent" class="my-shipment-tab-group searchindex"
+    #stepper animationDuration="0ms" [selectedIndex]="selectedIndex" disableRipple (selectedTabChange)="onTabChange($event)">
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <label>{{ languageData.my_profile }}</label>
+      </ng-template>
+      <div class="profile">
+        <pos-profile></pos-profile>
+      </div>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <label>{{ languageData.pickup }} {{ languageData.address }}</label>
+      </ng-template>
+      <pos-pickup-address></pos-pickup-address>
+      <div class="hide-sender-address">
+        <div class="my-addresses">
+          <div class="container-title">{{ languageData.my_addresses }}</div>
+          <mat-divider></mat-divider>
+          <div class="hide-address-checkbox">
+            <div class="">{{ languageData.hide_address }}</div>
+            <mat-checkbox color="primary" [checked]="hideSenderAddress" (change)="hideSenderAddressVisibility()"
+              matTooltipPosition="right">
+              {{ languageData.hide_pickup_address }}
+            </mat-checkbox>
+            <div *ngIf="hideSenderAddress" class="address-tooltip">
+              {{ languageData.hide_address_note }}
+            </div>
+          </div>
+
+          <mat-divider></mat-divider>
+          <div class="confirm-button">
+            <button class="confirm" type="submit" mat-flat-button color="primary" (click)="hideAddress()" [disabled]="onSubmitButton">
+              {{ languageData.hide_address_confirm }}
+              <mat-spinner *ngIf="onSubmitButton" [diameter]="20" class="login-loading-spinner"></mat-spinner>
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+  <mat-accordion *ngIf="commonService.checkIfMobile()" color="transparent" animationDuration="0ms" disableRipple>
+    <mat-expansion-panel class="my-profile-panel">
+      <mat-expansion-panel-header class="my-profile-panel-header">
+        <mat-panel-title class="my-profile-panel-title">
+          {{ languageData.my_profile }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <pos-profile></pos-profile>
+    </mat-expansion-panel>
+    <mat-expansion-panel class="my-profile-panel" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header class="my-profile-panel-header">
+        <mat-panel-title class="my-profile-panel-title">
+          {{ languageData.pickup }}&nbsp;{{ languageData.address }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <pos-pickup-address></pos-pickup-address>
+    </mat-expansion-panel>
+  </mat-accordion>
+</pos-page-layout>

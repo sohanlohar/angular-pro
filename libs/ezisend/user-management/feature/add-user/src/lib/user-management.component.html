@@ -1,0 +1,84 @@
+<pos-page-layout [breadcrumbItems]="breadcrumbItems">
+    <div>
+        <div class="maintitle second-row" style="display: flex; justify-content: space-between; padding-bottom: 10px;" >
+            <div class="maintitle second-row">
+                {{languageData.user_management}}
+              </div>
+              <div *ngIf="isMasterAccount" class="maintitle second-row">
+                <button mat-flat-button color="primary" style="width: 220px;" [disabled]="!isMasterAccount" (click)="openDialog()">+ {{languageData.add_user}}</button>
+              </div>
+        </div>
+        <div *ngIf="loading; else content">
+          <!-- Show progress bar while loading -->
+          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div>
+        <ng-template #content>
+          <ng-container *ngIf="dataSource; else noData">
+            <div class="wrapper">
+  <table style="width: 100%;" mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="userName">
+      <th mat-header-cell *matHeaderCellDef class="alignHeaderLeft"> {{languageData.name}} </th>
+      <td mat-cell *matCellDef="let element" class="alignLeft"> {{element?.name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="emailAddress">
+      <th mat-header-cell *matHeaderCellDef class="alignHeaderLeft"> {{languageData.email_address}} </th>
+      <td mat-cell *matCellDef="let element" class="alignLeft" style="padding-top: 10px;"> {{element.email}}
+        <p> <a style="font-family: Poppins;
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 18px;
+          letter-spacing: 0.4px;
+          text-align: center;
+          cursor: pointer;
+          color: rgba(0, 73, 141, 1);text-decoration-line: underline;
+          " *ngIf="!element?.is_password_created && isMasterAccount" (click)="resendEmail(element)" class="">{{languageData.resend}}</a>  </p>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="accountAccess">
+      <th mat-header-cell *matHeaderCellDef class="alignHeaderLeft"> {{languageData.account_access}} </th>
+      <td mat-cell *matCellDef="let element" (click)="handleAccountAccess(element)" class="alignLeft accountAccess">{{element?.account_accesses.length}} Accounts</td>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef class="alignHeaderLeft"> {{languageData.status}} </th>
+      <td mat-cell *matCellDef="let element" class="alignLeft">
+        <ng-container *ngIf="element?.is_password_created" class="userManagement">
+          <!-- Show mat-slide-toggle if password is created -->
+          <mat-slide-toggle (change)="toggleChanged($event, element)" [class.action-icon_disabled]="!isMasterAccount"
+            [checked]="element?.is_user_active">
+          </mat-slide-toggle>
+        </ng-container>
+
+        <ng-container *ngIf="!element?.is_password_created">
+          <!-- Show 'Not activated' if password is not created -->
+          <p class="notActivated">{{languageData.not_activated}}</p>
+        </ng-container>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef class="alignHeaderLeft actionContainer">{{languageData.action}}</th>
+      <td mat-cell class="alignLeft actionContainer actionColumn" *matCellDef="let element" fxLayout="table-cell" fxLayoutAlign="space-between">
+        <div class="actionButtons">
+          <div [class.action-icon_disabled]="(!isMasterAccount || (element?.is_password_created && !element?.is_user_active))"  (click)="editUser(element)">
+            <svg width="40" height="39" viewBox="0 0 40 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20.3504" cy="19.4178" r="19.4178" fill="#D6EAFF"/>
+              <path d="M12.8427 27.7157H13.9824L25.4571 15.7115L24.3174 14.5192L12.8427 26.5234V27.7157ZM28.7466 14.5463L25.4312 11.0778L26.5191 9.93968C26.8126 9.63258 27.1796 9.48354 27.6199 9.49257C28.0602 9.50161 28.4272 9.65968 28.7207 9.96678L29.8345 11.132C30.1281 11.4391 30.2749 11.8184 30.2749 12.2701C30.2749 12.7217 30.1281 13.1011 29.8345 13.4082L28.7466 14.5463ZM12.0656 29.3415C11.8412 29.3415 11.6555 29.2647 11.5087 29.1112C11.362 28.9576 11.2886 28.7634 11.2886 28.5286V26.1982C11.2886 26.0898 11.3058 25.9904 11.3404 25.9001C11.3749 25.8098 11.4354 25.7195 11.5217 25.6291L24.3433 12.2159L27.6588 15.6844L14.8372 29.0976C14.7508 29.188 14.6645 29.2512 14.5782 29.2873C14.4918 29.3234 14.3968 29.3415 14.2932 29.3415H12.0656ZM24.8872 15.1153L24.3174 14.5192L25.4571 15.7115L24.8872 15.1153Z" fill="#00498D"/>
+            </svg>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+    <tr class="header" mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  </div>
+</ng-container>
+
+
+
+<ng-template #noData>
+      <p>{{languageData.no_data_available}}</p>
+</ng-template>
+</ng-template>
+    </div>
+
+</pos-page-layout>

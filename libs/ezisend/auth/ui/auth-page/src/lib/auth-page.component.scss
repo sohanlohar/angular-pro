@@ -1,0 +1,11 @@
+:host ::ng-deep {
+  .banner img {
+    width: 464px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  :host ::ng-deep .banner img {
+    width: 100% !important;
+  }
+}

@@ -1,0 +1,203 @@
+.form-container {
+  // margin-top: 1.5rem;
+
+  .header {
+    display: flex;
+    margin-bottom: 20px;
+    position: relative;
+    margin-top: 20px;
+
+    &_title {
+      font-size: 1rem;
+      line-height: 1.5rem;
+      font-weight: 300;
+      color: #5e5873;
+      margin-bottom: 1.06rem;
+    }
+    &_action {
+      width: 100%;
+    }
+    &_action-icon {
+      cursor: pointer;
+      float: right;
+      display: inline-flex;
+      align-items: center;
+      mat-icon {
+        color: #034d91;
+      }
+      .label {
+        color: #00498d;
+      }
+    }
+    &_action-icon_disabled {
+      opacity: 0.2;
+      pointer-events: none;
+    }
+  }
+
+  .form-group {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 24% 23% 23% 23%;
+    grid-template-areas:
+      'search search . .'
+      'name name company-name company-name'
+      'phone_no phone_no address address'
+      'email email address address'
+      'country postcode state city'
+      '. . save-contacts button-next';
+
+    // grid-template-columns: repeat(1, auto);
+    gap: 0.1rem 1rem;
+    margin-bottom: 1.25rem;
+
+    .address {
+      textarea {
+        height: 6rem;
+      }
+    }
+
+    .save-contacts {
+      text-align: right;
+      margin-top: 4rem;
+    }
+
+    .button-next {
+      display: flex;
+      flex-direction: row-reverse;
+      margin-top: 3rem;
+      button {
+        width: 6rem;
+        height: 2.9rem;
+        padding: 0 !important;
+      }
+    }
+    ::ng-deep{
+    .phone-wrapper{
+        .phone{
+        width: 50%!important;
+      }
+    }
+    }
+  }
+}
+
+//Grid-areas
+
+.search {
+  grid-area: search;
+}
+
+.name {
+  grid-area: name;
+}
+.company-name {
+  grid-area: company-name;
+}
+
+.phone_no {
+  grid-area: phone_no;
+}
+
+.email {
+  grid-area: email;
+}
+.address {
+  grid-area: address;
+}
+
+.postcode {
+  grid-area: postcode;
+}
+.city {
+  grid-area: city;
+}
+.state {
+  grid-area: state;
+}
+.country {
+  grid-area: country;
+}
+
+.save-contacts {
+  grid-area: save-contacts;
+}
+
+.button-next {
+  grid-area: button-next;
+}
+
+
+.download-button {
+  position: relative; 
+  display: inline-flex;
+  align-items: center;
+}
+
+.login-loading-spinner {
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  z-index: 2; 
+}
+
+.login-loading-spinner {
+  ::ng-deep circle {
+    stroke: white;
+  }
+}
+
+@media screen and (min-width: 40rem) {
+  .form-group {
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  }
+}
+@media screen and (max-width: 430px) {
+  .form-container{
+    width: 400px;
+    height: 500px;
+    gap: 0.1rem 1rem;
+    .title{
+      padding: 8px;
+      margin-left: 45px;
+    }
+    .form-group{
+      display: flex;
+      flex-direction: column;
+      // width: 350px;
+// padding: 10px;
+overflow: hidden;
+// align-items: center;
+::ng-deep{
+.phone-wrapper{
+    .phone{
+    width: auto !important;
+  }
+}
+}
+    }
+  }
+}
+
+.personal_details {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #5E5873;
+  width: 100%;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  ::ng-deep .mat-checkbox-label {
+    white-space: pre-wrap !important;
+  }
+
+  .personal_details {
+    font-size: 14px;
+  }
+
+  .save-contacts {
+    margin-top: 3rem !important;
+    text-align: left !important;
+  }
+}

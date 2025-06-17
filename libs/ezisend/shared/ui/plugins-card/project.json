@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/ezisend/shared/ui/plugins-card/src",
+  "prefix": "pos",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ezisend/shared/ui/plugins-card"],
+      "options": {
+        "jestConfig": "libs/ezisend/shared/ui/plugins-card/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ezisend/shared/ui/plugins-card/**/*.ts",
+          "libs/ezisend/shared/ui/plugins-card/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

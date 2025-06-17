@@ -1,0 +1,7 @@
+this is release note for the sprint 0, which is started from 02-02-2023 to 13-02-2023
+
+Release Note:
+
+Sprint 1 FE stories has been fixed and pushed to release branch "feature/20230213"
+
+changes going to merge in main branch

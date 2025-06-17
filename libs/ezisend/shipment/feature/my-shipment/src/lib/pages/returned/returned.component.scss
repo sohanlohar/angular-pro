@@ -1,0 +1,97 @@
+.my-shipment-wrapper {
+  .action-field,
+  .action-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: white;
+    border-radius: 10px 10px 0 0;
+  }
+  .action-button {
+    justify-content: right;
+    padding-bottom: 0.5em;
+  }
+  .action-field-hide {
+    opacity: 0;
+  }
+  .container-right {
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    padding-top: 40px;
+  }
+  .container-label {
+    width: 10px;
+  }
+  .text-label {
+    width: 100px;
+  }
+  .action__group-button {
+    align-items: center;
+    margin-right: 1.5rem;
+    margin-left: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    gap: 0.8em;
+    flex-wrap: wrap;
+  }
+  .action-disabled {
+    opacity: 0.2;
+    pointer-events: none;
+  }
+}
+
+pos-search-input {
+  width: 400px;
+}
+@media screen and (max-width: 435px) {
+  pos-search-input {
+    width: 362px;
+  }
+  .my-shipment-wrapper .container-right {
+    padding-top: 25px;
+  }
+  .container .container-action {
+    height: 3rem !important ;
+  }
+  .my-shipment-wrapper .container {
+    padding-top: 10px;
+  }
+}
+@media screen and (max-width: 390px) {
+  pos-search-input {
+    width: 322px;
+  }
+}
+@media screen and (max-width: 360px) {
+  pos-search-input {
+    width: 300px;
+  }
+}
+@media screen and (max-width: 760px) {
+  ::ng-deep {
+    .search-input .mat-form-field-infix {
+      height: 21px !important;
+    }
+  }
+  .my-shipment-wrapper .container {
+    width: 100%;
+    .container-action {
+      margin-right: 0;
+      justify-content: space-between;
+    }
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .date-range-picker {
+    width: 100% !important;
+  }
+
+  .container-action {
+    .date-range-picker {
+      margin-right: 0 !important;
+    }
+  }
+}

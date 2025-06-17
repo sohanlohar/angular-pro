@@ -1,0 +1,7 @@
+
+<div class="snackbar-container">
+    <span [innerHTML]="data.message"></span>
+    <button mat-button (click)="closeSnackBar()" class="mat-button ">
+        <span>{{ data.action }}</span>
+    </button>
+</div>

@@ -1,0 +1,100 @@
+.tabs {
+  display: flex;
+  flex-direction: row;
+  height: 3.8125rem;
+  border-radius: 0.3125rem;
+  align-items: stretch;
+  display: none;
+
+  @mixin tab-item {
+    display: flex;
+    width: 6.5625rem;
+    text-align: center;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 100%;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__lite {
+    @include tab-item;
+    background: #f4f4f4;
+    color: #00498d;
+  }
+
+  &__pro {
+    @include tab-item;
+    background: white;
+    color: #f86262;
+    text-decoration: underline;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  max-width: 20rem;
+  padding: 2.1875rem 4.5rem 2.625rem 4.5rem;
+  border-radius: 0.3125rem;
+  margin-bottom: 0.9375rem;
+
+  &__title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 1.875rem;
+    color: #00498d;
+    span {
+      color: #EA0000;
+    }
+  }
+
+  &__description {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.75rem;
+    color: #5e5873;
+    margin-bottom: 1.75rem;
+  }
+
+  &__footer {
+    margin-top: 35px;
+    display: flex;
+    flex-direction: row;
+
+    .material-symbols-outlined {
+      margin-left: 0.25rem;
+    }
+    button {
+      flex-grow: 1;
+    }
+  }
+
+  &__iconbutton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.25rem;
+  }
+}
+
+.createaccount {
+  text-align: center;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.3125rem;
+}
+
+@media screen and (max-width: 575px) {
+    .card{
+      padding: 2rem 1.5rem;
+  }
+  .createaccount[_ngcontent-qde-c381] {
+    margin-bottom: .5rem;
+}
+}

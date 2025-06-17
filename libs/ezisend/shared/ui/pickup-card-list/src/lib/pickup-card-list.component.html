@@ -1,0 +1,91 @@
+<div class="pickup-card-list-container">
+    <div class="pickup_title" *ngIf="!isReturnOrder" >
+        {{languageData.pick_up_address}} <span *ngIf="!isOrderEdit">({{pickupList.length}})</span>
+    </div>
+    <div class="pickup_title" *ngIf="isReturnOrder"  >
+        Return Address <span *ngIf="!isOrderEdit">({{pickupList.length}})</span>
+    </div>
+    <label class="pickup_description" *ngIf="!isFrmBulk">
+        {{isReturnOrder?languageData.return_address:languageData.select_address_list}} <span *ngIf="!isOrderEdit && isProfile">to view and edit details or add a new address</span>
+    </label>
+    <label class="pickup_description" *ngIf="isFrmBulk" style="font-size:11px;">
+        <span style="display: block; font-size:11px;">{{languageData.please_note}}</span> 
+        {{languageData.change_note}}
+    </label>
+    
+    <!-- <label class="pickup_description">
+        Select Pick Up Address from the list below <span *ngIf="!isOrderEdit">to view and edit details or add a new address</span>
+    </label> -->
+    
+    <a *ngIf="!isOrderEdit && !isReturnOrder" href="javascript:;" (click)="addEditPickupAddress(true)" class="pickAddLink" [ngClass]="{'pick-add_disable': pickupList.length >= 30}">
+        {{languageData.add_pick_up_address}}
+    </a>
+    
+    <ng-container *ngIf="!isLoading || !commonService.checkIfMobile(); else loadingSpinner">
+        <ul class="pickup_list" [ngClass]="{'h-1140': commonService.isMPSSelected | async}">
+            <span *ngIf="!pickupList || !pickupList.length">
+                <div class="pickup_no_found_container">
+                    <div>{{languageData.note1}}<br>{{languageData.note2}}</div>
+                    <div>{{languageData.note3}}<br>{{languageData.note4}}</div>
+                </div>
+            </span>
+            <li *ngIf="isFrmBulk && (commonService.getSenderAddress$ | async) as value">
+                <button class="pickup_selected" type="button">
+                    <div class="pickup_badge_active"></div>
+                    <div class="pickup_detail_box">
+                        <div class="pickup_name">{{(value?.name?.length > 30) ? (value?.name | slice:0:30)+'...' : value?.name}}</div>
+                        <div class="pickup_nick_name">{{(value?.company_name?.length > 30) ? (value?.company_name | slice:0:30)+'...' : value?.company_name }}</div>
+                        <div class="pickup_address">{{(value?.address?.length > 60) ? (value?.address | slice:0:60)+'...' : value?.address}}</div>
+                        <div class="pickup_address">{{ value?.postcode }}, {{ value?.city }}, {{ value?.state }}</div>
+                        <div class="pickup_email">
+                            {{(value?.email?.length > 30) ? (value?.email | slice:0:30)+'...' : value?.email}}
+                        </div>
+                        <div class="pickup_phone">
+                            {{(value?.phone_no?.length > 20) ? (value?.phone_no | slice:0:20)+'...' : value?.phone_no}}
+                        </div>
+                    </div>
+                </button>
+            </li>
+            <ng-container>
+                <li *ngFor="let item of pickupList" [class.pick-add_disable]="isPendingPickup && isEditOrder">
+                    <button
+                        type="button"
+                        (click)="onSelect(item)"
+                        [class.pickup_selected]="getHighlight(item)">
+                          <span *ngIf="item.is_default" class="pickup_default_badge"></span>
+                          <div [ngClass]="getHighlight(item)? 'pickup_badge_active' : 'pickup_badge'"></div>
+                          <div class="pickup_detail_box">
+                              <div class="pickup_name">{{(item.name.length > 30) ? (item.name | slice:0:30)+'...' : item.name}}</div>
+                              <div class="pickup_nick_name">{{(item.nick_name.length > 30) ? (item.nick_name | slice:0:30)+'...' : item.nick_name }}</div>
+                              <div class="pickup_address">{{(item.address.length > 60) ? (item.address | slice:0:60)+'...' : item.address}}</div>
+                              <div class="pickup_address">{{ item.postcode }}, {{ item.city }}, {{ item.state }}</div>
+                              <div class="pickup_email">
+                                  {{(item.email.length > 30) ? (item.email | slice:0:30)+'...' : item.email}}
+                              </div>
+                              <div class="pickup_phone">
+                                  {{(item.phone_no.length > 20) ? (item.phone_no | slice:0:20)+'...' : item.phone_no}}
+                              </div>
+                          </div>
+                    </button>
+                    <span *ngIf="isShipment || commonService.checkIfMobile" class="edit">
+                      <mat-icon
+                        class="material-symbols-outlined edit-action"
+                        (click)="addEditPickupAddress(false, item)">
+                        edit
+                      </mat-icon>
+                    </span>
+                  </li>
+            </ng-container>
+            
+        </ul>
+        <div class="button-next-recipient" *ngIf="commonService.checkIfMobile() && pathUrl !== 'profile' && !isEditOrder && !isReturnOrder">
+            <button (click)="onClickNextButton()" mat-flat-button  color="primary">{{languageData.next}}</button>
+        </div>
+    </ng-container>
+</div>
+
+
+<!-- Loading Spinner -->
+<ng-template #loadingSpinner>
+    <mat-spinner class="pickup-address-spinner"></mat-spinner>
+</ng-template>

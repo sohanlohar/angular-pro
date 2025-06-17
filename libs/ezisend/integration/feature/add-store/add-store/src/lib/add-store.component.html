@@ -1,0 +1,39 @@
+<pos-page-layout [breadcrumbItems]="breadcrumbItems">
+    <div class="main-title">Add Store</div>
+    <div class="plugins-card">
+        <div class="plugin-wrapper" >
+            <div *ngFor="let plugin of pluginList; let i = index">
+                <pos-plugins-card class="card" (selectedPlugin)="selectPlugin(i)" [pluginName]="plugin.name" [isSelected]="plugin.isSelected"></pos-plugins-card>
+            </div>
+            
+        </div>
+    </div>
+    <div class="plugin-validation">
+        <div class="title">Add {{selectedPlugin}} Store</div>
+        <form class="plugin-form-validation" [formGroup]="pluginForm">
+            <div class="store-name">Store Name</div>
+            <mat-form-field class="input" appearance="outline">
+                <pos-form-control-wrapper
+                    [name]="'StoreName'"
+                    [control]="pluginForm.controls['store_name']">
+                    <input matInput formControlName="store_name"/>
+                </pos-form-control-wrapper>
+            </mat-form-field>
+            <div class="store-name">Store URL</div>
+            <mat-form-field class="input" appearance="outline">
+                <pos-form-control-wrapper
+                    [name]="'StoreUrl'"
+                    [control]="pluginForm.controls['store_url']">
+                    <input matInput formControlName="store_url"/>
+                </pos-form-control-wrapper>
+            </mat-form-field>
+            <div class="button-submit">
+                <button class="view-button" (click)="viewSteps()"><a>View Intergration Tutorial</a></button>
+                <button class="submit" type="submit" (click)="submit_plugin()" [disabled]="isSubmitDisabled(pluginForm.valid)" mat-flat-button color="primary">
+                    <mat-spinner *ngIf="isSubmitting" [diameter]="25" class="login-loading-spinner"></mat-spinner>
+                    <ng-container *ngIf="!isSubmitting">Submit</ng-container>
+                </button>
+            </div>
+        </form>
+    </div>
+</pos-page-layout>

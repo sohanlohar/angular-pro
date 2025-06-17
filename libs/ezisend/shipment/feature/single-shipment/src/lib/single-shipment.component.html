@@ -1,0 +1,34 @@
+<pos-page-layout
+  [pageTitle]="pageTitle"
+  [pageCopy]="pageCopy"
+  [breadcrumbItems]="breadcrumbItems"
+>
+<div class="main-title">{{languageData.shipment_detail}}</div>
+<div class="container" *ngIf="!commonService.checkIfMobile()">
+  <pos-pickup-card-list
+    #cardList
+    [isShipment]="true"
+    (eventAddEditPickup)="onEventAddEditPickup($event)">
+  </pos-pickup-card-list>
+  <mat-stepper #stepper linear>
+    <mat-step [stepControl]="step1.recipientForm">
+      <ng-template matStepLabel>{{languageData.recipient}}</ng-template>
+      <pos-recipient-detail-form #step1 (ChangeStepEvent)="ChangeStep($event)"></pos-recipient-detail-form>
+    </mat-step>
+    <mat-step [stepControl]="step2.parcelDetailsForm" [editable]="isEditable">
+      <ng-template matStepLabel>{{languageData.parcel}}</ng-template>
+      <pos-parcel-detail-form #step2></pos-parcel-detail-form>
+    </mat-step>
+  </mat-stepper>
+</div>
+<mat-tab-group #tabGroup [selectedIndex]="selectedTabIndex" mat-align-tabs="center" *ngIf="commonService.checkIfMobile()" > 
+  <mat-tab  label="Pick Up"><pos-pickup-card-list  #cardList
+    [isShipment]="true"
+    (eventAddEditPickup)="onEventAddEditPickup($event)" (nextClicked)="validateSenderPostCode()"></pos-pickup-card-list></mat-tab> 
+  <mat-tab  label="Recipient" [disabled]="!recipientTabEnabled">
+    <pos-recipient-detail-form (nextClicked)="validateSenderPostCode()"></pos-recipient-detail-form>
+  </mat-tab> 
+  <mat-tab label="Parcel" [disabled]="!parcelTabEnabled"><pos-parcel-detail-form (backClicked)="onBackButtonClick()"></pos-parcel-detail-form></mat-tab> 
+  </mat-tab-group> 
+ 
+</pos-page-layout>

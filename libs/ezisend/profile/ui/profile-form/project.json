@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/ezisend/profile/ui/profile-form/src",
+  "prefix": "pos",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ezisend/profile/ui/profile-form"],
+      "options": {
+        "jestConfig": "libs/ezisend/profile/ui/profile-form/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ezisend/profile/ui/profile-form/src/**/*.ts",
+          "libs/ezisend/profile/ui/profile-form/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

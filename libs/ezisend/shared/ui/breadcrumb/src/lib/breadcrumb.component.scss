@@ -1,0 +1,68 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+$color: #7a7a7a;
+$color-current: #034d91;
+$icon-size: 1rem;
+
+.breadcrumbs {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+
+  ul {
+    padding-left: 1rem;
+  }
+
+  &__breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0rem;
+    padding-left: 0px !important;
+
+    li {
+      font-weight: 400;
+      list-style: none;
+
+      a {
+        color: $color;
+        text-decoration: none;
+
+        &.current {
+          color: $color-current;
+          cursor: default;
+        }
+      }
+    }
+
+    .breadcrumb__icon {
+      color: $color;
+      font-size: $icon-size;
+      width: $icon-size;
+      height: $icon-size;
+    }
+  }
+
+  .back {
+    display: flex;
+    align-items: center;
+    padding-right: 48px;
+
+    > mat-icon {
+      color: v.$primary_color;
+      margin-right: 0.3rem;
+    }
+
+    > a {
+      color: v.$primary_color;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      text-decoration: none;
+    }
+  }
+}
+@media screen and (max-width:768px){
+  .breadcrumbs{
+    flex-direction: column;
+  }
+}

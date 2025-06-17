@@ -1,0 +1,6 @@
+<pos-page-layout [breadcrumbItems]="breadcrumbItems">
+    <div class="main-title">{{languageData.edit_order}}</div>
+    <pos-order-edit-form></pos-order-edit-form>
+</pos-page-layout>
+
+<pos-loading-spinner *ngIf="isLoading"></pos-loading-spinner>

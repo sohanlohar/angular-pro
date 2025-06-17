@@ -1,0 +1,188 @@
+@use 'apps/ezisend/src/styles/variables/index'as v;
+mat-tab-group {
+  // background: #fff;
+  min-height: 400px;
+  border-radius: 5px;
+}
+.profile,
+pos-profile {
+  background: #fff;
+  padding: 2rem;
+}
+pos-pickup-address {
+  display: block;
+  background: #fff;
+}
+.border-bottom {
+  border-bottom: 1px solid #EDEDED;
+}
+::ng-deep {
+  .mat-tab-label-content {
+    font-size: 14px;
+    text-transform: uppercase;
+  }
+  .my-shipment-tab-group {
+    .mat-tab-header {
+      border-bottom: none;
+    }
+    .mat-tab-labels {
+      column-gap: 0.4rem;
+      .mat-tab-label {
+        background-color: #d1d1d1;
+        border-radius: 5px 5px 0px 0px;
+        height: 55px;
+        min-width: 120px;
+        opacity: 1;
+        &-active {
+          background-color: #FFFFFF;
+          opacity: 1;
+        }
+        .mat-tab-label-content>label {
+          color: v.$teritary_color;
+          font-size: v.$font_size_xs;
+          font-weight: v.$font-weight-medium;
+          letter-spacing: 1px;
+          line-height: 1rem;
+          cursor: pointer;
+        }
+        .mat-tab-label-content>label.label-total {
+          position: absolute;
+          top: 2px;
+          right: 2px;
+          z-index: 99999999999999;
+          background: #f86262;
+          color: #fff;
+          border-radius: 50%;
+          height: 25px;
+          width: 25px;
+          justify-content: center;
+          align-items: center;
+          display: flex;
+        }
+      }
+    }
+    .mat-tab-body {
+      top: -16px;
+    }
+  }
+  .searchindex {
+    position: relative;
+    z-index: 0;
+  }
+}
+// .mat-panel-title{
+//   font-family: Poppins;
+//   font-size: 15px;
+//   font-weight: 500;
+//   line-height: 20px;
+//   letter-spacing: 1px;
+//   text-align: left;
+// }
+.mat-expansion-panel-header-title {
+  color: rgba(4, 78, 146, 1);
+  font-family: Poppins;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: 1px;
+  text-align: left;
+}
+.mat-accordion>.mat-expansion-panel-spacing:first-child {
+  height: 1000px;
+  margin-bottom: 20px;
+}
+@media screen and (max-width:760px) {
+  pos-profile {
+    padding: 0rem;
+    text-align: -webkit-center;
+  }
+  .my-profile-panel {
+    margin-bottom: 10px;
+  }
+  .my-profile-panel-header {
+    box-shadow: 0px 4px 4px 0px rgba(194, 194, 194, 0.25);
+    height: 62px;
+  }
+  .my-profile-panel-title {
+    font-size: 15px;
+  }
+}
+// for hide sender address 
+/* Styling the text */
+.address-tooltip {
+  color: #161616 !important;
+  margin: -3px 0;
+  max-width: 100% !important;
+  background-color: #EEF5FF;
+  font-size: 12px;
+  border-radius: 10px !important;
+  padding: 1.2rem !important;
+}
+.hide-sender-address {
+  background-color: #fff;
+  padding: 1.5rem;
+  margin-top: .7rem;
+  .my-addresses {
+    .container-title {
+      padding-bottom: .8rem;
+    }
+    .hide-address-checkbox {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .mat-checkbox {
+      padding: .9rem 0;
+      .mat-checkbox-label {
+        font-size: 12px;
+      }
+    }
+  }
+  .confirm-button {
+    text-align: right;
+    padding-top: .6rem;
+    .confirm {
+      min-width: 180px;
+    }
+  }
+}
+// ng deep for snack bar toaster messages 
+::ng-deep {
+  .snack-bar-error {
+    background-color: #f44336;
+    color: #fff;
+  }
+  .snack-bar-info {
+    background-color: #2196f3;
+    color: #fff;
+  }
+  .snack-bar-success {
+    background-color: #58b25a;
+    color: #fff;
+  }
+  .snack-bar-warning {
+    background-color: #ffc107;
+    color: #333;
+  }
+}
+
+// spinner
+.download-button {
+  position: relative; 
+  display: inline-flex;
+  align-items: center;
+}
+
+.login-loading-spinner {
+  position: absolute; 
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  z-index: 2; 
+}
+
+.login-loading-spinner {
+  ::ng-deep circle {
+    stroke: white;
+  }
+}

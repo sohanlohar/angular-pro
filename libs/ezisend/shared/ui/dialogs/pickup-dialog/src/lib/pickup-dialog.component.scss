@@ -1,0 +1,167 @@
+@use "apps/ezisend/src/styles/variables/index" as v;
+.pickup__form {
+  padding: 3.8rem 0.5rem 1.5rem 0.5rem;
+  text-align: center;
+  &-mat-dialog-title {
+    font-size: v.$font_size_m;
+  }
+  span.mat-header-close {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    mat-icon.close {
+      width: 100%;
+      cursor: pointer;
+      height: 3.3em;
+    }
+  }
+  &-container {
+    padding: 1rem;
+    .date {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      label {
+        font-size: 12px;
+        position: absolute;
+        top: -8px;
+        background-color: #fff;
+        padding: 0 5px;
+      }
+      .date-input,
+      .date-input-datePicker {
+        position: relative;
+        height: 2.375rem;
+        display: flex;
+        border: 1px solid #ddd;
+        border-radius: 0.375rem;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 0.6rem;
+        width: 100%;
+        margin-right: 1rem;
+        .container-action {
+          width: 100%;
+        }
+        ::ng-deep {
+          .md-drppicker.shown {
+            position: fixed;
+            left: -20px !important;
+            z-index: 9;
+            // top: 230px !important;
+          }
+          .mat-form-field {
+            width: 95%;
+          }
+          .mat-form-field-underline {
+            opacity: 0;
+          }
+        }
+      }
+      small {
+        color: crimson;
+        padding: 0.25rem 0 0 0.5rem;
+        font-size: 0.875rem;
+      }
+    }
+    .note {
+      color: #000;
+      font-size: v.$font_size_xs;
+      max-width: 75%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      padding-bottom: 2rem;
+    }
+  }
+  mat-dialog-actions {
+    padding: 0;
+    margin: 0;
+    display: initial;
+    button.mat-button {
+      padding: 0;
+      font-size: 0.875rem;
+      letter-spacing: 0.4px;
+      mat-icon {
+        transform: scale(0.9);
+      }
+      ::ng-deep &.no-hover-effect .mat-button-focus-overlay {
+        background-color: transparent;
+      }
+    }
+    button.mat-raised-button {
+      width: 210px;
+      height: 2.375rem;
+    }
+  }
+}
+::ng-deep {
+  .date-input {
+    min-width: 60%;
+    .mat-form-field-wrapper {
+      width: 100%;
+      padding-bottom: 0.7rem;
+    }
+    .mat-form-field-infix {
+      border-top: 0;
+      padding-top: 12px;
+      border-right: 1px solid #ddd;
+      button {
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        border: 0;
+        background: #fff;
+        padding-left: 0.7rem;
+      }
+    }
+    .mat-form-field-flex {
+      align-items: flex-end;
+      padding-left: 0.75rem;
+    }
+    .mat-form-field-underline {
+      display: none;
+    }
+    .mat-datepicker-toggle {
+      display: none;
+    }
+  }
+}
+.pickup__form-container.date-picker-shown {
+  height: 100vh;
+}
+@media screen and (max-width: 780px) {
+  ::ng-deep {
+    .date-input {
+      min-width: auto;
+      margin-right: 0.5rem;
+    }
+  }
+  // ::ng-deep
+
+  .pickup {
+    &__form {
+      button.mat-raised-button {
+        width: auto !important;
+      }
+    }
+  }
+  // .pickup__form
+}
+// @media screen and (max-width:780px)
+@media screen and (max-width: 575px) {
+  .pickup {
+    &__form-container {
+      padding: 0;
+      .note {
+        max-width: 100%;
+      }
+      .date {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+    }
+  }
+}

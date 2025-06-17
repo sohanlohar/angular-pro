@@ -1,0 +1,35 @@
+<div class="pickup__form">
+  <span class="pickup__form-mat-dialog-title">{{languageData.pickup_request}}</span>
+  <span class="mat-header-close" (click)="dialogRef.close()">
+    <mat-icon class="close" svgIcon="close_icon"></mat-icon>
+  </span>
+
+  <mat-dialog-content>
+    <div class="pickup__form-container">
+      <span class="note">{{languageData.date_note}}</span>
+
+      <div class="date">
+        <div class="container date-range-picker date-input-datePicker">
+          <label class="container-label text-label">{{languageData.select_date}}</label>
+          <div class="container-action date-range-picker">
+            <form [formGroup]="dateRangePickerForm">
+              <pos-date-range-picker (formChange)="onDateRangePickerFormChange($event)" [isInvalidDate]="isInvalidDate"
+                [autoApply]="true" [singleDateOnly]="true" [initialStartDate]="today" [initialEndDate]="today"
+                class="px-3"></pos-date-range-picker>
+            </form>
+          </div>
+        </div>
+        <mat-dialog-actions>
+          <button mat-raised-button color="primary" (click)="requestPickUp()">
+            {{languageData.request_pickup}}
+          </button>
+        </mat-dialog-actions>
+      </div>
+      <small *ngIf="showError">{{ errorMessage }}</small>
+
+    </div>
+
+  </mat-dialog-content>
+
+
+</div>

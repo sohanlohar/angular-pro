@@ -1,0 +1,28 @@
+$title-color: #034D91;
+/* Gredient colors */
+$ezisend-to-left: #00498d;
+$ezisend-to-right: #2270b8;
+
+.container {
+  display: grid;
+  grid-template-columns: 30%  70%;
+}
+
+pos-pickup-card-list {
+  background: #f9f9f9;
+  // padding: 0.6rem 0.5rem;
+  padding-bottom: 5px;
+}
+pos-profile-form {
+  background: #fff;
+  padding: 20px;
+}
+@media screen and (max-width:768px) {
+  .container{
+    display: flex;
+    flex-direction: column;
+  }
+  pos-pickup-card-list{
+    margin-bottom: 20px !important;
+  }
+}

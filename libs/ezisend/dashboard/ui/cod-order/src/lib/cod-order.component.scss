@@ -1,0 +1,85 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+.cod__container {
+    border-radius: 6px;
+    box-shadow: 1px 1px 12px rgba(98, 85, 85, 0.25);
+    display: flex;
+    padding: 1.5rem;
+    position: relative;
+    cursor: pointer;
+    align-items: center;
+
+    mat-icon {
+      align-items: center;
+      border-radius: 50%;
+      margin-top: 0.5rem;
+      display: flex;
+      height: 40px;
+      justify-content: center;
+      width: 40px;
+      margin-right: 1rem;
+
+      &.green-theme-color {
+        background: #e5f8ee;
+        color: #28c76f;
+      }
+
+      &.blue-theme-color {
+        background: #cde7ff;
+        color: #3993e5;
+      }
+
+      &.red-theme-color {
+        background: #fdeaeb;
+        color: #ea5455;
+      }
+    }
+
+    &-info {
+      color: v.$teritary_color;
+      // display: flex;
+      // row-gap: 10px;
+      // flex-direction: column;
+
+      &-label {
+        font-weight: 500;
+        font-size: 0.875rem;
+      }
+
+      &-price {
+        font-weight: 600;
+        font-size: 1.5rem;
+      }
+    }
+
+    &-link {
+        bottom: 12%;
+        color: v.$primary_color;
+        cursor: pointer;
+        font-size: 0.75rem;
+        font-weight: 500;
+        position: absolute;
+        right: 5%;
+        text-decoration: underline;
+    }
+
+    &:hover {
+      box-shadow: 0px 0px 8px 0px #75bcff;
+    }
+  }
+  @media screen and (max-width:575px){
+    .cod__container {
+      padding: 1.5rem 1rem;
+      .cod__container-info-price{
+        font-size: 1.2rem;
+    }
+  }
+  }
+  @media screen and (max-width:300px){
+    .cod__container{
+      width: 63%;
+    }
+    .cod__container-link{
+      bottom: 4%;
+    }
+  }

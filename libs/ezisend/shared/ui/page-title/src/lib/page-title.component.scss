@@ -1,0 +1,18 @@
+$font-color: #262626;
+.container {
+  color: $font-color;
+  padding-inline: 4rem;
+  margin-block: 3rem;
+
+  .title {
+    font-size: 3rem;
+    line-height: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+  .copy {
+    font-size: 2rem;
+    line-height: 2.5rem;
+    font-weight: 400;
+  }
+}

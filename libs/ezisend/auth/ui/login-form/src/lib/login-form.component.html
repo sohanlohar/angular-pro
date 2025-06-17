@@ -1,0 +1,48 @@
+<form
+  id="loginForm"
+  class="form-group"
+  [formGroup]="loginForm"
+  (ngSubmit)="handleSubmit()"
+>
+  <div>
+    <mat-form-field class="username" appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="username" maxlength="50" minlength="8" />
+      <mat-error *ngIf="errorHandler('username', 'required')">
+        Email Address is required
+      </mat-error>
+      <mat-error *ngIf="errorHandler('username', 'minlength')">
+        Invalid Email Address
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field class="password" appearance="outline">
+      <mat-label>Password</mat-label>
+      <input type="password" matInput formControlName="password" maxlength="50" [type]="pwdToggle ? 'text' : 'password'" />
+      <button type="button" mat-icon-button matSuffix (click)="pwdToggle  = !pwdToggle">
+        <mat-icon>{{pwdToggle ? 'visibility' : 'visibility_off'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="errorHandler('password', 'required')">
+        Password is required
+      </mat-error>
+    </mat-form-field>
+  </div>
+</form>
+
+<div class="bottom-box">
+  <div class="link-forgot">
+    <a [routerLink]="['/auth/forgot-password']" (click)="tracking()"> Forgot Password? </a>
+  </div>
+  <div class="form-actions">
+
+    <button form="loginForm" type="submit" class="login-button-container" mat-raised-button color="primary" [disabled]="isSubmitting">
+      <mat-spinner *ngIf="isSubmitting" [diameter]="25" class="login-loading-spinner"></mat-spinner>
+      <ng-container *ngIf="!isSubmitting">Login</ng-container>
+    </button>
+  </div>
+  <div class="link-email-activation">
+    <a [routerLink]="['/auth/activation-email']" (click)="trackingEmail()" > Resend Activation Email </a>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+.snackbar-container {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+.snackbar-container span {
+    flex-grow: 4; 
+    word-wrap: break-word;
+    line-height: 20px;
+}
+.snackbar-container button {
+    flex-grow: 1;
+    color: #f86262;
+}
+
+::ng-deep { 
+    .snackbar-container span a{
+        color: rgba(255, 255, 255, 0.7);
+    }
+}

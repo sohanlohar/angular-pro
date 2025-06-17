@@ -1,0 +1,60 @@
+<div class="sidebar">
+  <div class="sidebar__header">
+    <a class="sidebar__header__logo" target="_blank">
+      <img src="./assets/sendPro-logo.svg" />
+    </a>
+  </div>
+
+  <mat-nav-list class="sidebar__nav-list">
+    <span *ngFor="let item of navMenu">
+      <span *ngIf="item && item.children && item.children.length > 0">
+        <mat-accordion>
+          <mat-expansion-panel class="sidebar__expansion-panel" [expanded]="false">
+            <mat-expansion-panel-header (click)="toggleCollapse('expand', true)">
+              <mat-panel-title (click)="toggleCollapse('expand', true);trackingMenu(item?.displayName)">
+                <span class="material-icons-outlined">
+                  {{ item?.iconName }}
+                </span>
+                {{ item?.displayName }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <span *ngFor="let child of item.children">
+              <a
+                *ngIf="child"
+                mat-list-item
+                (click)="toggleCollapse('expand');trackingMenu(child?.displayName)"
+                class="sidebar__child-nav-list mat-list-item"
+                [routerLink]="child.routerLink"
+                [queryParams]="child?.queryParam"
+                routerLinkActive="active-link"
+                [routerLinkActiveOptions]="routerLinkActiveOptions"
+                matLine
+              >
+                <span class="material-icons-outlined submenu-icon">
+                  {{ child?.iconName }}
+                </span>
+                {{ child?.displayName }}
+              </a>
+            </span>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </span>
+      <span *ngIf="!item.children || item.children.length === 0">
+        <a
+          mat-list-item
+          (click)="toggleCollapse('expand');trackingMenu(item?.displayName)"
+          class="mat-list-item"
+          [routerLink]="item.routerLink"
+          routerLinkActive="active-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+          matLine
+        >
+          <span class="material-icons-outlined">
+            {{ item?.iconName }}
+          </span>
+          {{ item?.displayName }}
+        </a>
+      </span>
+    </span>
+  </mat-nav-list>
+</div>

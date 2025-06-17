@@ -1,0 +1,8 @@
+<div class="top-container">
+    <pos-pickup-card-list #cardList [isEditOrder]="true" (eventAddEditPickup)="onEventAddEditPickup($event)"></pos-pickup-card-list>
+    <pos-recipient-detail-form [isEditOrder]="true"></pos-recipient-detail-form>
+</div>
+
+<div class="parcel-container">
+    <pos-parcel-detail-form [isEditOrder]="true"></pos-parcel-detail-form>
+</div>

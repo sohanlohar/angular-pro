@@ -1,0 +1,335 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@pos/ezisend/auth/data-access/models": [
+        "libs/ezisend/auth/data-access/models/src/index.ts"
+      ],
+      "@pos/ezisend/auth/data-access/services": [
+        "libs/ezisend/auth/data-access/services/src/index.ts"
+      ],
+      "@pos/ezisend/auth/data-access/store": [
+        "libs/ezisend/auth/data-access/store/src/index.ts"
+      ],
+      "@pos/ezisend/auth/feature/activate-account": [
+        "libs/ezisend/auth/feature/activate-account/src/index.ts"
+      ],
+      "@pos/ezisend/auth/feature/activate-email": [
+        "libs/ezisend/auth/feature/activate-email/src/index.ts"
+      ],
+      "@pos/ezisend/auth/feature/forgot-password": [
+        "libs/ezisend/auth/feature/forgot-password/src/index.ts"
+      ],
+      "@pos/ezisend/auth/feature/login": [
+        "libs/ezisend/auth/feature/login/src/index.ts"
+      ],
+      "@pos/ezisend/auth/feature/password-reset": [
+        "libs/ezisend/auth/feature/password-reset/src/index.ts"
+      ],
+      "@pos/ezisend/auth/ui/activate-account": [
+        "libs/ezisend/auth/ui/activate-account/src/index.ts"
+      ],
+      "@pos/ezisend/auth/ui/auth-page": [
+        "libs/ezisend/auth/ui/auth-page/src/index.ts"
+      ],
+      "@pos/ezisend/auth/ui/background": [
+        "libs/ezisend/auth/ui/background/src/index.ts"
+      ],
+      "@pos/ezisend/auth/ui/forgot-password": [
+        "libs/ezisend/auth/ui/forgot-password/src/index.ts"
+      ],
+      "@pos/ezisend/auth/ui/login-card": [
+        "libs/ezisend/auth/ui/login-card/src/index.ts"
+      ],
+      "@pos/ezisend/auth/ui/login-form": [
+        "libs/ezisend/auth/ui/login-form/src/index.ts"
+      ],
+      "@pos/ezisend/auth/ui/password-reset": [
+        "libs/ezisend/auth/ui/password-reset/src/index.ts"
+      ],
+      "@pos/ezisend/billing/feature/invoice": [
+        "libs/ezisend/billing/feature/invoice/src/index.ts"
+      ],
+      "@pos/ezisend/contact/data-access/models": [
+        "libs/ezisend/contact/data-access/models/src/index.ts"
+      ],
+      "@pos/ezisend/contact/data-access/services": [
+        "libs/ezisend/contact/data-access/services/contact.service.ts"
+      ],
+      "@pos/ezisend/contact/feature/contact-bulk-upload": [
+        "libs/ezisend/contact/feature/contact-bulk-upload/src/index.ts"
+      ],
+      "@pos/ezisend/contact/feature/contact-create": [
+        "libs/ezisend/contact/feature/contact-create/src/index.ts"
+      ],
+      "@pos/ezisend/contact/feature/contact-detail": [
+        "libs/ezisend/contact/feature/contact-detail/src/index.ts"
+      ],
+      "@pos/ezisend/contact/feature/contact-main": [
+        "libs/ezisend/contact/feature/contact-main/src/index.ts"
+      ],
+      "@pos/ezisend/contact/ui/contact-form": [
+        "libs/ezisend/contact/ui/contact-form/src/index.ts"
+      ],
+      "@pos/ezisend/contact/ui/contact-table": [
+        "libs/ezisend/contact/ui/contact-table/src/index.ts"
+      ],
+      "@pos/ezisend/dashboard/data-access/models": [
+        "libs/ezisend/dashboard/data-access/models/src/index.ts"
+      ],
+      "@pos/ezisend/dashboard/feature": [
+        "libs/ezisend/dashboard/feature/src/index.ts"
+      ],
+      "@pos/ezisend/dashboard/ui/action-tile": [
+        "libs/ezisend/dashboard/ui/action-tile/src/index.ts"
+      ],
+      "@pos/ezisend/dashboard/ui/cod-order": [
+        "libs/ezisend/dashboard/ui/cod-order/src/index.ts"
+      ],
+      "@pos/ezisend/dashboard/ui/dashboard-main-tile": [
+        "libs/ezisend/dashboard/ui/dashboard-main-tile/src/index.ts"
+      ],
+      "@pos/ezisend/dashboard/ui/insights": [
+        "libs/ezisend/dashboard/ui/insights/src/index.ts"
+      ],
+      "@pos/ezisend/dashboard/ui/news-promo": [
+        "libs/ezisend/dashboard/ui/news-promo/src/index.ts"
+      ],
+      "@pos/ezisend/dashboard/ui/shipment-summary": [
+        "libs/ezisend/dashboard/ui/shipment-summary/src/index.ts"
+      ],
+      "@pos/ezisend/downtime/feature/downtime-page": [
+        "libs/ezisend/downtime/feature/downtime-page/src/index.ts"
+      ],
+      "@pos/ezisend/downtime/ui/downtime-bg": [
+        "libs/ezisend/downtime/ui/downtime-bg/src/index.ts"
+      ],
+      "@pos/ezisend/icon": ["libs/ezisend/icon/src/index.ts"],
+      "@pos/ezisend/integration/feature/add-store/add-store": [
+        "libs/ezisend/integration/feature/add-store/add-store/src/index.ts"
+      ],
+      "@pos/ezisend/integration/feature/add-store/instruction": [
+        "libs/ezisend/integration/feature/add-store/instruction/src/index.ts"
+      ],
+      "@pos/ezisend/integration/feature/my-store": [
+        "libs/ezisend/integration/feature/my-store/src/index.ts"
+      ],
+      "@pos/ezisend/not-found/feature/not-found": [
+        "libs/ezisend/not-found/feature/not-found/src/index.ts"
+      ],
+      "@pos/ezisend/not-found/ui/background": [
+        "libs/ezisend/not-found/ui/background/src/index.ts"
+      ],
+      "@pos/ezisend/profile/data-access/models": [
+        "libs/ezisend/profile/data-access/models/src/index.ts"
+      ],
+      "@pos/ezisend/profile/feature/my-profile": [
+        "libs/ezisend/profile/feature/my-profile/src/index.ts"
+      ],
+      "@pos/ezisend/profile/feature/pickup-address": [
+        "libs/ezisend/profile/feature/pickup-address/src/index.ts"
+      ],
+      "@pos/ezisend/profile/feature/profile": [
+        "libs/ezisend/profile/feature/profile/src/index.ts"
+      ],
+      "@pos/ezisend/profile/ui/profile-form": [
+        "libs/ezisend/profile/ui/profile-form/src/index.ts"
+      ],
+      "@pos/ezisend/reports": ["libs/ezisend/reports/src/index.ts"],
+      "@pos/ezisend/shared/data-access/models": [
+        "libs/ezisend/shared/data-access/models/src/index.ts"
+      ],
+      "@pos/ezisend/shared/data-access/services": [
+        "libs/ezisend/shared/data-access/services/src/index.ts"
+      ],
+      "@pos/ezisend/shared/data-access/validators/form-control-validators": [
+        "libs/ezisend/shared/data-access/validators/form-control-validators/src/index.ts"
+      ],
+      "@pos/ezisend/shared/ui/banner": [
+        "libs/ezisend/shared/ui/banner/src/index.ts"
+      ],
+      "@pos/ezisend/shared/ui/breadcrumb": [
+        "libs/ezisend/shared/ui/breadcrumb/src/index.ts"
+      ],
+      "@pos/ezisend/shared/ui/country-select": [
+        "libs/ezisend/shared/ui/country-select/src/index.ts"
+      ],
+      "@pos/ezisend/shared/ui/custom-snackbar": [
+        "libs/ezisend/shared/ui/custom-snackbar/src/index.ts"
+      ],
+      "@pos/ezisend/shared/ui/dialogs/dialog": [
+        "libs/ezisend/shared/ui/dialogs/dialog/src/index.ts"
+      ],
+      "@pos/ezisend/shared/ui/dialogs/general-form-dialog": [
+        "libs/ezisend/shared/ui/dialogs/general-form-dialog/src/index.ts"
+      ],
+      "@pos/ezisend/shared/ui/dialogs/modal-dialog": [
+        "libs/ezisend/shared/ui/dialogs/modal-dialog/src/index.ts"
+      ],
+      "@pos/ezisend/shared/ui/dialogs/pickup-dialog": [
+        "libs/ezisend/shared/ui/dialogs/pickup-dialog/src/index.ts"
+      ],
+      "@pos/ezisend/shared/ui/dialogs/view-guide-dialog": [
+        "libs/ezisend/shared/ui/dialogs/view-guide-dialog/src/index.ts"
+      ],
+      "@pos/ezisend/shared/ui/excel-reader": [
+        "libs/ezisend/shared/ui/excel-reader/src/index.ts"
+      ],
+      "@pos/ezisend/shared/ui/forms/form-control-wrapper": [
+        "libs/ezisend/shared/ui/forms/form-control-wrapper/src/index.ts"
+      ],
+      "@pos/ezisend/shared/ui/forms/general-form": [
+        "libs/ezisend/shared/ui/forms/general-form/src/index.ts"
+      ],
+      "@pos/ezisend/shared/ui/loading-spinner": [
+        "libs/ezisend/shared/ui/loading-spinner/src/index.ts"
+      ],
+      "@pos/ezisend/shared/ui/page-layout": [
+        "libs/ezisend/shared/ui/page-layout/src/index.ts"
+      ],
+      "@pos/ezisend/shared/ui/page-title": [
+        "libs/ezisend/shared/ui/page-title/src/index.ts"
+      ],
+      "@pos/ezisend/shared/ui/paginator": [
+        "libs/ezisend/shared/ui/paginator/src/index.ts"
+      ],
+      "@pos/ezisend/shared/ui/pickup-card-list": [
+        "libs/ezisend/shared/ui/pickup-card-list/src/index.ts"
+      ],
+      "@pos/ezisend/shared/ui/plugins-card": [
+        "libs/ezisend/shared/ui/plugins-card/src/index.ts"
+      ],
+      "@pos/ezisend/shared/ui/shipment-tile": [
+        "libs/ezisend/shared/ui/shipment-tile/src/index.ts"
+      ],
+      "@pos/ezisend/shared/ui/telephone-input": [
+        "libs/ezisend/shared/ui/telephone-input/src/index.ts"
+      ],
+      "@pos/ezisend/shell/data-access/models": [
+        "libs/ezisend/shell/data-access/models/src/index.ts"
+      ],
+      "@pos/ezisend/shell/feature": ["libs/ezisend/shell/feature/src/index.ts"],
+      "@pos/ezisend/shell/ui/layout": [
+        "libs/ezisend/shell/ui/layout/src/index.ts"
+      ],
+      "@pos/ezisend/shell/ui/nav-footer": [
+        "libs/ezisend/shell/ui/nav-footer/src/index.ts"
+      ],
+      "@pos/ezisend/shell/ui/nav-header": [
+        "libs/ezisend/shell/ui/nav-header/src/index.ts"
+      ],
+      "@pos/ezisend/shell/ui/nav-sidebar": [
+        "libs/ezisend/shell/ui/nav-sidebar/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/data-access/helper/my-shipment-helper": [
+        "libs/ezisend/shipment/data-access/helper/my-shipment-helper/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/data-access/models": [
+        "libs/ezisend/shipment/data-access/models/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/feature/bulk-shipment": [
+        "libs/ezisend/shipment/feature/bulk-shipment/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/feature/contacts": [
+        "libs/ezisend/shipment/feature/contacts/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/feature/history": [
+        "libs/ezisend/shipment/feature/history/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/feature/my-shipment": [
+        "libs/ezisend/shipment/feature/my-shipment/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/feature/order-edit": [
+        "libs/ezisend/shipment/feature/order-edit/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/feature/pick-up": [
+        "libs/ezisend/shipment/feature/pick-up/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/feature/rate-calc": [
+        "libs/ezisend/shipment/feature/rate-calc/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/feature/return-order": [
+        "libs/ezisend/shipment/feature/return-order/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/feature/single-shipment": [
+        "libs/ezisend/shipment/feature/single-shipment/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/ui/address-form": [
+        "libs/ezisend/shipment/ui/address-form/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/ui/bulk-dom-intl-shipment": [
+        "libs/ezisend/shipment/ui/bulk-dom-intl-shipment/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/ui/date-range-picker": [
+        "libs/ezisend/shipment/ui/date-range-picker/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/ui/dropdown-input": [
+        "libs/ezisend/shipment/ui/dropdown-input/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/ui/my-shipment-table": [
+        "libs/ezisend/shipment/ui/my-shipment-table/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/ui/order-edit-form": [
+        "libs/ezisend/shipment/ui/order-edit-form/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/ui/parcel-detail-form": [
+        "libs/ezisend/shipment/ui/parcel-detail-form/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/ui/rate-calc": [
+        "libs/ezisend/shipment/ui/rate-calc/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/ui/recipient-detail-form": [
+        "libs/ezisend/shipment/ui/recipient-detail-form/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/ui/return-order-form": [
+        "libs/ezisend/shipment/ui/return-order-form/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/ui/search-input": [
+        "libs/ezisend/shipment/ui/search-input/src/index.ts"
+      ],
+      "@pos/ezisend/shipment/ui/smart-input": [
+        "libs/ezisend/shipment/ui/smart-input/src/index.ts"
+      ],
+      "@pos/ezisend/user-management/feature/add-user": [
+        "libs/ezisend/user-management/feature/add-user/src/index.ts"
+      ],
+      "@pos/ezisend/user-management/ui/account-access-form": [
+        "libs/ezisend/user-management/ui/account-access-form/src/index.ts"
+      ],
+      "@pos/ezisend/user-management/ui/add-user-form": [
+        "libs/ezisend/user-management/ui/add-user-form/src/index.ts"
+      ],
+      "@pos/libs/ezisend/auth/ui/activate-email/src/activate-email": [
+        "libs/ezisend/auth/ui/activate-email/src/activate-email/src/index.ts"
+      ],
+      "@pos/shared/environments": [
+        "libs/ezisend/shared/environments/src/index.ts"
+      ],
+      "@pos/web/launch-pad/data-access": [
+        "libs/web/launch-pad/data-access/src/index.ts"
+      ],
+      "@pos/web/launch-pad/feature": [
+        "libs/web/launch-pad/feature/src/index.ts"
+      ],
+      "@pos/web/launch-pad/ui/launcher-card-view": [
+        "libs/web/launch-pad/ui/launcher-card-view/src/index.ts"
+      ],
+      "@pos/web/shell/feature": ["libs/web/shell/feature/src/index.ts"],
+      "@pos/web/shell/ui/layout": ["libs/web/shell/ui/layout/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

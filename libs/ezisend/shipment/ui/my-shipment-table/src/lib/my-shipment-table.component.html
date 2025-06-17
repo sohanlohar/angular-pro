@@ -1,0 +1,673 @@
+<div class="wrapper">
+  <div class="wrapper-table-label"
+    *ngIf="
+      (activeTab === 'request-pickup'
+      || activeTab === 'pickup details'
+      || activeTab === 'pending'
+      || activeTab === 'add-order'
+      || activeTab === 'live'
+      || activeTab === 'delivered'
+      || activeTab === 'failed-deliver'
+      || activeTab === 'all'
+      || activeTab === 'returned') &&
+      selection.selected.length > 0
+    ">
+    <span class="wrapper-table-label_current">{{ isSelectAllOrder ? total : selection.selected.length}} {{activeTab === 'pending' ? viewBy :  languageData.order}} {{languageData.selected}}.</span>&nbsp;
+    <!-- TEMPORARY HIDE SELECT ALL -->
+    <!-- <span class="wrapper-table-label_all" *ngIf="!isSelectAllOrder" (click)="selectAllOrder(true)">Select all ({{total}}) orders in {{labelTab}}</span>
+    <span class="wrapper-table-label_all" *ngIf="isSelectAllOrder" (click)="selectAllOrder(false)">Cancel</span>
+    <span class="wrapper-table-label_all deselect_all" *ngIf="!isSelectAllOrder" (click)="selectAllOrder(false)">Deselect all</span> -->
+  </div>
+
+  <pos-paginator
+    #paginator
+    [length]="total"
+    [currentPage]="currentPage"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    (onCurrentPage)="onPageEvent($event)"
+    *ngIf="dataTable.data.length > 0"
+  ></pos-paginator>
+
+  <div class="tablewrapper">
+    <ng-container>
+      <table mat-table [dataSource]="dataTable">
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="filter-container" [class.padding-left]="activeTab === 'request-pickup'">
+              <mat-checkbox
+                color="primary"
+                *ngIf="!isListingLoading && (activeTab === 'request-pickup')"
+                (change)="$event ? masterToggle($event) : null"
+                [checked]="selection.hasValue() && isAllSelected()"
+                [indeterminate]="selection.hasValue() && !isAllSelected()"
+                [aria-label]="checkboxLabel()">
+              </mat-checkbox>
+              <ng-container *ngIf="activeTab === 'request-pickup'">
+                <mat-icon class="filter-dropdown-icon" [matMenuTriggerFor]="menu">arrow_drop_down</mat-icon>
+                <mat-menu class="filter-dropdown-menu" #menu="matMenu">
+                  <mat-selection-list>
+                    <mat-list-option color="primary" checkboxPosition="before" *ngFor="let filter of dropDownFilter"
+                      (click)="filterShipmentStatus($event, filter)" [selected]="selectedFilter === filter.id">
+                      {{ filter.label }}
+                    </mat-list-option>
+                  </mat-selection-list>
+                </mat-menu>
+              </ng-container>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox
+              color="primary"
+              [disabled]="activeTab === 'add-order' && row.tracking_details.tracking_id === ''"
+              (click)="$event.stopPropagation()"
+              (change)="onSelectRow($event, row)"
+              [checked]="selection.isSelected(row['id'])"
+              [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="trackingDetail">
+          <th mat-header-cell *matHeaderCellDef class="alignHeaderLeft">{{languageData.tracking_details}}</th>
+          <td mat-cell *matCellDef="let data" class="alignLeft">
+            <div class="connote" *ngIf="activeTab !== 'request-pickup' && (data.channel_order | keyvalue)?.length === 0">
+              <span class="click" (click)="actionHandler(data, 'order-details')">
+                {{ data.tracking_details.tracking_id }}
+              </span>
+              <mat-icon class="contentCopy" *ngIf="data.tracking_details.tracking_id"
+                        (click)="copyToClipboard(data.tracking_details.tracking_id)">
+                        content_copy
+              </mat-icon>
+            </div>
+            <div class="connote" *ngIf="(data.channel_order | keyvalue)?.length">
+              <span (click)="actionHandler(data, 'order-details')" class="click">{{data.tracking_details.tracking_id}}</span>
+              <span *ngIf="data.channel_order !== undefined ? 'hide' :''" class="store_logo_name">
+                <img
+                  [src]="getLogo(data.channel_order.channel)"
+                  [class]="getClass(data.channel_order.channel)"
+                  [class.border-bottom]="!data.channel_order.store_name"
+                  [class.api]="getLogo(data.channel_order.channel)?.includes('connectApi')"
+                  [class.bizaapp]="getLogo(data.channel_order.channel)?.includes('bizappLogo')"
+                  [class.woocommerce]="getLogo(data.channel_order.channel)?.includes('wooCommerce')"
+                  [class.onpay]="getLogo(data.channel_order.channel)?.includes('onpayLogo')"
+                alt="logo">
+                <ng-container *ngIf="data.channel_order.store_name">
+                  <span class="store-name truncated" title="{{data.channel_order.store_name}}">{{data.channel_order.store_name}}</span>
+                </ng-container>
+                </span>
+              <span (click)="actionHandler(data, 'order-details')" class="click">{{data.channel_order.order_no}}</span>
+            </div>
+
+            <ng-container>
+              <div class="date">{{changeDateFormat(data.created_date)}}</div>
+              <div class="date">{{changeTimeFormat(data.created_date)}}</div>
+              <span class="label" *ngIf="data.type === 'INTERNATIONAL'">INTL</span>
+            </ng-container>
+            <ng-container *ngIf="data?.sum_insured && fromMps">
+              <span class="ins_blk ins">INS</span>
+              <div class="amount">RM{{data.sum_insured | number : '.2-2'}}</div>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="pickupNo">
+          <th mat-header-cell *matHeaderCellDef class="alignHeaderLeft">{{languageData.pick_up_info}}</th>
+          <td mat-cell *matCellDef="let data" class="alignLeft">
+            <div class="connote" *ngIf="(data.channel_order | keyvalue)?.length === 0">
+              <span (click)="actionHandler(data, 'parcel-details')" [ngClass]="{ 'click': data.pickup_details.pickup_status !== 'pending-cancellation' }">{{data.pickup_details.pickup_number}}</span><br>
+            </div>
+            <div class="connote" *ngIf="(data.channel_order | keyvalue)?.length">
+              <span (click)="actionHandler(data, 'order-details')" [ngClass]="{ 'click': data.pickup_details.pickup_status !== 'pending-cancellation' }">{{data.pickup_details.pickup_number}}</span><br>
+              <span *ngIf="(data.channel_order | keyvalue)?.length" class="store_logo_name"><img [src]="getLogo(data.channel_order.channel)" class="store_logo" alt="logo"><span class="store-name">{{ (data.channel_order.store_name?.length >10) ? (data.channel_order.store_name | slice:0:10)+'...' : data.channel_order.store_name }}</span></span>
+              <span (click)="actionHandler(data, 'order-details')" [ngClass]="{ 'click': data.pickup_details.pickup_status !== 'pending-cancellation' }">{{data.channel_order.order_no}}</span>
+            </div>
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="pickupTime">
+          <th mat-header-cell *matHeaderCellDef [class.width-16-percent]="activeTab === 'pending'">{{languageData.pick_up_date}}</th>
+          <td mat-cell *matCellDef="let data" [class.width-16-percent]="activeTab === 'pending'">
+            <div class="date">{{changeDateFormat(data.pickup_details.pickup_datetime)}}</div>
+            <!-- <div class="date">{{changeTimeFormat(data.pickup_details.pickup_datetime)}}</div> -->
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>{{languageData.status}}</th>
+          <td mat-cell *matCellDef="let data; let index = index">
+            <!-- <span class="no-tracking">NO TRACKING ID GENERATED</span> -->
+            <ng-container *ngIf="activeTab === 'request-pickup'">
+              <ng-container>
+                <div *ngIf="data?.status !== 'connote-assigned'; else trackingBlock" class="no-tracking-id">
+                  {{ languageData.no_tracking_id }}
+                </div>
+
+                <ng-template #trackingBlock>
+                  <div *ngIf="data?.tracking_details?.tracking_id; else noTrackingId">
+                    <div class="delivered">{{ languageData.order_created }}</div>
+                  </div>
+                  <ng-template #noTrackingId>
+                    <div class="no-tracking-id">{{ languageData.no_tracking_id }}</div>
+                    <div class="delivered">{{ languageData.order_created }}</div>
+                  </ng-template>
+                </ng-template>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="activeTab === 'add-order'">
+              <ng-container *ngIf="data.tracking_details.tracking_id === ''">
+                <div class="no-tracking-id">{{languageData.no_tracking_id}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.tracking_details.tracking_id">
+                <div class="not-scheduled">{{languageData.not_scheduled}}</div>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="['live-shipment'].includes(activeTab)">
+              <ng-container *ngIf="data.pickup_details.pickup_status === ''">
+                <div class="no-tracking-id">{{languageData.no_tracking_id}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.pickup_details.pickup_status">
+                <div class="not-scheduled">{{languageData.not_scheduled}}</div>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="activeTab === 'pending'">
+              <ng-container *ngIf="data.pickup_details?.pickup_status === 'pickup-requested'">
+                <div class="scheduled">{{languageData.pick_up_scheduled}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.pickup_details?.pickup_status === 'pickup-assigned'">
+                <div class="scheduled">{{languageData.pick_up_assigned}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.pickup_details?.pickup_status === 'pickup-rescheduled'">
+                <div class="re-scheduled">{{languageData.pick_up_re_scheduled}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.pickup_details?.pickup_status === 'cancelled'">
+                <div class="cancelled">{{languageData.cancelled}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.pickup_details?.pickup_status === 'partial-picked-up'">
+                <div class="partial-picked">{{languageData.partial_picked_up}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.pickup_details?.pickup_status === 'pending-dropoff'">
+                <div class="partial-picked">{{languageData.pending_drop_off}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.pickup_details?.pickup_status === 'pickup-failed'">
+                <div class="pickup-failed failed">{{languageData.pickup_failed}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.pickup_details?.pickup_status === 'pending-cancellation'">
+                <div class="pending_cancellation">{{languageData.pending_cancellation}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.pickup_details?.pickup_status === 'droppedoff'">
+                <div class="droppedoff">{{languageData.dropped_off}}</div>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="activeTab === 'pickup details'">
+              <ng-container *ngIf="data.status === 'pickup-requested'">
+                <div class="scheduled">{{languageData.pick_up_scheduled}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'pickup-assigned'">
+                <div class="scheduled">{{languageData.pick_up_assigned}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'delivered'">
+                <div class="delivered">{{languageData.delivered}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'picked-up'">
+                <div class="picked-up">{{languageData.picked_up}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'pickup-failed'">
+                <div class="pickup-failed failed">{{languageData.pickup_failed}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'cancelled'">
+                <div class="cancelled">{{languageData.cancelled}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.pickup_details?.pickup_status === 'cancelled'">
+                <div class="cancelled">{{languageData.pick_up_cancelled}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'droppedoff'">
+                <div class="droppedoff">{{languageData.order_created}}</div>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="activeTab === 'live'">
+              <ng-container *ngIf="data.status === 'in-transit'">
+                <div class="in-transit">{{languageData.on_the_way}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'picked-up'">
+                <div class="picked-up">{{languageData.picked_up}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'out-for-delivery'">
+                <div class="out-for-delivery">{{languageData.out_for_delivery}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'to-collect'">
+                <div class="to-collect">{{languageData.ready_to_collect}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'droppedoff'">
+                <div class="partial-picked">{{languageData.order_created}}</div>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="activeTab === 'delivered'">
+              <ng-container *ngIf="data.status === 'delivered'">
+                <div class="alignCenter">
+                  <div class="delivered">{{languageData.delivered}}</div>
+                  <mat-progress-bar class="matProgressBarPOD" mode="indeterminate" *ngIf="isLoading && index === currentIndex"></mat-progress-bar>
+
+                  <span (click)="proofActionEvent(data?.tracking_details?.tracking_id); currentIndex = index" class="clickPOD"
+                        [ngStyle]="{'visibility': (isLoading && currentIndex === index) ? 'hidden' : 'visible'}"
+                        [matTooltip]="languageData?.view_proof_of_delivery" matTooltipPosition="right" [matTooltipClass]="'tooltipStyle'">
+                    {{languageData?.proof_of_delivery}}
+                  </span>
+                </div>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="activeTab === 'failed-deliver'">
+              <ng-container *ngIf="data.status === 'failed'">
+                <div class="failed">{{languageData.failed_delivery_attempt}}</div>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="activeTab === 'returned'">
+              <ng-container *ngIf="data.status === 'returned'">
+                <div class="returned">{{languageData.returned_table}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'return_assigned'">
+                <div class="returned_assigned">{{languageData.return_sender}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'return_success'">
+                <div class="return_success">{{languageData.return_success}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'processing-return'">
+                <div class="return_success">{{languageData.processing_return}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'return-initiated'">
+                <div class="return_success">{{languageData.return_initiated}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'in-transit-return'">
+                <div class="return_success">{{languageData.out_for_return}}</div>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="activeTab === 'all'">
+              <ng-container *ngIf="data.status === 'returned'">
+                <div class="returned">{{languageData.returned_table}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'return_assigned'">
+                <div class="returned_assigned">{{languageData.return_sender}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'return_success'">
+                <div class="return_success">{{languageData.return_success}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'processing-return'">
+                <div class="return_success">{{languageData.processing_return}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'return-initiated'">
+                <div class="return_success">{{languageData.return_initiated}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'in-transit-return'">
+                <div class="return_success">{{languageData.out_for_return}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'failed'">
+                <div class="failed">{{languageData.failed_delivery_attempt}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'in-transit'">
+                <div class="in-transit">{{languageData.on_the_way}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'picked-up'">
+                <div class="picked-up">{{languageData.picked_up}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'out-for-delivery'">
+                <div class="out-for-delivery">{{languageData.out_for_delivery}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'to-collect'">
+                <div class="to-collect">{{languageData.ready_to_collect}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'droppedoff'">
+                <div class="partial-picked">{{languageData.order_created}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'pickup-requested'">
+                <div class="scheduled">{{languageData.pick_up_scheduled}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'pickup-assigned'">
+                <div class="scheduled">{{languageData.pick_up_assigned}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'pickup-failed'">
+                <div class="pickup_failed failed">{{languageData.pickup_failed}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'delivered'">
+                <div class="alignCenter">
+                <div class="delivered">{{languageData.delivered}}</div>
+                <mat-progress-bar class="matProgressBarPOD" mode="indeterminate" *ngIf="isLoading && index === currentIndex"></mat-progress-bar>
+
+                <span (click)="proofActionEvent(data?.tracking_details?.tracking_id); currentIndex = index" class="clickPOD"
+                      [ngStyle]="{'visibility': (isLoading && currentIndex === index) ? 'hidden' : 'visible'}"
+                      [matTooltip]="languageData?.view_proof_of_delivery" matTooltipPosition="right" [matTooltipClass]="'tooltipStyle'">
+                  {{languageData?.proof_of_delivery}}
+                </span>
+              </div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'pickup-failed'">
+                <div class="pickup-failed failed">{{languageData.pickup_failed}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.status === 'cancelled'">
+                <div class="cancelled">{{languageData.cancelled}}</div>
+              </ng-container>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="recipient">
+          <th mat-header-cell *matHeaderCellDef class="alignHeaderLeft">{{languageData.recipient}}</th>
+          <td mat-cell *matCellDef="let data" class="alignLeft">
+            <div>{{ data.recipient.name }}</div>
+            <div class="contact">
+              <span>{{ data.recipient.dialing_code }}</span
+              ><span>{{ data.recipient.phone_no }}</span>
+            </div>
+            <div>{{ (data.recipient.email.length > 20)
+              ? (data.recipient.email | slice:0:20)+'...'
+              : (data.recipient.email)  }}</div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="pickupAddress">
+          <th mat-header-cell *matHeaderCellDef class="alignHeaderLeft">{{languageData.pick_up_address}}</th>
+          <td mat-cell *matCellDef="let data" class="alignLeft">
+            <span class="pickup-address">{{
+              data.pickup_address
+              ? (data.pickup_address.length > 50)
+              ? (data.pickup_address | slice:0:50)+'...'
+              : (data.pickup_address)
+              : (data.pickup_details.pickup_address.length > 50)
+              ? (data.pickup_details.pickup_address | slice:0:50)+'...'
+              : (data.pickup_details.pickup_address)
+              }}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef>{{languageData.qty}}</th>
+          <td mat-cell *matCellDef="let data">
+            <span *ngIf="data.pickup_details.pickup_status !== 'cancelled'">{{data.total_quantity ? data.total_quantity : data.pickup_details.total_quantity}}</span>
+            <span *ngIf="data.pickup_details.pickup_status === 'cancelled'">-</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="weight">
+          <th mat-header-cell *matHeaderCellDef>{{languageData.weight}}</th>
+          <td mat-cell *matCellDef="let data">
+            <span *ngIf="data.pickup_details.pickup_status !== 'cancelled'">{{data.total_weight ? data.total_weight : data.pickup_details.total_weight | number: '.2-2'}}</span>
+            <span *ngIf="data.pickup_details.pickup_status === 'cancelled'">-</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="reason">
+          <th mat-header-cell *matHeaderCellDef>{{languageData.reason}}</th>
+          <td mat-cell *matCellDef="let data">
+            <span>{{ data.reason }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="deliveryDetail">
+          <th mat-header-cell *matHeaderCellDef>{{languageData.delivery_detail}}</th>
+          <td mat-cell *matCellDef="let data">
+            <div>{{ data.delivery_details.from }}</div>
+            <span class="divider">{{languageData.to}}</span>
+            <div>{{ data.delivery_details.to }}</div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="store">
+          <th mat-header-cell *matHeaderCellDef>{{languageData.store}}</th>
+          <td mat-cell *matCellDef="let data">
+            <div>{{ data.name }}</div>
+            <div>{{ data.url }}</div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="channel">
+          <th mat-header-cell *matHeaderCellDef>{{languageData.channel}}</th>
+          <td mat-cell *matCellDef="let data">
+            <img [src]="getLogo(data.platform)" [width]="getSize(data.platform, 'width')" [height]="getSize(data.platform,'height')">
+            <div class="store-name">{{ data.name }}</div>
+            <div class="store-url">{{ data.url }}</div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="pluginStatus">
+          <th mat-header-cell *matHeaderCellDef>{{languageData.status}}</th>
+          <td mat-cell *matCellDef="let data">
+            <div><mat-slide-toggle [checked]="data.status === 'ACTIVE' ? true : false" (change)="pluginToggle(data.id,data.status)"></mat-slide-toggle></div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef>{{languageData.type}}</th>
+          <td mat-cell *matCellDef="let data; let i = index;">
+            <ng-container *ngIf="(commonService.isCOD | async) === true">
+              <ng-container *ngIf="data?.order_amount && data?.is_cod; else nonCod">
+                <span class="cod">COD</span>
+                <div class="amount">RM{{data.order_amount | number : '.2-2'}}</div>
+              </ng-container>
+              <ng-template #nonCod><span class="non-cod">{{languageData.non_cod}}</span></ng-template>
+              <ng-container *ngIf="data?.sum_insured && !fromMps; else nonIns">
+                <span class="ins_blk ins">INS</span>
+                <div class="amount">RM{{data.sum_insured | number : '.2-2'}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.tracking_details.category === 'MPS'; else nonIns">
+                <span class="ins_blk mps">MPS</span>
+                <div class="amount" *ngIf="fromMps">{{i + 1}} of {{dataTable.data.length}} pcs</div>
+              </ng-container>
+              <ng-template #nonIns></ng-template>
+            </ng-container>
+            <ng-container *ngIf="(commonService.isCOD | async) === false">
+              <ng-container *ngIf="data?.sum_insured && !fromMps; else nonIns">
+                <span class="ins">INS</span>
+                <div class="amount">RM{{data.sum_insured | number : '.2-2'}}</div>
+              </ng-container>
+              <ng-container *ngIf="data.tracking_details.category === 'MPS'">
+                <span class="ins_blk mps">MPS</span>
+                <div class="amount" *ngIf="fromMps">{{i + 1}} of {{dataTable.data.length}} pcs</div>
+              </ng-container>
+              <ng-template #nonIns><span class="non-cod">-</span></ng-template>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="InvcDate">
+          <td mat-cell *matCellDef="let data">
+            <ng-container>
+              <div>29 May 2023</div>
+              <div>{{languageData.download}}</div>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>{{languageData.action}}</th>
+          <td
+            mat-cell
+            *matCellDef="let data"
+            [class.width-16-percent]="activeTab === 'pending' && iconActions.length < 3"
+            [class.width-23-percent]="iconActions.length > 2"
+            class="actionContainer"
+          >
+
+            <ng-container *ngIf="iconActions.length" >
+
+              <span *ngFor="let action of iconActions">
+                <mat-icon
+                    *ngIf="action !== 'download' && action !== 'reschedule-pick-up' && action !== 'close' && action !== 'cancel' &&
+                        action !== 'edit' && action !== 'print'"
+                  [matTooltip]="getAction(action)"
+                  matTooltipPosition="above"
+                  matTooltipClass="tooltipStyle"
+                  [class.action-icon_disabled]="data?.pickup_details?.pickup_status === 'pending-cancellation' || data?.pickup_details?.pickup_status === 'cancelled' || editActions(activeTab, action, data, data.channel_order | keyvalue)"
+                  class="material-symbols-outlined action-icon"
+                  (click)="actionHandler(data, action)">
+                    {{ action === "deleteStore" ? 'delete' : action }}
+                </mat-icon>
+
+                <span
+                  class="print-button"
+                  *ngIf="action === 'print'"
+                  [matTooltip]="checkingPrint(data, activeTab) ? '' : (data.printed ? 'Printed' : 'Print')"
+                  matTooltipPosition="above"
+                  matTooltipClass="tooltipStyle"
+                  [class.disabled]="checkingPrint(data, activeTab)"
+                  (click)="handlePrint(data, editActions(activeTab, action, data, data.channel_order))"
+                >
+                  <span class="checked" *ngIf="!checkingPrint(data, activeTab) && data.printed">
+                    <mat-icon>check</mat-icon>
+                  </span>
+                  <span class="print-icon">
+                    <mat-icon>print</mat-icon>
+                  </span>
+                </span>
+
+                <mat-icon
+                  *ngIf="action === 'cancel'"
+                  [matTooltip]="getAction(action)"
+                  matTooltipPosition="above"
+                  matTooltipClass="tooltipStyle"
+                  [class.action-icon_disabled]="editActions(activeTab, action, data, data.channel_order | keyvalue)"
+                  class="material-symbols-outlined action-icon"
+                  [class.action-icon_disabled]="disableCancelShipment(data.status, data.children, data.tracking_details.tracking_id)"
+                  (click)="actionHandler(data, action)">
+                  delete
+                </mat-icon>
+
+                <mat-icon
+                  *ngIf="action === 'edit'"
+                  [matTooltip]="getAction(action)"
+                  matTooltipPosition="above"
+                  matTooltipClass="tooltipStyle"
+                  class="material-symbols-outlined action-icon"
+                  [class.action-icon_disabled]="disableEditShipment(data?.status)"
+                  (click)="actionHandler(data, action)">
+                  edit
+                </mat-icon>
+
+                <mat-icon
+                  *ngIf="action === 'download'"
+                  [matTooltip]="getAction(action)"
+                  matTooltipPosition="above"
+                  matTooltipClass="tooltipStyle"
+                  class="material-symbols-outlined action-icon"
+                  [class.action-icon_disabled]="data.tracking_details.tracking_id === '' || data.pickup_details.pickup_status === 'cancelled' || data.pickup_details.pickup_status === 'pending-cancellation'"
+                  [matMenuTriggerFor]="menuDownload">
+                  {{ action }}
+                </mat-icon>
+
+                <mat-menu #menuDownload="matMenu">
+                  <button
+                    mat-menu-item
+                    (click)="actionHandler(data, 'tallysheet')">
+                    {{languageData.tallysheet}} (.prn)
+                  </button>
+                  <button
+                    mat-menu-item
+                    [class.action-icon_disabled]="data.type !== 'INTERNATIONAL'"
+                    (click)="actionHandler(data, 'commercialinvoice')">
+                    {{languageData.commercial_invoice}}
+                  </button>
+                </mat-menu>
+
+                <mat-icon
+                *ngIf="activeTab === 'pending' && action === 'reschedule-pick-up'"
+                (click)="actionHandler(data, 'reschedule-pick-up')"
+                [matTooltip]="getAction('reschedule-pick-up')"
+                matTooltipPosition="above"
+                matTooltipClass="tooltipStyle"
+                class="material-symbols-outlined action-icon"
+                [class.action-icon_disabled]="disableReschedulePickup(
+                  data.status,
+                  data.pickup_details?.pickup_status || '',
+                  activeTab === 'pending' && data.shipment_statuses ? data.shipment_statuses : [],
+                  data.tracking_event_reason_code
+                )">
+                history
+              </mat-icon>
+
+
+                <mat-icon
+                  *ngIf="activeTab === 'pending' && action === 'close'"
+                  (click)="actionHandler(data, 'close')"
+                  [matTooltip]="getAction('close')"
+                  matTooltipPosition="above"
+                  matTooltipClass="tooltipStyle"
+                  class="material-symbols-outlined action-icon"
+                  [class.action-icon_disabled]="disableClose(data.pickup_details.pickup_status)"
+                  >
+                  close
+                </mat-icon>
+              </span>
+            </ng-container>
+
+            <ng-container *ngIf="activeTab === 'request-pickup'">
+              <!-- <div *ngIf="data.tracking_details.tracking_id === ''; else requestPickup"> REMOVE REQUEST BUTTON -->
+              <!-- <div *ngIf="data.tracking_details.tracking_id === ''">
+                <button
+                  mat-flat-button
+                  color="primary"
+                  class="action-button"
+                  (click)="actionHandler(data, 'gen-connote-v2')">
+                  Create Consignment and Pick up
+                </button>
+              </div> -->
+              <!-- button reuqest pickup -->
+              <!-- <ng-template #requestPickup>
+                <button
+                  mat-flat-button
+                  color="warn"
+                  class="action-button"
+                  (click)="actionHandler(data, 'requestPickup')">
+                  Request Pick Up
+                </button>
+              </ng-template> -->
+            </ng-container>
+            <ng-container *ngIf="activeTab === 'add-order'">
+              <button
+                  [disabled]="data.tracking_details.tracking_id !== ''"
+                  mat-flat-button
+                  color="primary"
+                  class="action-button"
+                  (click)="actionHandler(data, 'gen-connote')">
+                  {{languageData.get_consignment_note}}
+                </button>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <tr
+          class="header"
+          mat-header-row
+          *matHeaderRowDef="columnsToDisplay"
+        ></tr>
+        <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+
+        <ng-container matColumnDef="loading">
+          <td mat-footer-cell *matFooterCellDef [attr.colspan]="columnsToDisplay.length">
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="noData">
+          <td mat-footer-cell *matFooterCellDef [attr.colspan]="columnsToDisplay.length" class="no-data">
+            <span *ngIf="!isTimeout"> {{languageData.no_data}}  </span>
+            <span *ngIf="isTimeout">{{languageData.delay_in_delivering}} <span class="refresh_link" *ngIf="isTimeout" (click)="assignShipment()">{{languageData.refresh}} </span></span>
+            </td>
+        </ng-container>
+
+        <tr class="my-shipment-footer-row" mat-footer-row *matFooterRowDef="['loading']" [class.show]="commonService.$onTableLoad | async"></tr>
+        <tr class="my-shipment-footer-row" mat-footer-row *matFooterRowDef="['noData']" [class.show]="isListingEmpty()"></tr>
+      </table>
+    </ng-container>
+  </div>
+
+
+  <pos-paginator
+    #paginator
+    [length]="total"
+    [currentPage]="currentPage"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    (onCurrentPage)="onPageEvent($event)"
+    *ngIf="dataTable.data.length > 0"
+  ></pos-paginator>
+</div>

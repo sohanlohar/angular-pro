@@ -1,0 +1,200 @@
+<div class="recipient-container">
+  <div class="title" *ngIf="!isReturnOrder">{{ isEditOrder ? languageData.edit : '' }} {{languageData.recipient_details}}</div>
+  <div class="title" *ngIf="isReturnOrder"> Pick up Address</div>
+  <form class="form-group" [class.edit-order-template]="isEditOrder || isReturnOrder" [formGroup]="recipientForm">
+    <mat-form-field class="search" appearance="outline">
+      <mat-label>{{languageData?.search_contact}}</mat-label>
+      <mat-icon matSuffix>search</mat-icon>
+      <input type="text"
+            [placeholder]="languageData.search_placeholder"
+            aria-label="Number"
+            matInput
+            formControlName="searchContacts"
+            [matAutocomplete]="auto">
+      <mat-autocomplete class="contact-autocomplete" #auto="matAutocomplete"
+      (optionSelected)="onContactOption($event)" [displayWith]="displayContact">
+        <mat-option *ngIf="isLoading" class="is-loading">{{languageData.loading}}...</mat-option>
+        <ng-container *ngIf="!isLoading">
+          <mat-option *ngIf="getSearchTerm().length >= 3 && filteredContacts?.length === 0" [value]="''">{{languageData.no_record_found}}</mat-option>
+          <mat-option class="contact-option" *ngFor="let contact of filteredContacts" [value]="contact">
+            <div class="contact-container">
+              <div class="contact-person">{{contact.contact_person}}</div>
+              <div class="contact-address">
+                <span>{{contact.address1}}</span>
+                <div>{{contact.postcode}}, {{contact.city}}</div>
+                <div>{{contact.state}}</div>
+              </div>
+              <div>{{contact.email}}</div>
+              <div>{{contact.dialing_code + contact.mobile}}</div>
+            </div>
+          </mat-option>
+        </ng-container>
+      </mat-autocomplete>
+    </mat-form-field>
+    <!-- smart input -->
+    <pos-smart-input *ngIf="!isEditOrder && !isReturnOrder" (newInput)="handleNewInput($event)" class="smart-input"></pos-smart-input>
+    <!-- field Recipient Name -->
+    <mat-form-field class="recipient-name" appearance="outline">
+      <mat-label>{{languageForm.recipient_name}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.recipient_name"
+        [control]="recipientForm.controls['recipientName']"
+        [customErrorMessages]="{
+          required: languageForm.required_receipent,
+          minlength: (languageForm.minlength +' '+ languageForm.five +' '+ languageForm.characters)
+        }">
+        <input matInput formControlName="recipientName" minlength="3" maxlength="50"/>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <!-- field Company Name -->
+    <mat-form-field class="company-name" appearance="outline">
+      <mat-label>{{languageForm.company_name}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.company_name"
+        [control]="recipientForm.controls['companyName']"
+        [customErrorMessages]="{
+          required: languageForm.required_company,
+          minlength: (languageForm.minlength +' '+ languageForm.five +' '+ languageForm.characters)
+        }">
+        <input matInput formControlName="companyName" minlength="5" maxlength="50"/>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <!-- field Telephone -->
+    <div class="tel">
+      <pos-telephone-input
+        formControlName="tel"
+        [data]="countryList$"
+        [dialing_code]="recipientDetail && recipientDetail.dialing_code ? recipientDetail.dialing_code : '+60'"
+        [setPhone]="recipientDetail ? recipientDetail.phone_no : ''"
+        [isFromSmartInput]="phonePatchFromSmartInput">
+      </pos-telephone-input>
+    </div>
+
+    <!-- field Email -->
+    <mat-form-field class="email" appearance="outline">
+      <mat-label>{{languageForm.email_address}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.email_address"
+        [control]="recipientForm.controls['email']"
+        [customErrorMessages]="{
+          required: languageForm.required_receipent_email,
+          pattern: languageForm.required_valid_email,
+          minlength: (languageForm.minlength +' '+ languageForm.five +' '+ languageForm.characters)
+        }">
+        <input matInput type="email" maxlength="100" minlength="5" formControlName="email"/>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <div class="disclaimer">{{languageData.email_note}}</div>
+
+    <!-- field Address -->
+    <mat-form-field class="address" appearance="outline">
+      <mat-label>{{languageForm.address}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.address"
+        [dropdown]="true"
+        [control]="recipientForm.controls['address']"
+        [customErrorMessages]="{
+          required: languageForm.required_receipent_address,
+          minlength: (languageForm.minlength +' '+ languageForm.ten +' '+ languageForm.characters)
+        }">
+        <input #address matInput formControlName="address" minlength="10" maxlength="200" [matAutocomplete]="auto2" (input)="onInputChange($event)" />
+        <mat-autocomplete #auto2="matAutocomplete" class="contact-autocomplete" (optionSelected)="onAddressOption($event)">
+          <ng-container >
+            <mat-option class="contact-option" *ngFor="let option of filteredOptions" [value]="option">
+              <div class="contact-container"><span class="address">{{option}}</span></div>
+            </mat-option>
+          </ng-container>
+        </mat-autocomplete>
+      </pos-form-control-wrapper>
+      <mat-hint [align]="'end'">{{ recipientForm.value.address?.length }} / 200</mat-hint>
+    </mat-form-field>
+
+    <!-- field Country -->
+    <pos-country-select
+      formControlName="country"
+      class="country"
+      [disabled]="isEditOrder || ((commonService.isCODUbat | async) === true) || isReturnOrder"
+      [data]="countryList$"
+      [setCode]="recipientDetail && recipientDetail.country ? recipientDetail.country : 'MY'">
+    </pos-country-select>
+
+    <!-- field Postcode -->
+    <mat-form-field class="postcode" appearance="outline">
+      <mat-label>{{languageForm.postcode}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.postcode"
+        [control]="recipientForm.controls['postcode']"
+        [customErrorMessages]="{
+          required: languageForm.required_receipent_postcode,
+          pattern: languageForm.required_valid_postcode,
+          minlength: (languageForm.minlength +' '+ languageForm.five +' '+ languageForm.characters),
+          postcode_not_found: languageForm.invalid_postcode
+        }">
+        <input pattern="[a-zA-Z0-9]+" matInput minlength="3" maxlength="10" formControlName="postcode" [placeholder]="languageData.postcode_require_message" *ngIf="(commonService.getCurrentIsCountryMY$ | async) === false"/>
+        <input pattern="[0-9]\d*" matInput (ngModelChange)="getValidPostcode($event)" minlength="5" maxlength="5" formControlName="postcode" *ngIf="(commonService.getCurrentIsCountryMY$ | async) === true"/>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <!-- field State -->
+    <mat-form-field class="state" appearance="outline">
+      <mat-label>{{languageForm.state}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.state"
+        [control]="recipientForm.controls['state']"
+        [customErrorMessages]="{
+          required: languageForm.required_state,
+          minlength: (languageForm.minlength +' '+ languageForm.three +' '+ languageForm.characters)
+        }">
+        <input matInput formControlName="state" minlength="3" maxlength="50"  *ngIf="(commonService.getCurrentIsCountryMY$ | async) === false"/>
+        <mat-select
+          *ngIf="(commonService.getCurrentIsCountryMY$ | async) === true"
+          formControlName="state"
+          [disabled]="isSingleState"
+          (selectionChange)="getCitiesByState($event.value)">
+          <mat-option *ngFor="let state of getState" [value]="state">
+            {{state.state_name}}
+          </mat-option>
+        </mat-select>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <!-- field City -->
+    <mat-form-field class="city" appearance="outline">
+      <mat-label>{{languageForm.city}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.city"
+        [control]="recipientForm.controls['city']"
+        [customErrorMessages]="{
+          required: languageForm.required_city,
+          minlength: (languageForm.minlength +' '+ languageForm.three +' '+ languageForm.characters)
+        }">
+        <input matInput formControlName="city" minlength="3" maxlength="50"  *ngIf="(commonService.getCurrentIsCountryMY$ | async) === false"/>
+        <mat-select formControlName="city" *ngIf="(commonService.getCurrentIsCountryMY$ | async) === true">
+          <mat-option *ngFor="let city of getCities" [value]="city">
+            {{city.city_name}}
+          </mat-option>
+        </mat-select>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <ng-container *ngIf="!isEditOrder && !isReturnOrder">
+      <div class="save-contacts">
+        <mat-checkbox color="primary" formControlName="saveAsContacts">
+          <span class="save_contact_label">{{languageData.save_contact}}</span>
+        </mat-checkbox>
+      </div>
+      <div class="button-next" *ngIf="!commonService.checkIfMobile()">
+        <button (click)="validateSenderPostCode()" [disabled]="!recipientForm.valid || commonService.getSelectedPickupID() === ''" mat-flat-button color="primary">{{languageData.next}}</button>
+      </div>
+    </ng-container>
+  </form>
+</div>
+
+
+<pos-loading-spinner *ngIf="isPopulatingStateCity"></pos-loading-spinner>
+<div class="button-next" *ngIf="commonService.checkIfMobile() && !isEditOrder && !isReturnOrder">
+  <button (click)="onClickNextButton()" style="margin-bottom: 40px; width: 97%; height: 40px;"  [disabled]="!recipientForm.valid || commonService.getSelectedPickupID() === ''"mat-flat-button  color="primary">{{languageData.next}}</button>
+</div>

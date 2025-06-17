@@ -1,0 +1,31 @@
+.size-m {
+  grid-column: span 2;
+}
+
+.size-l {
+  grid-column: span 2;
+}
+
+@media screen and (min-width: 40rem) {
+  .size-m {
+    .container {
+      flex-direction: row !important;
+    }
+  }
+
+  .size-l {
+    .container {
+      flex-direction: row !important;
+
+      .actions {
+        justify-content: space-between;
+        text-align: right;
+
+        button {
+          width: 13.625rem !important;
+          margin-left: auto;
+        }
+      }
+    }
+  }
+}

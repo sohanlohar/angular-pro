@@ -1,0 +1,27 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/ezisend/shipment/data-access/helper/my-shipment-helper/src",
+  "prefix": "pos",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/libs/ezisend/shipment/data-access/helper/my-shipment-helper"
+      ],
+      "options": {
+        "jestConfig": "libs/ezisend/shipment/data-access/helper/my-shipment-helper/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ezisend/shipment/data-access/helper/my-shipment-helper/**/*.ts",
+          "libs/ezisend/shipment/data-access/helper/my-shipment-helper/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,476 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+.maintitle .second-row{
+    font-family: Poppins;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0px;
+  text-align: center;
+  color: rgba(3, 77, 145, 1);
+  }
+
+::ng-deep{
+  .dialog-container-custom .mat-dialog-container{
+    padding: 0px !important;
+    position: relative; 
+    // overflow: hidden;
+  }
+}
+  .acccountAccessContainer{
+    text-align: right;
+
+    span {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      mat-icon.close {
+        width: 106%;
+        cursor: pointer;
+        height: 2.7em;
+        
+      }
+    }
+  }
+  .headerContatiner{
+    display: flex;
+     padding-bottom: 14px;
+     padding-left: 50px;
+     margin-top: 10px;
+  }
+  .AccountText{
+    margin-left: 4%;
+  }
+  .tableContatiner{
+    width: 100%;
+  }
+  .action-icon {
+    background-color: #d6eaff;
+    border-radius: 50%;
+    color: #00498d;
+    padding: 5px;
+    margin-right: 7px;
+    font-size: 22px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  .action-icon_disabled {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    th, td {
+      padding-left: 30px;
+      font-family: Poppins;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 21.7px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    td.mat-cell[_ngcontent-psm-c208]
+    
+    th {
+      background-color: rgba(244, 244, 244, 1);
+    }
+    td.mat-cell:last-of-type{
+      width: 43% !important;
+    }
+::ng-deep{
+  .mat-typography p {
+    margin: auto !important;
+    font-family: Poppins;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+    letter-spacing: 0.4000000059604645px;
+    text-align: center;
+   }
+}
+    th.mat-header-cell{
+      // padding-left: 50px;
+      // text-align: center;
+      font-family: Poppins;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    td.mat-cell:nth-of-type(2) {
+      white-space: nowrap;       /* Prevent text from wrapping */
+      overflow: hidden;          /* Hide overflow content */
+      text-overflow: ellipsis;   /* Add ellipsis when content overflows */
+      max-width: 20ch;           /* Limit the width to approximately 20 characters */
+    }
+
+    td.mat-cell:last-of-type {
+      text-align: center;  
+    }
+    .mat-header-row {
+      position:static;
+      background-color: #e0e0e0;
+    }
+    
+    .mat-cell, .mat-header-cell {
+      word-wrap: break-word;
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  .mat-slide-toggle.mat-checked .mat-slide-toggle-bar{
+      background-color: green !important; 
+  }
+  .resendText{
+    font-family: Poppins;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: 0.4000000059604645px;
+    text-align: center;
+    color: rgba(0, 73, 141, 1);
+  }
+  .accountsText{
+    font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 28.64px;
+  text-align: center;
+  color: rgba(0, 73, 141, 1);
+  }
+  .dialogContainer {
+    .mat-dialog-title {
+      font-size: 16px;
+      margin: 0;
+      span {
+        position: absolute;
+        top: -12px;
+        right: -12px;
+        mat-icon.close {
+          width: 100%;
+          cursor: pointer;
+          height: 3.5em;
+        }
+      }
+    }
+    
+    .mat-dialog-container {
+      width: 10rem;
+      padding: 3rem 2rem;
+      .title {
+        text-align: center;
+        font-weight: 400;
+        margin: 0.5rem 0rem;
+      }
+    }
+    
+    .mat-dialog-content {
+      &_logo,
+      &_description {
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+      &_description {
+        color: #000000;
+        font-size:  v.$font_size_s;
+        padding-top: 0.2rem;
+      }
+      &_title {
+        font-size: v.$font_size_l;
+      }
+  
+      &_information {
+        color: v.$teritary_color;
+        line-height: 25px;
+        text-align: center;
+      }
+  
+      &_logo mat-icon {
+        width: 100%;
+        font-size: 40px;
+        height: 3em;
+      }
+      .cdk-overlay-pane {
+        width: 400px !important;
+        height: 400px;
+      }
+    }
+    
+    .mat-dialog-actions {
+      display: block;
+      &_confirm {
+        margin-top: 22px;
+        text-align: center;
+        button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+      &_confirm button {
+        background: #00498d;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 0.5em;
+        font-size: 14px;
+        width: 140.25px;
+        cursor: pointer;
+        justify-content: center;
+      }
+      button {
+        height: 2.5rem;
+        margin: auto;
+        text-align: center;
+        display: flex;
+        align-items: center;
+      }
+  
+      .stretch {
+        margin-top: 8px;
+  
+        >button {
+          width: 80%;
+        }
+      }
+    }
+  } 
+
+.companyName {
+  padding-left: 10px !important;
+}
+.defaultAccount{
+  color: #00498D;
+}
+.activeUser {
+  color: #00498D;
+  background-color: #E5F8EE;
+  width: 40%;
+  text-align: center;
+  border-radius: 50px;
+  margin-top: -14px;
+  height: 40px;
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  padding: 0px 5px;
+}
+
+.activeUser img {
+  margin-right: 10px;
+}
+.isVisible {
+  visibility: hidden;
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;  /* Allow buttons to wrap if necessary */
+  justify-content: center; 
+
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start; /* Align buttons to the left */
+  flex-wrap: nowrap;  /* Ensure buttons stay on the same line */
+  align-items: center; /* Vertically center buttons */
+}
+.button-container button, .button-container span {
+  flex: none;
+  white-space: nowrap;
+  border: 1.5px solid #00498d;
+  border-radius: 5px;
+  padding: 0px 30px;
+  font-weight: 400 !important;
+  
+  flex: 1 1 auto; /* Grow and shrink based on available space */
+  min-width: 120px; /* Minimum width for the buttons */
+  // padding: 6px 16px; /* Adjust padding to control button height (uniform vertical padding) */
+  font-size: 14px;
+  white-space: nowrap; /* Prevent text from wrapping */
+  line-height: 36px; /* Set line-height to ensure the text is vertically centered */
+  height: auto; /* Let the height adjust based on padding */
+}
+.button-container span {
+  color: #00498d;
+  cursor: default;
+  border: none; 
+  padding: 0px 17.5px 0px 17.5px;
+}
+.button-container.selectedLanguage button:nth-child(2) {
+  padding: 0px 20px;
+}
+.button-container.selectedLanguage span {
+  padding: 0px 35px;
+
+}
+
+.mat-button-disabled{
+  background-color: #E2ECF5 !important;
+  border: 1.5px solid #E2ECF5 !important;
+  color: #FFF !important;
+}
+
+  ::ng-deep{
+    thead{
+      position: sticky !important;
+      top: 0px !important;
+      z-index: 1;
+    }
+    .alignCenter{
+      text-align: center !important;
+    }
+  }
+  .wrapper {
+    // overflow: auto; /* Enable overflow for the table */
+    max-height: 400px; /* Set a maximum height for the table container */
+    table th {
+      width: 30% !important;
+    }
+    table th:nth-child(1) {
+      width: 0% !important;
+    }
+    table th:nth-child(2) {
+      width: 35% !important;
+    }
+    table th:nth-child(3) {
+      width: 30% !important;
+    }
+    table th, table td{
+      text-align: center !important;
+    }
+  }
+  .wrapperaccount{
+    // overflow: auto; /* Enable overflow for the table */
+    max-height: 81%;
+  }
+  /* Optional: Adjust the scrollbar appearance */
+  .wrapper::-webkit-scrollbar {
+    width: 8px;
+  }
+  .wrapperaccount::-webkit-scrollbar {
+    width: 8px;
+  }
+  .wrapperaccount::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+  .wrapper::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+  }
+  .wrapperaccount::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  .wrapper::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  .table-wrapper {
+    height: 305px; 
+    overflow-y: hidden;
+    /* Hide scrollbar for Webkit browsers like Chrome, Safari */
+    // -ms-overflow-style: none;  /* For Internet Explorer */
+    // scrollbar-width: none;     /* For Firefox */
+  }
+  .table-wrapper:hover {
+    overflow-y: scroll;  /* Hide scrollbar in Webkit browsers (Chrome, Safari) */
+  }
+  
+  .table-wrapper td, .table-wrapper th {
+    white-space: nowrap;  /* Prevent text from wrapping */
+  }
+  .thead th{
+    width: 100px !important;
+    background-color: #F4F4F4 !important;
+  }
+  .tbody td{
+    width: 100px !important;
+    background-color: #FFF !important;
+  }
+  table td:nth-child(2) {
+    white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    // max-width: 81px;
+  }
+
+  /* For mobile devices, adjust max-width of the second td */
+  @media (max-width: 768px) {
+    td.mat-cell:nth-of-type(2) {
+      max-width: 15ch;  /* Adjust width for smaller screens */
+    }
+    td.mat-cell, th.mat-header-cell {
+      padding-left: 10px; /* Ensure padding-left on mobile */
+      padding-right: 10px; /* Ensure padding-right on mobile */
+    }
+    .button-container button {
+      flex: 1 1 45%;  /* Allow buttons to take up 45% of the width */
+      font-size: 14px;   /* Adjust font size as needed */
+      line-height: 36px; /* Maintain consistent line height */
+    }
+      
+    .button-container.selectedLanguage span {
+      padding: 0px 50px;
+    }
+  }
+
+  
+  @media (min-width: 320px) and (max-width: 768px) {
+    .activeUser {
+      width: 85%;
+    }
+  }
+
+  // @media (max-width: 768px) {
+  //   .table-wrapper {
+  //     max-height: 305px; 
+  //     overflow: auto; 
+  //   } 
+  //   td.mat-cell:last-of-type{
+  //     padding-right: 160px;
+  //   }  
+
+  // }
+  @media (min-width: 1145px) and (max-width: 1804px) {
+    // table th, table td{
+    //   padding-left: 10px;
+    //   padding-right: 10px;
+    // }
+    // table th:nth-child(3){
+    //   padding-left: 45px !important;
+    // }
+    // .tableContainer td:nth-child(4){
+    //   padding-left: 40px !important;
+    // }
+  }
+  @media (min-width: 768px) and (max-width: 1132px) {
+    // table th:nth-child(3){
+    //   padding-left: 40px !important;
+    // }
+  }
+
+  
+.download-button {
+  position: relative; /* Enable positioning for child elements */
+  display: inline-flex; /* Allow inline display with flexbox */
+  align-items: center; /* Center content vertically */
+}
+
+.login-loading-spinner {
+  position: absolute; /* Position the spinner absolutely */
+  top: 50%; /* Center spinner vertically */
+  left: 50%; /* Center spinner horizontally */
+  transform: translate(-50%, -50%); /* Adjust positioning for centering */
+  z-index: 2; /* Ensure spinner is displayed above button text */
+}
+
+.login-loading-spinner {
+  ::ng-deep circle {
+    stroke: white;
+  }
+}

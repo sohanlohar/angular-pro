@@ -1,0 +1,26 @@
+<div [formGroup]="form">
+  <mat-form-field appearance="outline">
+    <mat-label>{{isLabel ? isLabel : languageData.country}}</mat-label>
+
+    <mat-select formControlName="name" matInput #singleSelect (selectionChange)="getSelectedCountry($event)" [disabled]="disabled">
+      <mat-option>
+        <ngx-mat-select-search 
+          [placeholderLabel]="languageData.search"
+          [noEntriesFoundLabel]="languageData.no_result"
+          [clearSearchInput]="false" 
+          [enableClearOnEscapePressed]="true"
+          [alwaysRestoreSelectedOptionsMulti]="true"
+          [formControl]="dialFilterCtrl">
+        </ngx-mat-select-search>
+      </mat-option>
+      <mat-option *ngFor="let val of filteredCountries | async" [value]="val">
+        <img class="flag" aria-hidden [src]="loadFlagImage(val.code)" height="25">
+        
+        <span>{{val.country}}</span>
+        <small *ngIf="singleSelect.panelOpen">  |  {{val.code}}</small>
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="nameControl.touched && nameControl.hasError('required')">{{languageData.required_country}}</mat-error>
+  </mat-form-field>
+</div>
+  

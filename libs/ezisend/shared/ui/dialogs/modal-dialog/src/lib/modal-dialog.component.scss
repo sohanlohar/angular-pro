@@ -1,0 +1,213 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+pos-modal-dialog {
+  text-align: center;
+
+  .dialog_header {
+    margin: 0;
+    span {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      mat-icon.close {
+        width: 100%;
+        cursor: pointer;
+        height: 3em;
+      }
+    }
+  }
+  .steps_container {
+    margin: 3rem 0 3rem 0;
+    position: relative;
+
+    .close_btn {
+      position: absolute;
+      right: -1.2rem;
+      bottom: 4.5rem;
+    }
+    .cdk-overlay-pane {
+      width: 500px;
+    }
+
+    .modal-top-section {
+      position: relative;
+
+      .progress-icon-wrapper {
+        position: relative;
+        z-index: 1;
+      }
+
+      .dashed-line {
+        position: absolute;
+        border-top-width: 3px;
+        border-top-style: dashed;
+        width: 158px;
+
+        &.green {
+          border-color: #28c76f;
+          top: 14px;
+          left: 58px;
+        }
+
+        &.blue {
+          border-color: v.$primary_color;
+          top: 14px;
+          right: 20% !important;
+        }
+      }
+
+      .progress-icon {
+        align-items: center;
+        border-radius: 50%;
+        display: flex;
+        height: 30px;
+        justify-content: center;
+        width: 30px;
+
+        &.done-icon {
+          font-size: 20px;
+          background-color: #28c76f;
+          color: #ffffff;
+        }
+
+        &.number-icon {
+          background-color: v.$primary_color;
+          color: #ffffff;
+          font-weight: v.$font-weight-medium;
+        }
+      }
+
+      .progress-label {
+        align-items: center;
+        border-radius: 12px;
+        color: v.$primary_color;
+        display: flex;
+        font-size: 10px;
+        height: 24px;
+        justify-content: center;
+        width: 134px;
+
+        &.green {
+          background: #e5f8ee;
+        }
+
+        &.blue {
+          background: #d6eaff;
+        }
+      }
+    }
+
+    .dialog_close_btn button {
+      background-color: #fff;
+      color: #000;
+    }
+  }
+
+  .dialog_title {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .dialog_desc {
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+    .highlight {
+      color: #00498d;
+    }
+  }
+
+  .dialog_footer {
+    font-size: 0.8rem;
+    top: 3.5rem;
+    position: relative;
+
+    a {
+      color: #00498d;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
+
+.icons {
+  display: inline-block;
+  transform: scale(2.5);
+  color: #00498d;
+  width: 2rem;
+  margin-right: 4rem;
+  margin-left: 3rem;
+
+  label {
+    font-size: 0.3rem;
+    position: absolute;
+    bottom: 1.8rem;
+    width: 3rem;
+    line-height: 0.3rem;
+    text-align: center;
+    display: inline-block;
+    left: -0.5rem;
+  }
+
+  &::before {
+    font-family: 'Material Icons';
+    content: 'east';
+    position: absolute;
+    left: 2rem;
+    top: 3px;
+  }
+
+  &:first-child {
+    &::after {
+      font-family: 'Material Icons';
+      content: 'check_circle';
+      position: absolute;
+      left: 0.9rem;
+      color: #28c76f;
+      top: 0.85rem;
+    }
+  }
+
+  &:nth-last-child(2) {
+    &::before {
+      display: none;
+    }
+  }
+}
+
+.mat-form-field.ng-dirty.ng-invalid .mat-form-field-underline {
+  background-color: #fff !important;
+}
+@media screen and (max-width: 750px) {
+  .progress-label {
+    width: 125px;
+  }
+  .progress-icon-wrapper {
+    display: initial;
+  }
+}
+@media screen and (max-width: 435px) {
+  .steps_container .modal-top-section .progress-label.blue {
+    width: 70px !important;
+    margin-left: 8px;
+    margin-right: 0;
+  }
+  .steps_container .modal-top-section .progress-label {
+    width: 70px !important;
+    line-height: 10px;
+    padding: 5px;
+    font-size: 8px !important;
+  }
+}
+@media screen and (max-width: 365px) {
+  pos-modal-dialog .dialog_footer.dialog_footer {
+    top: 2.5rem !important;
+  }
+}
+
+@media screen and (max-width: 435px) {
+  .modal-top-section .dashed-line {
+    &.blue {
+      right: 23% !important;
+    }
+  }
+}

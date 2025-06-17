@@ -1,0 +1,16 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+$title-color: #034D91;
+
+.main-title {
+    font-size: v.$font_size_l;
+    font-weight: v.$font-weight-semibold;
+    text-transform: uppercase;
+    color: $title-color;
+  }
+.bulk-contact-container{
+    background-color: white;
+    padding: 1px;
+    margin-top: 10px;
+    border-radius: 5px;
+}

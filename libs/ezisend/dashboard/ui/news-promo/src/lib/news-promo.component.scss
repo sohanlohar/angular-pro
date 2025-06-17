@@ -1,0 +1,44 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+.wrapper {
+  margin-top: 2.06rem;
+
+  &__title {
+    color: #034d91;
+    font-weight: v.$font-weight-semibold;
+    font-size: v.$font_size_l;
+    line-height: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  &__newspromo {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+
+
+    .newspromo-item {
+      flex-basis: calc(50% - 10px);
+      box-sizing: border-box;
+
+      img {
+        width: 100%;
+        object-fit: cover;
+        cursor: pointer;
+      }
+    }
+
+    @media (max-width: 567px) {
+      .newspromo-item {
+        flex-basis: 100%;
+      }
+    }
+  }
+}
+
+.spinner {
+  transform: scale(0.6);
+  margin: 0 auto;
+}

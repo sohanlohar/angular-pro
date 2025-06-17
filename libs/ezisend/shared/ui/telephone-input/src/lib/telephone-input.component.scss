@@ -1,0 +1,46 @@
+::ng-deep {
+  .mat-select-search-inner {
+    margin-top: 34px !important;
+    width: 100%;
+  }
+}
+
+.phone-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.flag {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.flagIcon {
+  position: absolute;
+  margin: -27px -30px;
+  width: 30px;
+}
+
+.tel {
+  width: 7em;
+  float: left;
+}
+
+.phone {
+  margin-left: 3%;
+  width: auto;
+  float: left;
+  flex: 1;
+}
+
+@media screen and (max-width: 444px) {
+  .phone-wrapper {
+    flex-direction: column !important;
+  }
+  .tel {
+    width: auto;
+  }
+  .phone {
+    margin-left: initial;
+  }
+}

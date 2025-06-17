@@ -1,0 +1,83 @@
+
+  <div [formGroup]="form" class="phone-wrapper">
+    <!-- field Dialing Code -->
+    <mat-form-field class="tel" appearance="outline">
+      <mat-label>{{languageData.code}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="'Code'"
+        [control]="form.controls['dialCode']"
+        [customErrorMessages]="{
+          required: languageData.required_code
+        }">
+        <mat-select formControlName="dialCode" matInput #singleSelect>
+          <mat-option>
+            <ngx-mat-select-search 
+              [placeholderLabel]="languageData.search"
+              [noEntriesFoundLabel]="languageData.no_result"
+              [clearSearchInput]="false" 
+              [enableClearOnEscapePressed]="true"
+              [alwaysRestoreSelectedOptionsMulti]="true"
+              [formControl]="dialFilterCtrl">
+            </ngx-mat-select-search>
+          </mat-option>
+          <mat-option *ngFor="let val of filteredCountries | async" [value]="val">
+            <img class="flag" aria-hidden [src]="loadFlagImage(val.code)" height="25">
+            
+            <span *ngIf="singleSelect.panelOpen">{{val.country}} | </span>
+            <small>{{val.calling_code}}</small>
+          </mat-option>
+        </mat-select>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <!-- <mat-form-field appearance="outline" class="tel">
+      <mat-label>Code</mat-label>
+      <mat-select 
+        formControlName="dialCode" matInput #singleSelect>
+        <mat-option>
+          <ngx-mat-select-search 
+            placeholderLabel="Search"
+            noEntriesFoundLabel="No result"
+            [clearSearchInput]="false" 
+            [enableClearOnEscapePressed]="true"
+            [alwaysRestoreSelectedOptionsMulti]="true"
+            [formControl]="dialFilterCtrl">
+          </ngx-mat-select-search>
+        </mat-option>
+        <mat-option *ngFor="let val of filteredCountries | async" [value]="val">
+          <img class="flag" aria-hidden [src]="loadFlagImage(val.code)" height="25">
+          
+          <span *ngIf="singleSelect.panelOpen">{{val.country}} | </span>
+          <small>{{val.calling_code}}</small>
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="dialCodeControl.touched && dialCodeControl.hasError('required')">Dial Code is required</mat-error>
+    </mat-form-field> -->
+
+    <!-- field Phone -->
+    <mat-form-field class="phone" appearance="outline">
+      <mat-label>{{languageData.phone}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="'Phone'"
+        [control]="form.controls['phone']"
+        [customErrorMessages]="{
+          required: languageData.required_phone,
+          pattern: languageData.required_valid_phone,
+          minlength: (languageData.minlength +' '+ languageData.eight +' '+ languageData.characters)
+        }">
+        <input matInput formControlName="phone" minlength="8" maxlength="15"/>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <!-- <mat-form-field class="phone" appearance="outline">
+      <mat-label>Phone</mat-label>
+      <input matInput formControlName="phone" minlength="8" maxlength="12"/>
+      <mat-error *ngIf="phoneControl.touched && phoneControl.hasError('required')">Phone No. is required</mat-error>
+      <mat-error *ngIf="errorHandler('phone', 'pattern')">
+        Enter valid phone
+      </mat-error>
+      <mat-error *ngIf="!errorHandler('phone', 'pattern') && errorHandler('phone', 'minlength')">
+        Minimum of 8 characters
+      </mat-error>
+    </mat-form-field> -->
+  </div>

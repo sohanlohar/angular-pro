@@ -1,0 +1,276 @@
+@use "./styles/index.scss" as pos;
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+@import "~@angular/material/theming";
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+
+$ezisend-primary: mat.define-palette(pos.$blue-pos-palette, 900);
+$ezisend-accent: mat.define-palette(pos.$red-pos-palette, 400);
+
+// The warn palette is optional (defaults to red).
+$ezisend-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$ezisend-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $ezisend-primary,
+      accent: $ezisend-accent,
+      warn: $ezisend-warn
+    )
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($ezisend-theme);
+
+// Define a custom typography config for header
+$header-typography-config: mat-typography-config(
+  $font-family: "Poppins"
+);
+
+// Define a custom typography config for all
+$main-typography-config: mat-typography-config(
+  $font-family: "Poppins",
+  $headline: mat-typography-level(24px, 32px, 400, "Poppins")
+);
+
+// Override typography using $main-typography-config for all angular material components
+@include angular-material-typography($main-typography-config);
+
+// Override typography using $header-typography-config for mat-toolbar
+@include mat-toolbar-typography($header-typography-config);
+
+/* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100vh;
+  background: #edf0f9;
+}
+body {
+  margin: 0;
+  font-family: "Poppins", "Helvetica Neue", sans-serif;
+}
+
+.dialog-container-custom .mat-dialog-container {
+  position: relative;
+  overflow: inherit;
+  padding: 0px 24px !important;
+}
+@media screen and (max-width: 435px) {
+  .dialog-container-custom .mat-dialog-container {
+    max-width: 95vw;
+    margin: auto;
+    padding: inherit;
+  }
+
+  .dialog-container-custom .mat-dialog-container .cdk-dialog-container {
+    width: 70%;
+    margin: auto;
+    padding: inherit;
+  }
+}
+.px-3 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.highlight {
+  font-weight: normal;
+  color: #f86262;
+}
+
+.highlight-text {
+  font-weight: 500;
+  color: #f86262;
+}
+
+.cdk-overlay-connected-position-bounding-box .mat-menu-panel .mat-menu-content .action-icon_disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/** ERROR MESSAGES AND BORDER STYLING */
+/* Sets the underline to red if dirty and invalid */
+.mat-form-field.ng-dirty.ng-invalid .mat-form-field-underline {
+  background-color: #f86262;
+}
+/* Sets the label to red if dirty and invalid */
+.mat-form-field.ng-dirty.ng-invalid .mat-form-field-label {
+  color: #f86262;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+  color: #f86262;
+}
+
+.mat-error {
+  color: #f86262;
+  top: 50px;
+}
+
+.mat-form-field.mat-warn .mat-input-element,
+.mat-form-field-invalid .mat-input-element {
+  caret-color: #f86262;
+  color: #f86262;
+}
+
+.mat-form-field.mat-form-field-invalid .mat-form-field-label {
+  caret-color: #f86262;
+  color: #f86262;
+}
+
+.mat-form-field.mat-form-field-invalid .mat-form-field-label.mat-accent,
+.mat-form-field.mat-form-field-invalid .mat-form-field-label .mat-form-field-required-marker {
+  color: #f86262;
+}
+
+.mat-form-field .mat-select.mat-select-invalid .mat-select-arrow {
+  color: #f86262;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-start,
+.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-end,
+.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap {
+  border-width: 1px !important;
+}
+
+textarea,
+textarea.mat-input-element {
+  resize: none !important;
+}
+
+.mat-form-field {
+  line-height: 1.2;
+}
+
+.tooltipStyle {
+  background-color: #ffeba5;
+  color: #00498d !important;
+  text-transform: capitalize !important;
+}
+
+.mat-form-field-appearance-outline:hover .mat-form-field-outline {
+  color: #034d91;
+}
+
+// mat-form-field global disable style
+.mat-form-field-disabled .mat-form-field-flex {
+  pointer-events: none;
+}
+.mat-form-field-disabled .mat-form-field-outline-start,
+.mat-form-field-disabled .mat-form-field-outline-gap,
+.mat-form-field-disabled .mat-form-field-outline-end {
+  background-color: #f8f8f8;
+}
+.mat-form-field-disabled .mat-form-field-infix input,
+.mat-form-field-disabled .mat-form-field-infix textarea,
+.mat-form-field-disabled .mat-form-field-infix .pos-form-control-wrapper input,
+.mat-form-field-disabled .mat-form-field-infix .pos-form-control-wrapper textarea,
+.mat-form-field-disabled .mat-form-field-infix mat-select .mat-select-value {
+  color: #a6a6a6;
+}
+
+@media screen and (max-width: 375px) {
+  .mat-datepicker-popup .mat-datepicker-content .mat-datepicker-content-container .mat-calendar {
+    width: 220px;
+    height: 300px;
+  }
+}
+@media screen and (max-width: 780px) {
+  .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0.25em 0em !important;
+  }
+  .mat-datepicker-content .mat-calendar {
+    width: 250px !important;
+    height: 300px !important;
+  }
+}
+@media screen and (max-width: 435px) {
+  .mat-datepicker-content .mat-calendar {
+    width: 360px !important;
+    height: 430px !important;
+  }
+  .search-input .mat-form-field-infix {
+    height: 27px !important;
+  }
+  .mat-form-field-type-mat-date-range-input .mat-form-field-infix {
+    height: 21px !important;
+  }
+  .mat-tab-body-content {
+    background: #fff;
+    overflow: hidden !important;
+  }
+  .mat-paginator-container {
+    margin-bottom: 20px !important;
+  }
+}
+@media screen and (max-width: 390px) {
+  .mat-datepicker-content .mat-calendar {
+    width: 322px !important;
+    height: 380px !important;
+  }
+}
+@media screen and (max-width: 360px) {
+  .my-shipment-wrapper .action-field .mat-form-field {
+    width: 100%;
+  }
+  .mat-datepicker-content .mat-calendar {
+    width: 300px !important;
+    height: 360px !important;
+  }
+}
+@media screen and (max-width: 780px) {
+  .bb-feedback-button {
+    bottom: 83px !important;
+  }
+  .mat-tab-body-content {
+    background: #fff;
+  }
+}
+@media screen and (max-width: 912px) and (min-width: 781px) {
+  .mat-datepicker-content .mat-calendar {
+    width: 248px !important;
+    height: 330px !important;
+  }
+}
+@media screen and (max-width: 575px) {
+  .bb-feedback-button {
+    bottom: 96px !important;
+    .bb-feedback-button-icon {
+      width: 35px;
+      height: 35px;
+      .bb-logo-logo {
+        width: 20px;
+        height: 20px;
+        top: 7px;
+        left: 8px;
+      }
+    }
+  }
+}
+
+/* Hide scrollbars globally but allow scrolling */
+html {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+}
+
+button:hover {
+  transform: scale(0.96);
+}

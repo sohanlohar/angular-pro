@@ -1,0 +1,14 @@
+<pos-page-layout [breadcrumbItems]="breadcrumbItems">
+    <div class="main-title">My Store</div>
+    <pos-my-shipment-table
+    #shipmentTable
+    [myStore$]="myStore$"
+    [columnsToDisplay]="columns"
+    [iconActions]="actions"
+    (totalShipmentRecords)="totalStoresRecord = $event"
+    (pageEvent)="onPageEvent($event)"
+    (pluginId)="changeStatus($event)"
+    (actionIconEvent)="onActionIconEvent($event)"
+  >
+  </pos-my-shipment-table>
+</pos-page-layout>

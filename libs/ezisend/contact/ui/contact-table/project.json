@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/ezisend/contact/ui/contact-table/src",
+  "prefix": "pos",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ezisend/contact/ui/contact-table"],
+      "options": {
+        "jestConfig": "libs/ezisend/contact/ui/contact-table/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ezisend/contact/ui/contact-table/src/**/*.ts",
+          "libs/ezisend/contact/ui/contact-table/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

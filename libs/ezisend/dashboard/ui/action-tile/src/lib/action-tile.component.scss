@@ -1,0 +1,57 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+.maintitle{
+  font-size: v.$font_size_l;
+  font-weight: v.$font-weight-semibold;
+  line-height: 1.5rem;
+  color: #034D91;
+  margin-bottom:0.75rem;
+}
+.container {
+  height: 9rem;
+  min-height: 4rem;
+  border-radius: 10px;
+  background-color: #fff;
+  gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+  box-shadow: 1px 1px 12px rgba(98, 85, 85, 0.25);
+  border-radius: 10px;
+  .content {
+    width: 100rem;
+    display: flex;
+    align-items: center;
+    .title {
+      // font-size: 1.2rem;
+      color: v.$teritary_color;
+      font-family: Poppins;
+      line-height: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      font-size: 17px;
+    }
+    .copy {
+      font-size: 1rem;
+      color: v.$teritary_color;
+      font-family: Poppins;
+      line-height: 1.5rem;
+      font-weight: 400;
+    }
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 1rem;
+    width: 100%;
+    align-self: center;
+
+    button {
+      width: 100%;
+      height: 2.375rem;
+    }
+  }
+}

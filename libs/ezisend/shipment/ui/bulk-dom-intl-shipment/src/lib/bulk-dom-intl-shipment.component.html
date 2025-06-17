@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="info_box">
+    <div class="title">{{data.steps_to_create}} 
+      <span *ngIf="languageSelected != 'MY'">
+        {{data.bulk}} {{BU_type === 'bulk-contact' ? data.contact_upload : data.shipment1 }}
+      </span>
+      <span *ngIf="languageSelected === 'MY'"> 
+        {{BU_type === 'bulk-contact' ? data.contact_upload : data.shipment1 }} {{data.bulk}} 
+      </span>
+    </div>
+    <ol class="text-container">
+      <li>
+        <span *ngIf="languageSelected != 'MY'"> 
+          {{data.download_the}} {{ title }} {{ BU_type !== 'bulk-contact' ? data.bulk + ' ' + data.shipment + ' ' + data.template : '' }} {{data.below}}:
+        </span>
+        <span *ngIf="languageSelected === 'MY'">
+          {{data.download_the}} {{data.template}} {{ BU_type !== 'bulk-contact' ? data.shipment + ' ' + data.bulk + ' ' : '' }} {{ title }} {{data.below}}:
+        </span>
+        <div class="btn_container">
+          <a [href]="downloadTemplate(BU_type)" mat-button mat-raised-button color="primary">
+            <mat-icon>download</mat-icon>  
+            <ng-container  *ngIf="languageSelected != 'MY'">{{ title }} {{BU_type !== 'bulk-contact' ? data.shipment : ''}}</ng-container >
+            <ng-container  *ngIf="languageSelected === 'MY'">{{BU_type !== 'bulk-contact' ? data.shipment : ''}} {{ title }} </ng-container >
+          </a>
+          <span>
+            {{ description }}
+          </span>
+        </div>
+      </li>
+      <li *ngIf="title === data.international">{{data.hs_code_list}} <span class="link"><a [href]="downloadHScode()">{{data.here}}.</a></span></li>
+      <li>
+        {{BU_type !== 'bulk-contact' ? data.upload_bulk_file : data.add_contacts}}<br />
+        {{BU_type === 'bulk-contact' ? data.add_contacts_important_note : ''}}<br *ngIf="BU_type === 'bulk-contact'"/>
+        {{BU_type === 'bulk-contact' ? data.add_contacts_own_format : ''}}<br *ngIf="BU_type === 'bulk-contact'"/>
+      </li>
+      <li>{{BU_type !== 'bulk-contact' ? data.should_there_be_errors : data.upload_bulk_file}}</li>
+      <li>{{BU_type !== 'bulk-contact' ? data.edit_and_reupload : data.click_submit}}</li>
+    </ol>
+  </div>
+  
+  <div class="upload_box">
+    <pos-excel-reader [BU_type]="BU_type"></pos-excel-reader>
+  </div>
+</div>
+
+<div class="important-notes">
+  <span class="highlight">{{data.successful_upload}}</span>
+  <ol class="notes">
+    <li>{{data.please_use}} <span class="bold">{{data.latest_template}}</span> {{data.provided_above}}</li>
+    <li>{{data.alter_template}}</li>
+    <li>{{data.file_error}}</li>
+    <li>{{data.error_details}}</li>
+    <li *ngIf="BU_type === 'bulk-contact'">{{data.contact_upload_note}}</li>
+  </ol>
+</div>

@@ -1,0 +1,37 @@
+<mat-form-field class="example-form-field w-100" appearance="standard" >
+  <input
+    matInput
+    readonly
+    type="text"
+    ngxDaterangepickerMd
+    #pickerDirective
+    [(ngModel)]="selected"
+    [showCustomRangeLabel]="true"
+    [alwaysShowCalendars]="alwaysShowCalendars"
+    [ranges]="ranges"
+    [showClearButton]="false"
+    [showCancel]="true"
+    [linkedCalendars]="true"
+    [isTooltipDate]="isTooltipDate"
+    [isInvalidDate]="isInvalidDate"
+    [showDropdowns]="true"
+    [locale]="{ applyLabel: 'Apply', format: 'DD MMM YY' }"
+    (rangeClicked)="rangeClicked($event)"
+    (datesUpdated)="datesUpdated($event)"
+    (pickerOpened)="onPickerOpened()"
+    [keepCalendarOpeningWithRange]="keepCalendarOpeningWithRange"
+    [showRangeLabelOnInput]="showRangeLabelOnInput"
+    [isInvalidDate]="isInvalidDate || defaultInvalidDate"
+  />
+  <button
+  *ngIf="selected && selected.startDate && selected.endDate"
+    matSuffix
+    mat-icon-button
+    (click)="form.reset(); onClearDate()"
+    class="custom-icon-button-2 custom-icon-button"
+  >
+
+  </button>
+  <button matSuffix class="ngx-daterangepicker-action custom-icon-button" (click)="openDate()">
+  </button>
+</mat-form-field>

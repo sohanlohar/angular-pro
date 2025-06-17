@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/ezisend/shell/ui/nav-footer/src",
+  "prefix": "pos",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ezisend/shell/ui/nav-footer"],
+      "options": {
+        "jestConfig": "libs/ezisend/shell/ui/nav-footer/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ezisend/shell/ui/nav-footer/**/*.ts",
+          "libs/ezisend/shell/ui/nav-footer/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

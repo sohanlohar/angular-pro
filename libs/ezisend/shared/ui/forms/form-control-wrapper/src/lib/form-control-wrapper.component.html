@@ -1,0 +1,11 @@
+<div class="pos-form-control-wrapper">
+  <ng-content></ng-content>
+  <ng-container *ngIf="control && control.invalid && 
+    (control.dirty || control.touched)">
+    <mat-error
+      [ngClass]="isAddress ? 'with_txtarea' : isAddressDrop ? 'txtarea' : 'non_txtarea'"
+      *ngFor="let message of (controlErrors | errorMessageBuilder:name:customErrorMessages) | keyvalue">
+      {{ message.value }}
+    </mat-error>
+  </ng-container>
+</div>

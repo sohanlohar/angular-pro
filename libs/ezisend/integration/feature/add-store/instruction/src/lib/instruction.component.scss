@@ -1,0 +1,139 @@
+.container {
+    background-color: white;
+    padding: 45px 45px;
+    border-radius: 5px;
+    width: 70%;
+    margin: auto;
+
+    .bold{
+        font-weight: 800;
+    }
+    .blue{
+        color: #00498D;
+    }
+    .mt-1{
+        margin: 25px 0px;
+    }
+
+    .left-Container{
+        flex-basis: 35%;
+        margin: 0px 40px;
+        display: flex;
+        flex-direction: column;
+        row-gap: 30px;
+        align-items: center;
+
+        .image{
+            display: flex;
+            justify-content: center;
+            border: 1px solid #d1cdcd;
+            border-radius: 5px;
+            padding: 85px 55px;
+            width: 100%;
+            margin-bottom: 20px;
+            img{
+                width: 220px;
+            }
+        }
+        button{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 5px;
+            padding: 7px 20px;
+            color: white;
+            background-color: #034D91;
+            width: 50%;
+            font-family: 'Poppins', Helvetica, sans-serif;
+            cursor: pointer;
+
+            span{
+                margin-right: 10px;
+                display: flex;
+            }
+            a{
+                text-decoration: none;
+                color: white;
+            }
+        }
+    }
+
+    .right-Container{
+        margin-right: 20px;
+        .howTo{
+            font-size: 18px;
+            font-weight: 500;
+            text-decoration: underline;
+            margin-bottom: 20px;
+            color: #5E5873;
+        }
+        .step1, .step2, .step3{
+            font-size: 14px;
+            font-weight: 500;
+            color: #5E5873;
+            margin-top: 25px;
+
+            img {
+                width: 100%;
+            }
+        }
+        .pos-laju-container{
+            display: flex;
+            flex-direction: column;
+            background-color: #F1F1F2;
+            border-radius: 5px;
+            padding: 10px 0px;
+            margin-bottom: 10px;
+
+            .install-container{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding-bottom: 10px;
+
+                span{
+                    display: flex;
+                }
+            }
+
+            .logo-box{
+                display: flex;
+                justify-content: center;
+                background-color: white;
+                border-radius: 5px;
+                padding: 0px 30px;
+                height: 100px;
+                margin: 10px;
+
+                img{
+                    width: 60px;
+                }
+            }
+            .title{
+                color: #00498D;
+                margin-top: 10px;
+            }
+            .install-button{
+                display: flex;
+                flex-direction: row-reverse;
+                margin-right: 10px;
+                a{
+                    text-decoration: none;
+                    display: flex;
+                    align-items: center;
+                    background-color: #00498D;
+                    color: white;
+                    border: none;
+                    border-radius: 5px;
+                    padding: 5px 20px;
+                    cursor: pointer;
+       
+                    span{
+                        margin-right: 10px;
+                    }
+                }
+            }
+        }
+    }
+}

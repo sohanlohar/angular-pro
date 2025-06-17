@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/ezisend/profile/data-access/models/src",
+  "prefix": "pos",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ezisend/profile/data-access/models"],
+      "options": {
+        "jestConfig": "libs/ezisend/profile/data-access/models/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ezisend/profile/data-access/models/**/*.ts",
+          "libs/ezisend/profile/data-access/models/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

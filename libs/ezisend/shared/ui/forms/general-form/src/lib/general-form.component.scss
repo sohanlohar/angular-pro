@@ -1,0 +1,220 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+:host {
+  display: block;
+}
+
+.flag {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+.flagIcon {
+  position: absolute;
+  margin: -27px -30px;
+  width: 30px;
+}
+
+.form-container {
+  background-color: #fff;
+  border-radius: 10px;
+  margin-top: 0rem;
+
+  .title {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: v.$font-weight-medium;
+    color: #5e5873;
+    margin-bottom: 1.06rem;
+  }
+
+  .form-group {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 24% 23% 23% 23%;
+    grid-template-areas:
+      'search search . .'
+      'name name nickName nickName'
+      'tel tel address address'
+      'phone-view phone-view address address'
+      'email email address address'
+      'country postcode state city'
+      '. . save-contacts button-next';
+
+    // grid-template-columns: repeat(1, auto);
+    gap: 0.1rem 1rem;
+    margin-bottom: 1.25rem;
+
+    .address {
+      textarea {
+        height: 6rem;
+      }
+    }
+
+    .save-contacts {
+      text-align: right;
+      margin-top: 4rem;
+    }
+
+    .button-next {
+      display: flex;
+      flex-direction: row-reverse;
+      margin-top: 3rem;
+      button {
+        width: 7rem;
+        height: 2.9rem;
+      }
+    }
+  }
+}
+
+//Grid-areas
+
+.search {
+  grid-area: search;
+}
+
+.name {
+  grid-area: name;
+}
+
+.nickName {
+  grid-area: nickName;
+}
+
+.phone-wrapper {
+  grid-area: tel;
+  display: flex;
+  flex-direction: row;
+}
+
+.tel {
+  width: 7em;
+  float: left;
+}
+
+.phone {
+  margin-left: 3%;
+  width: auto;
+  float: left;
+  flex: 1;
+}
+.phone-view {
+  grid-area: phone-view;
+}
+
+.email {
+  grid-area: email;
+}
+.address {
+  grid-area: address;
+  mat-hint {
+    float: right;
+  }
+}
+
+.postcode {
+  grid-area: postcode;
+}
+.city {
+  grid-area: city;
+}
+.state {
+  grid-area: state;
+}
+.country {
+  grid-area: country;
+}
+
+.save-contacts {
+  grid-area: save-contacts;
+}
+
+.button-next {
+  grid-area: button-next;
+}
+
+@media screen and (min-width: 40rem) {
+  .form-group {
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  }
+}
+
+@media screen and (max-width: 844px) {
+  .phone-wrapper {
+    flex-direction: column;
+  }
+  .tel {
+    width: auto;
+  }
+  .phone {
+    margin-left: initial;
+  }
+}
+@media screen and (max-width: 780px) {
+  .form-container{
+    background-color: unset;
+    height: 500px;
+    gap: 0.1rem 1rem;
+    .title{
+      padding: 8px;
+      margin-left: 45px;
+      margin-left: 21px;
+      text-align: left;
+    }
+    .form-group{
+      display: flex;
+      flex-direction: column;
+      // width: 100%;
+// padding: 10px;
+overflow: hidden;
+// align-items:center;
+    }
+  }
+}
+@media screen and (max-width: 747px) {
+  .form-container {
+    .form-group{
+      gap: 0.1rem 0.5rem;
+      width: 94% !important;
+    }
+  }
+  .form-container .form-group .save-contacts {
+    margin-top: 0rem;
+    margin-left: 1rem;
+    text-align: left;
+  }
+  .form-container .form-group .button-next{
+    margin-left: 1rem;
+   flex-direction: column;
+  }
+  ::ng-deep{
+    .mat-select-panel{
+    min-width: 0px !important;
+    width: 95%;
+  }
+  .mat-form-field-appearance-outline .mat-form-field-flex{
+    padding: 0px 0.2em 0 .75em !important;
+  }
+}
+}
+
+.download-button {
+  position: relative; /* Enable positioning for child elements */
+  display: inline-flex; /* Allow inline display with flexbox */
+  align-items: center; /* Center content vertically */
+}
+
+.login-loading-spinner {
+  position: absolute; /* Position the spinner absolutely */
+  top: 50%; /* Center spinner vertically */
+  left: 50%; /* Center spinner horizontally */
+  transform: translate(-50%, -50%); /* Adjust positioning for centering */
+  z-index: 2; /* Ensure spinner is displayed above button text */
+}
+
+.login-loading-spinner {
+  ::ng-deep circle {
+    stroke: white;
+  }
+}

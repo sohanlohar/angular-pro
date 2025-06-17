@@ -1,0 +1,166 @@
+image: devopsposmalaysia/k8s-gitlab-runner:docker
+services:
+  - devopsposmalaysia/k8s-gitlab-runner:docker-dind
+stages:
+  - build
+  - deploy
+variables:
+   IMAGE_URI: 972277210775.dkr.ecr.ap-southeast-1.amazonaws.com/repo
+   DOCKER_HOST: tcp://localhost:2375
+   DOCKER_TLS_CERTDIR: ""
+
+.image_build: 
+  before_script:
+     - export TAG=$(date "+%F")
+     - sleep 30
+  script:
+    - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+    - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+    - docker login -u AWS -p $(aws ecr get-login-password --region ap-southeast-1 ) 972277210775.dkr.ecr.ap-southeast-1.amazonaws.com
+    - docker build -t $IMAGE_URI:$EKS_ENV-$TAG-$CI_PIPELINE_ID --build-arg BUILD_ENV=$EKS_ENV .
+    - docker push $IMAGE_URI:$EKS_ENV-$TAG-$CI_PIPELINE_ID
+.deploy:
+   script:
+     - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+     - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+     - echo "authentication k8s cluster"
+     - chmod +x ./k8s_authentication.sh
+     - bash ./k8s_authentication.sh
+d01Build:
+  image: devopsposmalaysia/k8s-gitlab-runner:k8s-runner
+  extends:
+    - .image_build
+  stage: build
+  variables:
+    IMAGE_URI: 972277210775.dkr.ecr.ap-southeast-1.amazonaws.com/spp-webserver
+    EKS_ENV: $PMD_D01_ENV
+  rules:
+     - if: $CI_COMMIT_BRANCH =~ /^[Ff]eature\/*/ || $CI_MERGE_REQUEST_EVENT_TYPE == 'merged_result'
+  tags:
+    - pmd-stg-k8s
+
+d01Deploy:
+   image: devopsposmalaysia/k8s-gitlab-runner:k8s-runner
+   before_script:
+      - export EKS_NAME=$PMD_STG_EKS_NAME
+      - export ACC_ID=$PMD_STG_ACC_ID
+      - export EKS_ENV=$PMD_D01_ENV
+   extends:
+    - .deploy
+   stage: deploy
+   rules:
+     - if: $CI_COMMIT_BRANCH =~ /^[Ff]eature\/*/ || $CI_MERGE_REQUEST_EVENT_TYPE == 'merged_result'
+   tags:
+      - pmd-stg-k8s
+
+
+d02Build:
+  image: devopsposmalaysia/k8s-gitlab-runner:k8s-runner
+  extends:
+    - .image_build
+  stage: build
+  variables:
+    IMAGE_URI: 972277210775.dkr.ecr.ap-southeast-1.amazonaws.com/spp-webserver
+    EKS_ENV: 'd02'
+  rules:
+     - if: $CI_COMMIT_BRANCH == "d02-store-integration" || $CI_MERGE_REQUEST_EVENT_TYPE == 'merged_result'
+  tags:
+    - pmd-stg-k8s
+
+d02Deploy:
+   image: devopsposmalaysia/k8s-gitlab-runner:k8s-runner
+   before_script:
+      - export EKS_NAME=$PMD_STG_EKS_NAME
+      - export ACC_ID=$PMD_STG_ACC_ID
+      - export EKS_ENV=d02
+   extends:
+    - .deploy
+   stage: deploy
+   rules:
+     - if: $CI_COMMIT_BRANCH == "d02-store-integration" || $CI_MERGE_REQUEST_EVENT_TYPE == 'merged_result'
+   tags:
+      - pmd-stg-k8s
+
+d03Build:
+  image: devopsposmalaysia/k8s-gitlab-runner:k8s-runner
+  extends:
+    - .image_build
+  stage: build
+  variables:
+    IMAGE_URI: 972277210775.dkr.ecr.ap-southeast-1.amazonaws.com/spp-webserver
+    EKS_ENV: 'd03'
+  rules:
+     - if: $CI_COMMIT_BRANCH == "d03-env" || $CI_MERGE_REQUEST_EVENT_TYPE == 'merged_result'
+  tags:
+    - pmd-stg-k8s
+
+d03Deploy:
+   image: devopsposmalaysia/k8s-gitlab-runner:k8s-runner
+   before_script:
+      - export EKS_NAME=$PMD_STG_EKS_NAME
+      - export ACC_ID=$PMD_STG_ACC_ID
+      - export EKS_ENV=d03
+   extends:
+    - .deploy
+   stage: deploy
+   rules:
+     - if: $CI_COMMIT_BRANCH == "d03-env" || $CI_MERGE_REQUEST_EVENT_TYPE == 'merged_result'
+   tags:
+      - pmd-stg-k8s
+
+
+uatBuild:
+  image: devopsposmalaysia/k8s-gitlab-runner:k8s-runner
+  extends:
+    - .image_build
+  stage: build
+  variables:
+    IMAGE_URI: 972277210775.dkr.ecr.ap-southeast-1.amazonaws.com/spp-webserver
+    EKS_ENV: 'uat'
+  rules:
+     - if: $CI_COMMIT_BRANCH == "main" || $CI_MERGE_REQUEST_EVENT_TYPE == 'merged_result'
+  tags:
+    - pmd-stg-k8s
+
+uatDeploy:
+   image: devopsposmalaysia/k8s-gitlab-runner:k8s-runner
+   before_script:
+      - export EKS_NAME=$PMD_STG_EKS_NAME
+      - export ACC_ID=$PMD_STG_ACC_ID
+      - export EKS_ENV=uat
+   extends:
+    - .deploy
+   stage: deploy
+   rules:
+     - if: $CI_COMMIT_BRANCH == "main" || $CI_MERGE_REQUEST_EVENT_TYPE == 'merged_result'
+   tags:
+      - pmd-stg-k8s
+
+prodBuild:
+  image: devopsposmalaysia/k8s-gitlab-runner:k8s-runner
+  extends:
+    - .image_build
+  stage: build
+  variables:
+    IMAGE_URI: 972277210775.dkr.ecr.ap-southeast-1.amazonaws.com/spp-webserver
+    EKS_ENV: prod
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^release-/'
+      when: always
+  tags:
+    - pmd-stg-k8s
+
+prodDeploy:
+   image: devopsposmalaysia/k8s-gitlab-runner:k8s-runner
+   before_script:
+      - export EKS_NAME=$PMD_PROD_EKS_NAME
+      - export ACC_ID=$PMD_PROD_ACC_ID
+      - export EKS_ENV=prod
+   extends:
+    - .deploy
+   stage: deploy
+   rules:
+    - if: '$CI_COMMIT_TAG =~ /^release-/'
+      when: always
+   tags:
+      - pmd-stg-k8s

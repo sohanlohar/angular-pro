@@ -1,0 +1,35 @@
+<!-- Upload  -->
+<ng-container *ngIf="!isLoading; else loadingSpinner">
+    <div class="container-reader">
+        <form id="file-upload-form" class="uploader" draggable="true">
+            <div class="fileContainer">
+                <input id="file-upload" type="file" 
+                (change)="fileUpload($event)" #fileDropRef
+                (click)="fileDropRef.value = '';"
+                value=""
+                name="fileUpload" accept=".xls, .xlsx, .xlsm" />
+                <label for="file-upload" id="file-drag" 
+                    (dragover)="dropFile($event); isHovering = true;" 
+                    (drop)="dropFile($event); isHovering = false;"
+                    (dragenter)="isHovering = true"
+                    (dragleave)="isHovering = false"
+                    [class.hovering-file]="isHovering">
+                    <div id="start">
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                        <div id="notimage" class="hidden">{{languageData.required_image}}</div>
+                        <div>
+                           {{languageData.drop_file}}<br>{{languageData.or}}
+                        </div>
+                        <span id="file-upload-btn" class="btn btn-info">{{languageData.upload_compoter}}</span>
+                    </div>
+                </label>
+            </div>
+        </form>
+    </div>
+</ng-container>
+
+
+<!-- Loading Spinner -->
+<ng-template #loadingSpinner>
+    <mat-spinner class="spinner"></mat-spinner>
+</ng-template>

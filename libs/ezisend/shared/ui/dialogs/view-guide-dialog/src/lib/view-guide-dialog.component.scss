@@ -1,0 +1,44 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+.view-guide-container {
+  padding-bottom: 1rem;
+
+  .mat-dialog-title {
+    margin: 0;
+
+    span {
+      position: absolute;
+      right: -16px;
+      top: -14px;
+
+      mat-icon.close {
+        cursor: pointer;
+        height: 2.2em;
+        width: 100%;
+      }
+    }
+  }
+
+  .title {
+    font-weight: v.$font-weight-semibold;
+    color: v.$teritary_color;
+    font-size: v.$font_size_s;
+  }
+  img{
+    margin: 10px 0px;
+  }
+}
+@media screen and (max-width: 770px) {
+  mat-dialog-content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0px;
+  }
+
+}
+
+@media (min-width: 320px) and (max-width: 567px){
+  .title{
+    margin: 0px !important;
+  }
+}

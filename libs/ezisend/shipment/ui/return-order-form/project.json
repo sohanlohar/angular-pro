@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/ezisend/shipment/ui/return-order-form/src",
+  "prefix": "pos",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ezisend/shipment/ui/return-order-form"],
+      "options": {
+        "jestConfig": "libs/ezisend/shipment/ui/return-order-form/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ezisend/shipment/ui/return-order-form/**/*.ts",
+          "libs/ezisend/shipment/ui/return-order-form/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

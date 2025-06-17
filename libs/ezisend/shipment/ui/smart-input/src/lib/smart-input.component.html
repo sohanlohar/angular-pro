@@ -1,0 +1,26 @@
+<mat-accordion>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title class="smart-input-title">
+                <p class="title">
+                    <span class="bulb"> <mat-icon svgIcon="move-location" aria-hidden="false"></mat-icon>
+                   </span> {{languageData.title}}</p>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="smart-input-container">
+            
+            <textarea
+                #myText
+                [placeholder]="languageData.note1 + '&#10;' + languageData.note2 + '&#10;' + languageData.note3 + '&#10;' + languageData.note4 + '&#10;' + languageData.note5 + '&#10;' + languageData.note6"
+                maxlength="500"
+                [(ngModel)]="userInput"
+                (paste)="onPaste($event)"
+                (input)="onInput(myText.value)">
+            </textarea>
+            <div class="smart-input-footer">
+                <mat-hint [align]="'end'">{{ userInput.length }} / 500</mat-hint>
+                <button (click)="updateInputLines()" [disabled]="userInput === ''">{{languageData.submit}}</button>
+            </div>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>

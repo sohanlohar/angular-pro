@@ -1,0 +1,70 @@
+<pos-page-layout [breadcrumbItems]="breadcrumbItems" [backData]="backData">
+  <div class="main-title">{{languageData.add_orders}}</div>
+  <div class="my-shipment-wrapper">
+    <div class="action-field">
+      <div class="container-group">
+        <div class="container">
+          <div class="container-label">{{languageData.pickup_no}}</div>
+          <div class="container-action">
+            <mat-form-field class="orders-input" appearance="standard">
+              <input readonly matInput [value]="pickup_number">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="container">
+          <div class="container-label">{{languageData.pickup_date}}</div>
+          <div class="container-action">
+            <mat-form-field class="orders-input" appearance="standard">
+              <input readonly matInput [value]="pickup_date">
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="container">
+          <div class="container-label">{{languageData.pickup_address}}</div>
+          <div class="container-action_address">
+            <span>{{ pickup_address }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="container-group">
+        <div class="container">
+          <div class="container-label" style="opacity:0;">button label</div>
+          <button mat-flat-button color="primary" (click)="addToPickup()">{{languageData.add_pickup}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="commonService.checkIfMobile() && total>0">
+  <pos-my-shipment-table
+    activeTab="add-order"
+    [activeTab]="'add-order'"
+    [shipment$]="shipment$"
+    [columnsToDisplay]="columns"
+    (totalShipmentRecords)="totalShipmentRecords = $event"
+    (onSelectAllOrder)="isSelectAllOrder = $event"
+    (pageEvent)="onPageEvent($event)"
+    (actionIconEvent)="onActionEvent($event)"
+    (selectedData)="onSelectRow($event)">
+  </pos-my-shipment-table>
+</div>
+<div *ngIf="!commonService.checkIfMobile()">
+  <pos-my-shipment-table
+    activeTab="add-order"
+    [activeTab]="'add-order'"
+    [shipment$]="shipment$"
+    [columnsToDisplay]="columns"
+    (totalShipmentRecords)="totalShipmentRecords = $event"
+    (onSelectAllOrder)="isSelectAllOrder = $event"
+    (pageEvent)="onPageEvent($event)"
+    (actionIconEvent)="onActionEvent($event)"
+    (selectedData)="onSelectRow($event)">
+  </pos-my-shipment-table>
+</div>
+<div style="margin-top: 30px; text-align: center;" *ngIf="commonService.checkIfMobile() && total==0">
+  <mat-card>
+    <mat-card-content>{{languageData.no_data_found}}</mat-card-content>
+  </mat-card>  
+</div>
+</pos-page-layout>
+<pos-loading-spinner *ngIf="isLoading && (!commonService.checkIfMobile())"></pos-loading-spinner>
+<pos-loading-spinner *ngIf="isLoading && (commonService.checkIfMobile() && total>0)"></pos-loading-spinner>

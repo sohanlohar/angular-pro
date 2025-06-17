@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/ezisend/not-found/feature/not-found/src",
+  "prefix": "pos",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ezisend/not-found/feature/not-found"],
+      "options": {
+        "jestConfig": "libs/ezisend/not-found/feature/not-found/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ezisend/not-found/feature/not-found/**/*.ts",
+          "libs/ezisend/not-found/feature/not-found/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

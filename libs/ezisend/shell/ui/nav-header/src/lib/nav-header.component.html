@@ -1,0 +1,170 @@
+<mat-toolbar class="toolbar">
+  <div class="col-12">
+    <div class="toolbar__left">
+      <!-- <button class="menu__button" mat-icon-button (click)="menuToggled.emit()">
+      <mat-icon aria-hidden="false" class="material-icons-outlined toggle-menu">
+        menu
+      </mat-icon>
+    </button> -->
+      <div>
+        <a class="logo" [routerLink]="['/']" (click)="tracking()">
+          <img src="./assets/sendPro-logo-v2.svg" />
+        </a>
+      </div>
+      <div class="col-8" *ngIf="!showGlobalSearchBar">
+        <div class="input" id="searchInput" #searchInput>
+          <img src="./assets/pos-search-1.svg" alt="">
+          <input type="text" class="input-search" (focus)="trackingSearch()" (keyup.enter)="onEnter($event)" [(ngModel)]="search"
+          [placeholder]="data?.dashboard?.search_bar">
+          <img class="pointer" src="./assets/advance-search-light.svg" (click)="showSearch = !showSearch; getSearchPosition()" *ngIf="!showSearch" alt="">
+          <img class="pointer" src="./assets/advance-search.svg" *ngIf="showSearch" alt="" (click)="showSearch = !showSearch;">
+        </div>
+      </div>
+    </div>
+    <div class="popup-box" *ngIf="showSearch" [ngStyle]="searchStyle">
+      <form [formGroup]="advanceSearchForm">
+        <div class="d-flex mb-15">
+          <mat-checkbox color="primary" formControlName="is_select_all" (change)="selectAll($event)">
+          </mat-checkbox>
+          <div class="select">{{data?.menu?.select_all}}</div>
+        </div>
+        <div class="mb-15">
+          <span class="span">{{data?.menu?.date_range}}</span>
+          <div class="d-flex">
+            <form [formGroup]="advanceSearchDateForm">
+              <pos-date-range-picker (formChange)="onDateRangePickerFormChange($event)"></pos-date-range-picker>
+            </form>
+            <span class="warn-text" *ngIf="advanceSearchDateForm.get('start_date')?.touched && advanceSearchDateForm.get('start_date')?.errors">*{{data?.menu?.required_date_range}}</span>
+          </div>
+        </div>
+        <div class="mb-15">
+          <span class="span">{{data?.menu?.shipment_status}}</span>
+          <div>
+            <mat-form-field class="dropdown-input" appearance="standard">
+              <mat-select formControlName="shipment_status" disableRipple placeholder="{{data?.menu?.required_shipment_status}}" multiple="true">
+                <mat-select-trigger>
+                  <mat-chip-list>
+                    <!-- *ngFor="let topping of advanceSearchForm.getRawValue()?.shipment_status" -->
+                    <mat-chip selected color="primary" *ngIf="advanceSearchForm.getRawValue()?.shipment_status?.length > 0">
+                      {{ advanceSearchForm.getRawValue()?.shipment_status[0].viewValue }}
+                    </mat-chip>
+                    <!-- <mat-chip selected color="primary" *ngIf="advanceSearchForm.getRawValue()?.shipment_status?.length > 1">
+                      {{ advanceSearchForm.getRawValue()?.shipment_status[1].viewValue }}
+                    </mat-chip> -->
+                    <span *ngIf="advanceSearchForm.getRawValue()?.shipment_status?.length > 1" class="more">
+                      +{{advanceSearchForm.getRawValue()?.shipment_status.length - 1}} More
+                    </span>
+                  </mat-chip-list>
+                </mat-select-trigger>
+                <mat-option [value]="option" *ngFor="let option of shipmentStatus">{{
+                  option.viewValue }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <!-- <pos-dropdown-input [multi]="true" (selectionChange)="onSelectChange($event, 'shipment')" placeholder="Select Shipment Status" [options]="shipmentStatus"></pos-dropdown-input> -->
+          </div>
+        </div>
+        <div class="">
+          <div class="adv_search_payment_type_feild mb-15">
+            <span class="span">{{data?.menu?.payment_type}}</span>
+            <div>
+              <mat-form-field class="dropdown-input" appearance="standard">
+                <mat-select formControlName="payment_type" disableRipple placeholder="{{data?.menu?.required_payment_type}}" multiple="true">
+                  <mat-select-trigger>
+                    <mat-chip-list>
+                      <mat-chip selected color="primary" *ngFor="let topping of advanceSearchForm.getRawValue()?.payment_type">
+                        {{ topping.viewValue }}
+                      </mat-chip>
+                    </mat-chip-list>
+                  </mat-select-trigger>
+                  <mat-option [value]="option" *ngFor="let option of paymentType">{{
+                    option.viewValue }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <!-- <pos-dropdown-input [multi]="true" (selectionChange)="onSelectChange($event, 'payment')" placeholder="Select Payment Type" [options]="paymentType"></pos-dropdown-input> -->
+            </div>
+          </div>
+          <div class="adv_search_product_feild mb-15">
+            <span class="span">{{data?.menu?.product}}</span>
+            <div>
+              <mat-form-field class="dropdown-input" appearance="standard">
+                <mat-select formControlName="product_type" disableRipple placeholder="{{data?.menu?.required_product}}" multiple="true">
+                  <mat-select-trigger>
+                    <mat-chip-list>
+                      <!-- <mat-chip selected color="primary" *ngFor="let topping of advanceSearchForm.getRawValue()?.product_type">
+                        {{ topping.viewValue }}
+                      </mat-chip> -->
+                      <mat-chip selected color="primary" *ngIf="advanceSearchForm.getRawValue()?.product_type?.length > 0">
+                        {{ advanceSearchForm.getRawValue()?.product_type[0].viewValue }}
+                      </mat-chip>
+                      <span *ngIf="advanceSearchForm.getRawValue()?.product_type?.length > 1" class="more">
+                        +{{advanceSearchForm.getRawValue()?.product_type.length - 1}} {{data?.menu?.more}}
+                      </span>
+                    </mat-chip-list>
+                  </mat-select-trigger>
+                  <mat-option [value]="option" *ngFor="let option of product">{{
+                    option.viewValue }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <!-- <pos-dropdown-input [multi]="true" (selectionChange)="onSelectChange($event, 'product')" placeholder="Select Product" [options]="product"></pos-dropdown-input> -->
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <a class="a-tag" (click)="reset()">{{data?.menu?.reset_filter}}</a>
+          <button [disabled]="advanceSearchForm.invalid" mat-button mat-flat-button mat-raised-button class="button" color="primary" (click)="submit()">{{data?.menu?.search}}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toolbar__menu">
+    <!-- <div class="language-container">
+      <a (click)="changeLanguage('en')" class="language" [class.active]="selectedLanguage === 'en'">EN</a>
+      <a (click)="changeLanguage('my')" class="language" [class.active]="selectedLanguage === 'my'">BM</a>
+    </div> -->
+
+    <div *ngIf="!isMobile()" class="languageDropdown">
+      <mat-form-field appearance="fill">
+        <mat-select [(value)]="selectedLanguage" style="background-color: none;" (selectionChange)="changeLanguage()">
+          <mat-select-trigger>
+            <img width="27px" height="19px" [src]="selectedLanguage?.imageUrl" />
+            <span>{{ selectedLanguage?.initial }}</span>
+            <mat-icon>keyboard_arrow_down</mat-icon>
+          </mat-select-trigger>
+          <mat-option *ngFor="let option of languageList" [value]="option">
+            <img width="27px" height="19px" [src]="option.imageUrl">
+            <span>{{ option?.initial }}</span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div *ngIf="!isMobile()">
+      <div class="toolbar__menu__container" *ngIf="userData$ | async as data">
+        <span class="user">{{ data.data?.user?.email }}</span>
+        <span class="account-no">{{ data.data?.user?.account_no }}</span>
+      </div>
+    </div>
+    <div class="toolbar__menu__container">
+      <button mat-mini-fab mat-icon-button color="default" [matMenuTriggerFor]="menu">
+        <mat-icon class="icon-color">person</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <a [routerLink]="'/profile'" (click)="trackingProfile()" mat-menu-item><mat-icon>person</mat-icon> {{this.data.menu.profile}}</a>
+        <a (click)="openDialog()" mat-menu-item class="profileContainer">
+          <img [src]="userProfileSvg" alt="User Profile Icon" class="profile-icon">
+          {{ this.data.menu.linked_account }}
+        </a>
+        <a (click)="handleLogout()" mat-menu-item><mat-icon>logout</mat-icon> {{this.data.menu.logout}}</a>
+      </mat-menu>
+    </div>
+  </div>
+</mat-toolbar>
+<mat-toolbar *ngIf="showGlobalSearchBar">
+  <div class="col-8">
+    <div class="input">
+      <img src="./assets/pos-search-1.svg" alt="">
+      <input type="text" class="input-search" (keyup.enter)="onEnter($event)" [(ngModel)]="search"
+        [placeholder]="data?.menu?.search_by">
+    </div>
+  </div>
+</mat-toolbar>

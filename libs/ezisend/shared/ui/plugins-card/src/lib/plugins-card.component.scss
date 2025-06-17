@@ -1,0 +1,105 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+.plugin-name{
+    font-size: v.$font_size_l;
+    font-weight: v.$font-weight-semibold;
+    line-height: 1.5rem;
+    color: #034D91;
+    margin-bottom: 0.75rem;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.plugins-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 11px 0px #0000001A;
+    background-color: white;
+    border-radius: 5px;
+    margin: 15px;
+    height: 230px;
+    cursor: pointer;
+
+    .top{
+        display: flex;
+        justify-content: space-between;
+
+        button{
+            display: flex;
+            align-items: center;
+            background-color: #00498D;
+            color: white;
+            border: none;
+            padding: 7px 20px;
+            border-radius: 5px;
+            font-family: 'Poppins', Helvetica, sans-serif;
+            
+            span{
+                margin-right: 20px;
+                display: flex;
+            }
+        }
+        button:hover{
+            cursor: pointer;
+        }
+
+    }
+    .bottom{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+
+        .logo-box{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            // box-shadow: 0px 4px 24px 0px #0000000F;
+            padding: 50px;
+            border-radius: 5px;
+            margin-right: 10px;
+            width: 150px;
+            height: 60px;
+
+            img {
+                width: 100%;
+            }
+            
+        }
+        .desc{
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+        }
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .plugins-container{
+        height: 300px;
+
+        .top{
+            button{
+               padding: 5px 25px;
+            }
+        }
+
+        .bottom{
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+    
+            .desc{
+                margin: 20px 0px;
+            }
+            .logo-box{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100px;
+                height: 20px;
+            }
+        }
+    }
+}

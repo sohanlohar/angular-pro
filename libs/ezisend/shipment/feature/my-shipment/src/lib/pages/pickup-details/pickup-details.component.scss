@@ -1,0 +1,138 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+.main-title {
+    font-size: v.$font_size_l;
+    font-weight: v.$font-weight-semibold;
+    text-transform: uppercase;
+    color: v.$primary_color;
+    margin-bottom: 0.6rem;
+}
+
+.pickup_top_panel {
+  background: #FFFFFF; height: auto; display: flex; flex-direction: row;
+  gap: 1.0625rem;
+  padding:1rem 1rem;
+  row-gap: 0px;
+  flex-wrap: wrap;
+}
+
+.wrapper {
+    margin-top: 15px;
+    .action-button,
+    .action-field {
+      height: 5rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      background-color: white;
+      border-radius: 10px 10px 0 0;
+    }
+  
+    .action {
+      &-disabled {
+        opacity: 0.2;
+        pointer-events: none;
+      }
+  
+      &__input-search {
+        margin-left: 1.5rem;
+        margin-top: 10px;
+        margin-right: 6px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+  
+        mat-form-field.search {
+          margin-right: 10px;
+        }
+        mat-form-field.search mat-icon.mat-icon {
+          cursor: pointer;
+        }
+        .input {
+          margin-right: 0.875rem;
+        }
+  
+        .input,
+        .date {
+          height: 2.375rem;
+          display: flex;
+          flex-direction: row;
+          border: 1px solid #ddd;
+          border-radius: 0.375rem;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.25s linear;
+  
+          input {
+            height: 70%;
+            border-radius: 0.375rem;
+            border: none;
+            // margin-left: 0.8125rem;
+            background-color: inherit;
+          }
+  
+          input:focus {
+            outline: none;
+          }
+  
+          .search-icon {
+            height: 100%;
+            width: 2.5rem;
+            border-left: 1px;
+            border-left-style: solid;
+            border-left-color: #ddd;
+            transition: all 0.25s linear;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #5e5873;
+          }
+  
+          .search-icon:hover {
+            cursor: pointer;
+          }
+        }
+  
+        .input--focus {
+          border: 1px solid #00498d;
+          box-shadow: 0px 0px 4px 6px rgba(86, 172, 253, 0.07);
+          border-radius: 5px;
+          transition: all 0.25s linear;
+  
+          .search-icon {
+            border-left: 1px;
+            border-left-style: solid;
+            border-left-color: #00498d;
+            transition: all 0.25s linear;
+          }
+        }
+      }
+  
+      &__group-button {
+        align-items: center;
+        margin-right: 1.5rem;
+        margin-left: 1.5rem;
+        display: flex;
+        flex-direction: row;
+        gap: 0.8em;
+        flex-wrap: wrap;
+      }
+    }
+  
+    .action-button {
+      border-radius: 0;
+  
+      &_warn {
+        margin-left: 8px;
+      }
+    }
+  }
+  @media screen and (max-width:780px) {
+    .mat-form-field{
+      width: 150% !important;
+    }
+    .wrapper .action__input-search{
+      width: 91%;
+    }
+  }

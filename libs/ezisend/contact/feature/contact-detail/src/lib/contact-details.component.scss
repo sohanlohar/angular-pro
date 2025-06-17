@@ -1,0 +1,15 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+.title {
+  font-weight: v.$font-weight-semibold;
+  font-size: v.$font_size_l;
+  line-height: 1.5rem;
+  color: #034d91;
+  margin-bottom: 0.75rem;
+}
+
+.button {
+  margin-top: 1.2rem;
+  width: 9rem;
+  height: 2.9rem;
+}

@@ -1,0 +1,42 @@
+<div class="container">
+  <mat-spinner class="spinner" *ngIf="!allStatusLoadingState();"></mat-spinner>
+  <div class="container__title-wrapper">
+    <div class="container__title">
+      {{data?.dashboard?.my_orders}}
+    </div>
+  </div>
+  <ng-container>
+    <div class="container__orders" [class.nameClass]="!allStatusLoadingState()">
+      <div class="dashboard-datepicker">
+        <label>{{data?.dashboard?.select_date}}</label>
+        <form [formGroup]="dateRangePickerForm">
+          <pos-date-range-picker (formChange)="onDateRangePickerFormChange($event)" class="px-3"></pos-date-range-picker>
+        </form>
+      </div>
+      <mat-divider></mat-divider>
+      <label class="container__orders-title">{{data?.dashboard?.my_shipment}}</label>
+      <div class="container__shipment-summary">
+        <span *ngFor="let summary of summaryTiles; let last = last">
+          <pos-shipment-tile [summaryTile]="summary" [boxHeight]="boxHeight" [ngClass]="{'last-tile': last}"></pos-shipment-tile>
+        </span>
+      </div>
+
+      <ng-container *ngIf="(commonService.isCOD | async) || ((commonService.isCOD | async) === true && (commonService.isCODUbat | async) === false)">
+        <label class="container__orders-title">{{data?.dashboard?.my_cod}}</label>
+        <div class="container__cod-orders">
+          <pos-cod-order theme="green" icon="done" [label]="data?.dashboard?.collected" [status]="'delivered'" [price]="$total_cod | async"></pos-cod-order>
+          <pos-cod-order theme="blue" icon="more_horiz" [label]="data?.dashboard?.pending_collection" [status]="'live'" [price]="$total_pending | async">
+          </pos-cod-order>
+          <pos-cod-order theme="red" icon="error_outline" [label]="data?.dashboard?.failed_collect" [status]="'failed'" [price]="$total_failed | async">
+          </pos-cod-order>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+
+  <!-- Loading Spinner -->
+  <ng-template #loadingSpinner>
+    <mat-spinner class="spinner"></mat-spinner>
+  </ng-template>
+
+</div>

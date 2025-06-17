@@ -1,0 +1,18 @@
+<div class="wrapper">
+  <div class="wrapper__title">{{data?.dashboard?.news_promo}}</div>
+  <ng-container *ngIf="!isLoading; else loadingSpinner">
+    <div class="wrapper__newspromo">
+      <div class="newspromo-item" *ngFor="let newspromo of newspromoList; let i = index">
+        <img
+        src="{{ newspromo.src }}"
+        (click)="actionUrl(newspromo, i)"
+      />
+      </div>
+    </div>
+  </ng-container>
+
+   <!-- Loading Spinner -->
+  <ng-template #loadingSpinner>
+    <mat-spinner class="spinner"></mat-spinner>
+  </ng-template>
+</div>

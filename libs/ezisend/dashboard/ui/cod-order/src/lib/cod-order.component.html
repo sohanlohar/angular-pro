@@ -1,0 +1,8 @@
+<div class="cod__container" (click)="openShipment()">
+    <mat-icon [class]="theme">{{ icon }}</mat-icon>
+    <div class="cod__container-info">
+        <div class="cod__container-info-label">{{ label }}</div>
+        <div class="cod__container-info-price">{{ price | currency: 'RM' }}</div>
+    </div>
+    <a class="cod__container-link">{{data?.dashboard?.see_orders}}</a>
+</div>

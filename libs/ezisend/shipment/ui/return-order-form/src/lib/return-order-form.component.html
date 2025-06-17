@@ -1,0 +1,9 @@
+<div class="top-container">
+    <pos-pickup-card-list [isReturnOrder]="true" ></pos-pickup-card-list>
+    <pos-recipient-detail-form [isReturnOrder]="true" [isEditOrder]="true"
+  (rtsSenderDataChange)="onOriginalRecipientFormChange($event)" ></pos-recipient-detail-form>
+</div>
+
+<div class="parcel-container">
+    <pos-parcel-detail-form [isReturnOrder]="true"  ></pos-parcel-detail-form>
+</div> 

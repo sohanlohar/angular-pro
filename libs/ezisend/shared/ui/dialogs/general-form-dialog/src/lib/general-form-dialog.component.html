@@ -1,0 +1,21 @@
+<div class="dialog-container">
+  <div mat-dialog-title class="header">
+    <span (click)="dialogRef.close()">
+      <mat-icon class="close" svgIcon="close_icon"></mat-icon>
+    </span>
+  </div>
+  
+  <div mat-dialog-content>
+    <pos-general-form
+      (emitSave)="onSubmit($event)"
+      [title]="title"
+      [OnSubmitButton]="onSubmitButton"
+      [data]="generalFormData"
+      [config]="{
+        nick_name: { label: languageData.company_name },
+        saveCheckbox: { label: languageData.save_default_address, isShow: true },
+        saveButton: { label: (data && data.isNew) ? languageData.save : languageData.update , isShow: true }
+      }"
+    ></pos-general-form>
+  </div>
+</div>

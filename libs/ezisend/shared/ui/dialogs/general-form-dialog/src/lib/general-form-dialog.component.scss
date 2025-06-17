@@ -1,0 +1,41 @@
+.dialog-container {
+  width: auto;
+  height: 540px;
+  div.header {
+    margin: 0;
+    span {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      mat-icon.close {
+        width: 100%;
+        cursor: pointer;
+        height: 2.2em;
+      }
+    }
+  }
+
+  .mat-dialog-content {
+    max-height: 80vh !important;
+    padding-top: 2rem;
+  }
+}
+@media screen and (max-width:768px)  {
+  .mat-dialog-content{
+    margin: 0px;
+    padding: 0px;
+
+  }
+  .dialog-container {
+    width: 300px;
+    .mat-dialog-content{
+      padding-top: 0rem;
+      overflow-x: hidden;
+    }
+  }
+}
+@media screen and (max-width:350px)  {
+  .dialog-container{
+    width: 255px;
+  }
+}

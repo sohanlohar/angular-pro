@@ -1,0 +1,27 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/ezisend/integration/feature/add-store/instruction/src",
+  "prefix": "pos",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/libs/ezisend/integration/feature/add-store/instruction"
+      ],
+      "options": {
+        "jestConfig": "libs/ezisend/integration/feature/add-store/instruction/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ezisend/integration/feature/add-store/instruction/**/*.ts",
+          "libs/ezisend/integration/feature/add-store/instruction/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

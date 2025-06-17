@@ -1,0 +1,60 @@
+<pos-page-layout [breadcrumbItems]="breadcrumbItems">
+    <div class="container">
+        <div class="left-Container">
+            <div class="image">
+                <img [src]="plugin.getValue() ==='WooCommerce' ? wooCommerceSvg : shopifySvg"/>
+            </div>
+            <!-- <button><span><i class="material-icons">link</i></span><a [href]="plugin.getValue() ==='WooCommerce' ? wooCommerceURL : shopifyURL" target="_blank">Connect Now</a></button> -->
+        </div>
+        <div class="right-Container">
+            <div class="howTo">How to connect</div>
+            <div class="step1">
+                <p class="step">Step 1</p>
+                <p *ngIf="plugin.getValue() === 'Shopify'">Install the POS Malaysia Shopify plugin at Shopify store <br/> <span><a [href]="posMalaysiaPluginURL" target="_blank">(URL: https://apps.shopify.com/pos-malaysia-plugin)</a></span></p>
+                <p *ngIf="plugin.getValue() === 'WooCommerce'">Install <span class="bold">Pos Malaysia</span> in your WooCommerce store. <br/>You may download <span class="bold">Pos Malaysia</span> plugin from the link below.</p>
+                <div *ngIf="plugin.getValue() === 'WooCommerce'" class="pos-laju-container">
+                    <div class="logo-box">
+                        <img [src]="posLaju"/>
+                    </div>
+                    <div class="install-container">
+                        <p class="title">Pos Malaysia Plugin</p>
+                        <div class="install-button"><a [href]="wooCommercePluginURL"><span><i class="material-icons">download</i></span>Install Now</a></div>
+                    </div>
+                </div>
+                <img *ngIf="plugin.getValue() === 'Shopify'" [src]="shopifyGuide1"/>
+            </div>
+            <div *ngIf="plugin.getValue() === 'WooCommerce'" class="step2">
+                <p class="step">Step 2</p>
+                <p>Click <span class="blue">Connect Now</span> to be directed to WooCommerce page.</p>
+                <p>Login to your WooCommerce Store as <span class="blue">Admin</span> and navigate to <span class="blue">Plugins > Add New</span> and then click <span>Upload Plugin.</span></p>
+                <img [src]="step1"/>
+                <p class="mt-1">Now, click "Choose File" to select <span class="bold blue">Pos Malaysia</span> plugin from your computer and then click <span class="blue">Install Now.</span></p>
+                <img [src]="step2"/>
+            </div>
+            <!-- <div *ngIf="plugin.getValue() === 'Shopify'" class="step2">
+                <p class="step">Step 2</p>
+                <p>After successfully installed <span class="blue">Pos Malaysia</span> plugin, in SendParcel Pro > Integration page, click</p>
+                <p>"Connect Now" to be directed to Shopify page. (URL: <span><a [href]='shopifyURL' target="_blank">https://admin.shopify.com/</a></span>)</p>
+                <img [src]="shopifyGuide2"/>
+            </div> -->
+            <div *ngIf="plugin.getValue() === 'WooCommerce'" class="step3">
+                <p class="step">Step 3</p>
+                <p>You will be directed to <span class="blue">SendParcel Pro</span> login page to activate <span class="bold blue">Pos Malaysia</span> plugin.</p>
+                <p>By simply enter your <span class="blue">SendParcel Pro</span> login details, your account will be authenticated, and your <span class="bold blue">Pos Malaysia</span> will be activated after successful login to <span class="blue">SendParcel Pro</span>.</p>
+                <img [src]="step3"/>
+                <p class="mt-1">Awesome! Now you can see Pos Malaysia plugin installed and activated in your WooCommerce store.</p>
+                <img [src]="step4"/>
+            </div>
+            <div *ngIf="plugin.getValue() === 'Shopify'" class="step3">
+                <p class="step">Step 2</p>
+                <p>Login your Shopify Store as <span class="blue">Admin</span> and navigate to <span class="blue">Apps</span>. You will see <span class="blue">Pos Malaysia</span> plugin in the list.</p>
+                <p>Click <span class="blue">Pos Malaysia</span> plugin to start activating the plugin.</p>
+                <p>By simply enter your <span class="blue">SendParcel Pro</span> login details, your account will be authenticated, and your <span class="bold blue">Pos Malaysia</span> will be activated after successful login to <span class="blue">SendParcel Pro</span>.</p>
+                <img [src]="shopifyGuide3"/>
+                <p class="step">Step 3</p>
+                <p class="mt-1">Awesome! Now you can see Pos Malaysia plugin installed and activated in your WooCommerce store.</p>
+                <img [src]="shopifyGuide4"/>
+            </div>
+        </div>
+    </div>
+</pos-page-layout>

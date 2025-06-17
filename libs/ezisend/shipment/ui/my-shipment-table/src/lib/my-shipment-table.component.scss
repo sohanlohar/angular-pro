@@ -1,0 +1,721 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+.wrapper {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+
+  &-table-label {
+    text-align: center;
+    background-color: v.$light_blue;
+    padding: 10px 0;
+  }
+
+  &-table-label_current {
+    color: #6e6b7b;
+  }
+  &-table-label_all {
+    color: v.$primary_color;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .tablewrapper {
+    width: 100%;
+    overflow-x: auto;
+
+    table {
+      width: 100%;
+
+      .filter-container {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+
+        &.padding-left {
+          padding-left: 20px;
+        }
+
+        .filter-dropdown-icon {
+          cursor: pointer;
+        }
+      }
+
+      .header {
+        background: #f4f4f4;
+        height: 2.5rem;
+
+        th {
+          font-weight: v.$font-weight-medium;
+          font-size: v.$font_size_xs;
+          line-height: 1.125rem;
+          color: v.$teritary_color;
+          letter-spacing: 1px;
+        }
+        th.alignHeaderLeft {
+          text-align: left;
+          padding-left: 18px;
+        }
+      }
+
+      .row--selected {
+        background: #f7fbff;
+        transition: all 0.25s linear;
+      }
+
+      .icon--selected {
+        color: #00498d;
+        transition: all 0.25s linear;
+      }
+
+      th.mat-column-select {
+        padding-left: 0;
+      }
+      th.mat-column-select .mat-checkbox .mat-checkbox-label {
+        padding-top: 7px !important;
+      }
+      th.mat-header-cell,
+      td.mat-cell,
+      td.mat-footer-cell {
+        border-bottom: 1px solid #e9ecef;
+        text-align: center;
+      }
+      th.mat-header-cell.mat-column-deliveryDetail,
+      td.mat-cell.mat-column-deliveryDetail {
+        text-align: left;
+      }
+      td.mat-cell.mat-column-deliveryDetail {
+        padding-left: 0;
+      }
+
+      td.alignLeft {
+        text-align: left;
+      }
+
+      th:first-child,
+      tr td {
+        font-size: 14px;
+        color: #7e8994;
+      }
+      tr td .mat-column-deliveryDetail {
+        text-align: left !important;
+      }
+
+      .mat-row {
+        height: auto;
+      }
+      .mat-cell {
+        padding: 18px;
+      }
+      // column styling
+      .mat-column-select {
+        width: 4% !important;
+      }
+
+      th.mat-column-channel {
+        text-align: left;
+        padding-left: 5rem;
+      }
+
+      td.mat-column-channel {
+        text-align: left;
+        padding-left: 5rem;
+        width: 25rem;
+      }
+
+      .mat-column-pickupAddress {
+        width: 15% !important;
+        word-wrap: break-word !important;
+        white-space: unset !important;
+        flex: 0 0 15% !important;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-word;
+
+        -ms-hyphens: auto;
+        -moz-hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphens: auto;
+      }
+
+      .mat-column-trackingDetail {
+        width: 15% !important;
+        .connote {
+          color: #00498d;
+          font-weight: 500;
+          margin-bottom: 0.3rem;
+          display: flex;
+          gap: 10px;
+          align-items: baseline;
+
+          img[src=''] {
+            display: none;
+          }
+        }
+        .connote .click {
+          cursor: pointer;
+        }
+        .time {
+          margin-bottom: 6px;
+        }
+        .connote .order-number {
+          cursor: pointer;
+          color: #6e6b7b;
+          font-weight: 400;
+        }
+        .ins_blk {
+          margin-top: 0.8rem;
+        }
+        .ins {
+          background-color: #ff65dd;
+          font-size: 12px;
+          color: #fff;
+          padding: 3px 9px;
+          display: inline-block;
+          border-radius: 4px;
+          margin-left: 8px;
+        }
+        .amount {
+          margin-top: 6px;
+        }
+      }
+      .mat-column-pickupNo {
+        width: 15% !important;
+        .connote {
+          color: #00498d;
+          img {
+            width: 30px;
+            height: 20px;
+            position: relative;
+            top: 3px;
+          }
+          .hide {
+            display: none;
+            background-color: black;
+          }
+          .store-name {
+            position: relative;
+            top: -2px;
+            left: 5px;
+          }
+          img[src=''] {
+            display: none;
+          }
+        }
+        .hide {
+          display: none;
+        }
+        .connote .click {
+          cursor: pointer;
+        }
+      }
+      .mat-column-trackingDetail,
+      .mat-column-pickupNo,
+      .mat-column-status {
+        .label {
+          background-color: #e84393;
+          font-size: 12px;
+          color: #fff;
+          padding: 3px 9px;
+          border-radius: 4px;
+          margin-top: 6px;
+          display: inline-block;
+        }
+      }
+      .mat-column-status {
+        .no-tracking-id,
+        .not-scheduled,
+        .cancelled,
+        .scheduled,
+        .re-scheduled,
+        .in-transit,
+        .picked-up,
+        .to-collect,
+        .delivered,
+        .out-for-delivery,
+        .failed,
+        .returned,
+        .pending-dropoff,
+        .droppedoff,
+        .returned_assigned,
+        .return_success,
+        .partial-picked,
+        .pending_cancellation {
+          font-size: 12px;
+          font-weight: 600;
+          background-color: transparent;
+          border-radius: 0.4em;
+          padding: 6px 7px;
+          flex-wrap: wrap;
+          display: inline-block;
+        }
+        .no-tracking-id {
+          color: #8f8f8f;
+        }
+        .not-scheduled {
+          color: #4b40a1;
+        }
+        .cancelled {
+          color: #af004a;
+        }
+        .scheduled {
+          color: #7367ca;
+        }
+        .re-scheduled {
+          color: #8509bf;
+        }
+        .in-transit {
+          color: #ff9c00;
+        }
+        .delivered {
+          color: #00c353;
+        }
+        .failed {
+          color: #ff0000;
+        }
+        .returned {
+          color: #2521ff;
+        }
+        .picked-up {
+          color: #21afff;
+        }
+        .out-for-delivery {
+          color: #2ecccc;
+        }
+        .failed {
+          color: #ff0000;
+        }
+        .returned_assigned {
+          color: #0a097a;
+        }
+        .return_success {
+          color: #63d888;
+        }
+        .partial-picked {
+          color: #634977;
+        }
+        .to-collect {
+          color: #2ecccc;
+        }
+        .pending-dropoff {
+          color: #00a5ec;
+        }
+        .droppedoff {
+          color: #057c38;
+        }
+        .pending_cancellation {
+          color: #e56910;
+        }
+      }
+      .mat-column-recipient {
+        .contact {
+          padding: 8px 0;
+        }
+      }
+      .mat-column-deliveryDetail {
+        .arrow {
+          margin: 10px 0;
+        }
+      }
+      ::ng-deep .mat-column-pluginStatus {
+        .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+          background-color: #00e461;
+        }
+        .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+          background-color: #ffffff;
+        }
+        .mat-slide-toggle-bar {
+          &.mat-slide-toggle-bar-no-side-margin {
+            background-color: #aaaaaa;
+          }
+        }
+      }
+      .mat-column-type {
+        .cod {
+          background-color: #292929;
+          font-size: 12px;
+          color: #fff;
+          padding: 3px 9px;
+          border-radius: 4px;
+        }
+        .ins_blk {
+          margin-top: 0.8rem;
+        }
+        .ins {
+          background-color: #ff65dd;
+          font-size: 12px;
+          color: #fff;
+          padding: 3px 9px;
+          display: inline-block;
+          border-radius: 4px;
+        }
+        .mps {
+          background-color: #3a779a;
+          font-size: 12px;
+          color: #fff;
+          padding: 3px 9px;
+          display: inline-block;
+          border-radius: 4px;
+        }
+        .non-cod {
+          background-color: transparent;
+          font-size: 12px;
+          color: #292929;
+          padding: 3px 9px;
+          border-radius: 4px;
+          display: block;
+        }
+        .amount {
+          margin-top: 6px;
+        }
+      }
+      .mat-column-action.width-23-percent {
+        width: 23%;
+      }
+      .mat-column-action {
+        .action-button {
+          display: block;
+          margin: 0.5rem auto;
+
+          &:disabled {
+            background-color: #e2ecf5;
+            color: #ffffff;
+          }
+        }
+        .action-icon {
+          background-color: #d6eaff;
+          border-radius: 50%;
+          color: #00498d;
+          padding: 10px;
+          margin-right: 7px;
+          font-size: 22px;
+          cursor: pointer;
+          position: relative;
+
+          .print-icon-text {
+            display: none;
+          }
+        }
+        .action-icon_disabled {
+          opacity: 0.3;
+          pointer-events: none;
+        }
+      }
+
+      td {
+        color: #6e6b7b !important;
+      }
+      td > mat-icon {
+        cursor: pointer;
+        margin-right: 1.25rem;
+      }
+      a.direct-link {
+        color: #00498d;
+      }
+
+      ::ng-deep tr.my-shipment-footer-row {
+        display: none;
+
+        &.show {
+          display: table-row;
+        }
+
+        mat-progress-bar {
+          .mat-progress-bar-buffer {
+            background-color: #ccc;
+          }
+
+          .mat-progress-bar-fill::after {
+            background-color: v.$primary_color;
+          }
+        }
+
+        .no-data {
+          text-align: center;
+          padding: 1rem;
+        }
+      }
+    }
+  }
+}
+
+.refresh_link {
+  color: v.$primary_color;
+  cursor: pointer;
+}
+
+.contentCopy {
+  font-size: 13.33px;
+  overflow: visible;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+::ng-deep .filter-dropdown-menu {
+  left: -20px;
+  top: 10px;
+
+  > .mat-menu-content {
+    border-radius: 5px;
+    border: 1px solid #00498d;
+    box-shadow: 0px 0px 4px 6px rgba(86, 172, 253, 0.07);
+    overflow: hidden;
+    padding: 0;
+
+    .mat-list-base {
+      padding-top: 0;
+
+      .mat-list-item-content {
+        background-color: #ffffff;
+
+        &:hover {
+          background-color: #f7fbff;
+        }
+      }
+
+      .mat-list-option {
+        height: 40px;
+
+        .mat-pseudo-checkbox {
+          margin-bottom: 2px;
+        }
+
+        .mat-list-text {
+          color: #5e5873;
+          font-size: 0.875rem;
+        }
+      }
+    }
+  }
+}
+
+.divider {
+  font-size: 0.9rem;
+  color: rgb(172, 171, 171);
+}
+
+.store-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #5e5873;
+  line-height: 25px;
+  max-width: 12rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.store_logo_name {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding-bottom: 0.2rem;
+
+  .store_logo {
+    width: 35%;
+  }
+}
+
+.store-url {
+  font-size: 16px;
+  color: #5e5873;
+  line-height: 25px;
+  max-width: 400px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.deselect_all {
+  margin-left: 10px;
+}
+.clickPOD {
+  cursor: pointer;
+  color: #00498d;
+  font-size: 8px;
+  font-weight: 500;
+}
+.clickPOD a {
+  // text-decoration: none;
+  color: #00498d;
+}
+.delivered {
+  display: block !important;
+  padding-bottom: 0px !important;
+}
+.matProgressBarPOD {
+  width: 50% !important;
+}
+.alignCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.insurance_notes {
+  .info_style {
+    height: 18px;
+    width: 18px;
+    font-size: 18px;
+  }
+}
+::ng-deep {
+  .dialogContainer {
+    .mat-dialog-content {
+      padding: 22px;
+    }
+  }
+}
+@media screen and (max-width: 435px) {
+  .mat-checkbox-layout {
+    white-space: normal !important;
+  }
+  .actionContainer {
+    display: flex !important;
+    align-items: center;
+    height: 96px;
+  }
+}
+// .wrapper .tablewrapper table tr td {
+// display: flex !important;
+// }
+/* Add this CSS to your component's styles or global styles */
+
+.pickup-address {
+  display: unset;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.api-logo {
+  margin-left: -20px;
+}
+
+.vinasia {
+  margin-left: -20px;
+}
+
+.pluginLogo {
+  width: 82px;
+  margin-top: 4px;
+
+  &.api {
+    width: 27px;
+    height: 27px;
+  }
+
+  &.bizaapp {
+    width: 82px;
+    height: 28px !important;
+  }
+
+  &.woocommerce {
+    width: 82px;
+    height: 18px;
+  }
+
+  &.border-bottom {
+    margin-bottom: 8px;
+  }
+
+  &.onpay {
+    width: 78px;
+    height: 26px;
+  }
+}
+// .Bizapp{
+//   height: 60px;
+// }
+// .Fighter {
+//   height: 28px;
+// }
+// .Shopify {
+//   height: 35px;
+// }
+@media screen and (max-width: 1024px) {
+  .wrapper {
+    .tablewrapper {
+      table {
+        td.mat-cell {
+          &:last-child {
+            min-width: 110px;
+          }
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 600px) {
+  .pickup-address {
+    white-space: normal;
+  }
+  .date {
+    width: 100px;
+  }
+  .mat-column-pickupAddress {
+    word-break: normal !important;
+  }
+  .wrapper .tablewrapper table tr td {
+    height: 130px;
+  }
+  .wrapper .tablewrapper table .filter-container.padding-left {
+    padding-left: 0px !important;
+  }
+}
+
+.removeSpace {
+  margin-top: -15px;
+}
+
+.print-button {
+  background-color: #d6eaff;
+  border-radius: 50%;
+  color: #00498d;
+  font-size: 22px;
+  cursor: pointer;
+  width: 44px;
+  display: inline-block;
+  height: 44px;
+  position: relative;
+  margin-right: 7px;
+
+  .print-icon {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+  }
+
+  .checked {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 100%;
+    height: 100%;
+    background-color: #00498d;
+    color: #fff;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 5px;
+    font-size: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    mat-icon {
+      padding-top: 10px;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+  }
+
+  &.disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+}

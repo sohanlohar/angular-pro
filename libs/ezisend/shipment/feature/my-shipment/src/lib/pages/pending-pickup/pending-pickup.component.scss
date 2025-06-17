@@ -1,0 +1,102 @@
+.action-disabled {
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.action-button {
+  align-items: center;
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 0.8em;
+  flex-wrap: wrap;
+  align-self: center;
+  margin-top: 1.5rem;
+}
+pos-search-input {
+  width: 410px;
+}
+.mat-button-toggle-group {
+  height: 35px;
+  align-items: center;
+}
+
+.mat-button-toggle-checked {
+  background-color: #034d91 !important;
+}
+
+.mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+  color: white !important;
+}
+
+.action-disabled {
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.action-button {
+  align-items: center;
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 0.8em;
+  flex-wrap: wrap;
+  align-self: center;
+  margin-top: 1.5rem;
+}
+::ng-deep {
+  .dialogContainer {
+    .mat-dialog-content {
+      padding: 24px;
+    }
+  }
+}
+
+@media screen and (max-width: 435px) {
+  .container .container-action {
+    height: 3rem !important ;
+    margin-right: 0;
+    justify-content: space-between;
+  }
+  .my-shipment-wrapper .container {
+    padding-top: 15px;
+    width: 100%;
+    ::ng-deep pos-dropdown-input {
+      width: 100%;
+    }
+  }
+  pos-search-input {
+    width: 100%;
+  }
+}
+
+.my-shipment-wrapper .container.date-range-picker form {
+  width: 100% !important;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+@media screen and (max-width: 760px) {
+  ::ng-deep {
+    .search-input .mat-form-field-infix {
+      height: 21px !important;
+    }
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .date-range-picker {
+    width: 100% !important;
+  }
+
+  .container-action {
+    .date-range-picker {
+      margin-right: 0 !important;
+    }
+    .search-input {
+      min-width: auto !important;
+    }
+  }
+}

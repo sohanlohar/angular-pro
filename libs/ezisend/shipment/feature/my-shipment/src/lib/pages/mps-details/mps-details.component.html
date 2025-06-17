@@ -1,0 +1,90 @@
+<pos-page-layout [breadcrumbItems]="breadcrumbItems"
+    [backData]="(detail?.channel_order | keyvalue)?.length ? '' : backData">
+    <div class="main-title">{{languageData.multi_piece_shipment_details}}</div>
+    <div fxLayout="column" fxFlexFill>
+        <div class="container top">
+            <div fxLayout>
+                <div fxLayout="row wrap" fxLayout.lt-sm="column" fxFlex="auto" fxLayoutGap="1rem"
+                    fxLayoutGap.lt-md="0.5rem grid">
+                    <div fxLayout="column" fxFlex="auto">
+                        <mat-form-field class="dimensionWidth" appearance="outline" [formGroup]="mpsDetailsForm">
+                            <mat-label>{{languageData.parent_consignment_note}}</mat-label>
+                            <pos-form-control-wrapper [name]="'ParentConsignmentNote'"
+                                [control]="mpsDetailsForm.controls['parentConsignmentNote']">
+                                <input matInput formControlName="parentConsignmentNote" />
+                            </pos-form-control-wrapper>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="column" fxFlex="auto">
+                        <mat-form-field class="dimensionWidth" appearance="outline" [formGroup]="mpsDetailsForm">
+                            <mat-label>{{languageData.total_shipment}}</mat-label>
+                            <pos-form-control-wrapper [name]="'TotalShipments'"
+                                [control]="mpsDetailsForm.controls['totalShipments']">
+                                <input matInput formControlName="totalShipments" />
+                            </pos-form-control-wrapper>
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="column" fxFlex="auto">
+                        <mat-form-field class="dimensionWidth" appearance="outline" [formGroup]="mpsDetailsForm">
+                            <mat-label>{{languageData.total_weight}}</mat-label>
+                            <pos-form-control-wrapper [name]="'TotalWeight'"
+                                [control]="mpsDetailsForm.controls['totalWeight']">
+                                <input matInput formControlName="totalWeight" />
+                            </pos-form-control-wrapper>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="action-button">
+            <div class="action__group-button">
+                <button mat-flat-button color="primary"
+                *ngIf="!commonService.checkIfMobile()"
+                    [class.action-disabled]="!selectedMultipleData.length && !isSelectAllOrders"
+                    (click)="onActionButtonIcon('print', true)">
+                    {{languageData.print_label}}
+                </button>
+
+        <button
+          mat-flat-button
+          [class.action-disabled]="!selectedMultipleData.length && !isSelectAllOrders"
+          color="primary"
+          [matMenuTriggerFor]="menu">
+          {{languageData.download_as}}
+          <mat-icon
+            class="material-icon-outlined"
+            mat-icon-button>
+            arrow_drop_down
+          </mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="onActionButtonIcon('connote', true)">{{languageData.thermal_label}} (.prn)</button>
+          <button mat-menu-item (click)="onActionButtonIcon('tallysheet', true)">{{languageData.tallysheet}} (.xlsx)</button>
+          <button
+            mat-menu-item
+            (click)="onActionButtonIcon('commercialinvoice', true)"
+            [class.action-icon_disabled]="!isShowCommercialinvoiceButton">
+            {{languageData.commercialinvoice}} (.pdf)
+          </button>
+        </mat-menu>
+            </div>
+        </div>
+        <pos-my-shipment-table
+        *ngIf="!isLoading"
+        [shipment$]="shipment$"
+        [columnsToDisplay]="columns"
+        [iconActions]="actions"
+        [fromMps]="true"
+        [activeTab]="'all'"
+        (onSelectAllOrder)="onSelectAllOrders($event)"
+        (totalShipmentRecords)="totalShipmentRecords = $event"
+        (selectedData)="onSelectedData($event)"
+        (actionIconEvent)="onActionIconEvent($event)"
+        #MyShipmentTableComponent
+        >
+        </pos-my-shipment-table>
+    </div>
+</pos-page-layout><pos-loading-spinner *ngIf="isLoading"></pos-loading-spinner>

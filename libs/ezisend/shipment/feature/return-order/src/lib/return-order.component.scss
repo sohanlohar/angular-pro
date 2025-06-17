@@ -1,0 +1,11 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+$title-color: #034D91;
+
+.main-title {
+    font-weight: v.$font-weight-semibold;
+    font-size: v.$font_size_l;
+    text-transform: uppercase;
+    color: $title-color;
+    margin-bottom: 0.6rem;
+}

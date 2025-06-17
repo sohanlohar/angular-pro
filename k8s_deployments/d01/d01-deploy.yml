@@ -1,0 +1,59 @@
+kind: Rollout
+apiVersion: argoproj.io/v1alpha1
+metadata:
+  name: d01-spp-webserver
+  namespace: d01-spp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: d01-spp-webserver
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: d01-spp-webserver
+    spec:
+      containers:
+        - name: d01-spp-webserver
+          image: '972277210775.dkr.ecr.ap-southeast-1.amazonaws.com/spp-webserver:dockercicd'
+          ports:
+            - name: httpport
+              containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              memory: 500Mi
+            requests:
+              cpu: 50m
+              memory: 500Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      
+      schedulerName: default-scheduler
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+  strategy:
+   canary:
+    steps:
+      - setWeight: 10
+      - pause:
+          duration: 1m
+      - setWeight: 20
+      - pause:
+          duration: 1m
+      - setWeight: 40
+      - pause:
+          duration: 1m
+      - setWeight: 60
+      - pause:
+          duration: 1m
+      - setWeight: 80
+      - pause:
+          duration: 1m
+

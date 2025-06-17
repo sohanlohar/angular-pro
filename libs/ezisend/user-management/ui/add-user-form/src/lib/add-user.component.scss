@@ -1,0 +1,341 @@
+// @use 'apps/ezisend/src/styles/variables/index' as v;
+.container{
+  text-align: right;
+  position: relative;
+
+  span {
+    position: absolute;
+    top: 0; /* Fix the top position */
+    right: 0; /* Fix the right position */
+    margin: 10px; /* Adjust space from the edges */
+    .mat-icon.close {
+      width: 2.7em; /* Set width */
+      height: 2.7em; /* Set height */
+      cursor: pointer;
+    }
+  }
+}
+.container{
+  text-align: right;
+
+  span {
+    position: absolute;
+    top: -55px;
+    right: -20px;
+    mat-icon.close {
+      width: 106%;
+      cursor: pointer;
+      height: 2.7em;
+
+    }
+  }
+}
+.buttonConatiner{
+   display: flex;
+   border-bottom: 1px solid rgba(0, 73, 141, 1);
+   padding-bottom: 14px;
+   padding-left: 51px;
+   margin-top: 34px;
+}
+.personText{
+  background-color: white;
+  color: rgba(0, 73, 141, 1);
+}
+.buttonLabel{
+  margin-left: 3%;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 28.64px;
+  text-align: center;
+  color: rgb(0, 73, 141);
+}
+.dialogContainer{
+  display: flex; margin-top: 13px !important;
+}
+mat-icon.close {
+  width: 100%;
+  cursor: pointer;
+  height: 3.5em;
+}
+.nameText{
+  margin: auto;
+}
+
+.personIcon{
+  padding-top: 0.5%;
+}
+::ng-deep{
+  .mat-icon{
+    height: 18px;
+  }
+}
+.submitButton{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-right: 1%;
+
+  button.removeUser{
+    background-color: transparent!important;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: rgb(250, 96, 96)!important;
+
+    span {
+      margin-top: 15px;
+      margin-right: 15px;
+    }
+
+    &:hover{
+      color: rgb(235, 39, 39)!important;
+      cursor: pointer;
+    }
+
+    &:disabled{
+      color: #999;
+      background-color: transparent!important;
+      cursor: not-allowed;
+    }
+
+    mat-icon{
+      width: 22px;
+      height: 22px;
+      color: rgb(250, 96, 96)!important;
+
+      svg{
+        width: 22px;
+        height: 22px;
+        fill: rgb(250, 96, 96)!important;
+        stroke: rgb(250, 96, 96)!important;
+
+        path{
+          fill: rgb(250, 96, 96)!important;
+          stroke: rgb(250, 96, 96)!important;
+        }
+      }
+    }
+
+  }
+}
+
+::ng-deep{
+  .dialog-container-custom .mat-dialog-container{
+    padding: 0px !important;
+    border-radius: 8px,
+  }
+  .mat-option.mat-active {
+    background: none !important;
+  }
+}
+  @media screen and (max-width:435px) {
+    .search-input {
+      min-width: 360px;
+  }
+
+  }
+  @media screen and (max-width:390px) {
+    .search-input {
+      min-width: 320px !important;
+
+  }
+
+  }
+  @media screen and (max-width:360px) {
+    .search-input {
+      min-width: 300px !important;
+  }
+
+  }
+
+::ng-deep{
+  .submitButton .mat-flat-button{
+    width: 32% !important;
+    font-weight: 400 !important;
+  }
+}
+  .addUserContainer{
+    padding: 48px 48px 0 48px;
+  }
+
+  .submitButton{
+    margin-bottom: 10px;
+  }
+
+@media (max-width: 575.98px) {
+  .inputEmail-field{
+    width: 110% !important;
+  }
+ }
+
+/* For viewport widths between 376px and 390px */
+@media (min-width: 376px) and (max-width: 390px) {
+  ::ng-deep{
+    .submitButton .mat-flat-button{
+      width: 40% !important;
+    }
+  }
+}
+
+::ng-deep{
+  .mat-dialog-container {
+padding: 0px !important;
+  }
+}
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.button-container {
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 28.64px;
+  text-align: center;
+color:rgba(0, 73, 141, 1);
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.person-text {
+  margin-right: 10px;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  /* top, right, bottom, left */
+}
+
+.input-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.input-field {
+  flex: 1;
+  margin-right: 10px; /* Adjust spacing between fields */
+  margin-bottom: 10px; /* Adjust vertical spacing between fields */
+}
+
+.inputEmail-field{
+  flex: 1;
+  margin-right: 10px; /* Adjust spacing between fields */
+  margin-bottom: 10px;
+  width: 48% !important;
+}
+.submit-button {
+  display: flex;
+  justify-content: right;
+}
+::ng-deep{
+  .mat-select-panel{
+    min-width: calc(100% + 7%) !important;
+    margin-left: 10%;
+    max-height: 30% !important;
+    margin-top: 11.5%;
+    margin-right: 10%;
+    padding-bottom: 4.5%;
+    border: 1px solid #00498D;
+  }
+  .mat-select-panel:not([class*=mat-elevation-z]) {
+    margin-left: -10px !important;
+  }
+  .mat-option-text {
+    color: rgba(0, 0, 0, 0.87) !important;
+  }
+}
+@media screen and(max-width:430px) {
+  .inputEmail-field{
+    width: 94% !important;
+  }
+
+  ::ng-deep{
+    .mat-select-panel{
+    min-width: 1% !important;
+    }
+  }
+
+}
+@media screen and(max-width:390px) {
+  .inputEmail-field{
+    width: 110% !important;
+  }
+}
+::ng-deep{
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+}
+
+@media screen and (max-width: 717px) {
+  ::ng-deep{
+    .dialog-container-custom {
+      height: 450px !important;
+    }
+  }
+
+  .disableInput {
+    color: #999;
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+  .disableInput:focus {
+    outline: none;
+  }
+
+  ::ng-deep .cdk-overlay-pane{
+    top: 443px !important;
+    left: 80.5px !important;
+    bottom: 100px !important;
+  }
+}
+
+.download-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.login-loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.login-loading-spinner {
+  ::ng-deep circle {
+    stroke: white;
+  }
+
+
+}
+
+
+

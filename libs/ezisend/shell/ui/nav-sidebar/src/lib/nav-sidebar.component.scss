@@ -1,0 +1,173 @@
+/* ezisend / SendParcelPro */
+$ezisend-secondary-text: #f86262;
+
+$ezisend-primary-button: #00498d;
+$ezisend-secondary-button: #f86262;
+
+$ezisend-white-bg: #ffffff;
+
+$ezisend-default-text: #5e5873;
+
+$ezisend-navmenu-color: #1561a7;
+
+/* Gredient colors */
+$ezisend-to-left: #00498d;
+$ezisend-to-right: #2270b8;
+
+/* Font size */
+$ezisend-nav-font-size: 0.938rem; // 15px
+
+$default-font-color: #262626;
+$menu-child-color: #969696;
+$icon-color: #000000;
+
+.mat-nav-list {
+  width: 14.5rem;
+}
+
+.mat-nav-list a.active-link {
+  background-image: linear-gradient(90deg, $ezisend-to-left, $ezisend-to-right);
+  color: #fff;
+  box-shadow: 0px 0px 8px 0px $ezisend-to-left;
+  width: 14.5rem;
+  border-radius: 5px;
+  margin: 0px 10px;
+}
+
+:host {
+  .mat-drawer,
+  .mat-expansion-panel-header,
+  .mat-expansion-panel-content {
+    background-color: $ezisend-white-bg;
+    border: none;
+    width: 13.5rem;
+  }
+}
+
+.sidebar {
+  width: 100%;
+  &__header {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 14rem;
+    padding: 1rem;
+    font-size: 1.1rem;
+    margin-block: 0.5rem;
+    font-family: Poppins, sans-serif;
+    color: $default-font-color;
+    // text-align: center;
+
+    &__logo {
+      grid-column: 1;
+      grid-template-rows: 1fr;
+      grid-column-gap: 0px;
+      margin: 0.2rem 0.2rem;
+      img {
+        width: 164px;
+      }
+    }
+
+    &__menu {
+      grid-column: 2;
+      display: grid;
+      justify-content: right;
+      button {
+        padding: 0px 10px;
+      }
+    }
+
+    &__close-menu {
+      height: 3.86rem;
+      grid-column-gap: 0px;
+      margin: 0.2rem 0.2rem;
+      justify-content: left;
+      button {
+        padding: 2px 3px;
+        min-width: 0;
+        width: 35px;
+        height: 35px;
+        flex-shrink: 0;
+        line-height: 40px;
+      }
+    }
+
+    .sidebar__main-title {
+      font-weight: 400;
+    }
+
+    .sidebar__title {
+      font-weight: 700;
+    }
+  }
+
+  &__nav-list {
+    padding-top: 0rem;
+    display: inline;
+  }
+
+  ::ng-deep div.mat-expansion-panel-body {
+    padding: 0;
+    span.mat-list-item-content {
+      padding: 1rem 1.2rem 1rem;
+    }
+  }
+
+  &__expansion-panel {
+    box-shadow: 0px 0px 0px 0px;
+  }
+
+  mat-expansion-panel-header {
+    padding: 0 1.1rem;
+
+    mat-panel-title {
+      span {
+        margin-right: 0.8rem;
+      }
+    }
+  }
+
+  .mat-list-item,
+  mat-panel-title {
+    width: 14.5rem;
+    border-radius: 5px;
+    margin: 0px 10px;
+    span {
+      margin-right: 0.8rem;
+    }
+  }
+
+  .toggle-menu {
+    color: #709BC3;
+  }
+
+  .submenu-icon {
+    font-size: 0.6rem;
+  }
+
+  ::ng-deep .mat-expansion-indicator::after {
+    color: #044E92;
+  }
+
+  mat-panel-title,
+  .mat-list-item {
+    font-size: $ezisend-nav-font-size;
+    line-height: 1.5rem;
+    font-weight: 500;
+    font-family: Poppins;
+    color: $ezisend-navmenu-color;
+  }
+
+  &__child-nav-list {
+    color: $menu-child-color;
+    width: 13rem !important;
+    margin: auto !important;
+  }
+
+  mat-icon {
+    display: flex;
+    align-items: center;
+    margin-right: 0.5rem;
+    color: $icon-color;
+    font-size: 1.8rem;
+  }
+}

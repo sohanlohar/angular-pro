@@ -1,0 +1,84 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+.main-title {
+    font-size: v.$font_size_l;
+    font-weight: v.$font-weight-semibold;
+    line-height: 1.5rem;
+    color: #034D91;
+    margin-bottom: 0.75rem;
+}
+.plugins-card{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 24px 0px #0000000F;
+
+    .plugin-wrapper{
+        display: flex;
+    }
+}
+.plugin-validation {
+    background-color: white;
+    margin-top: 1.5rem;
+    padding: 2rem ;
+    box-shadow: 0px 4px 24px 0px #0000000F;
+    border-radius: 5px;
+
+    .input {
+        width: 100%;
+    }
+
+    .store-name {
+        font-size: 14px;
+    }
+
+    .title {
+        margin-bottom: 1rem;
+        font-size: 16px;
+        text-decoration: underline;
+    }
+
+    .button-submit {
+        margin: 1rem 0rem 1rem 0rem;
+        grid-area: sB;
+        justify-items: right;
+        display: flex;
+        justify-content: space-between;
+
+        .submit {
+          justify-self: right;
+          min-width: 7rem;
+          height: 2.9rem;
+          
+          mat-spinner {
+            margin: 0 auto;
+          }
+    
+          .login-loading-spinner {
+            ::ng-deep circle {
+              stroke: v.$primary_color;
+            }
+          }
+        }
+        .view-button {
+            justify-self: left;
+            border: none;
+            background-color: transparent;
+            color: #034D91;
+            font-weight: 500;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+      }
+}
+
+@media screen and (max-width: 1139px) {
+    .plugins-card{
+        .row{
+            flex-direction: column;
+        }
+    }
+}

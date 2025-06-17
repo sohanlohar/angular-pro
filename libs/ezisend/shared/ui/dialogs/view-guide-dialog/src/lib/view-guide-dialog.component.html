@@ -1,0 +1,12 @@
+<div class="view-guide-container">
+  <div mat-dialog-title>
+    <span (click)="dialogRef.close()">
+      <mat-icon class="close" svgIcon="close_icon"></mat-icon>
+    </span>
+  </div>
+  <mat-dialog-content>
+    <h2 class="title" *ngIf="(commonService.isMelPlusSelected | async) === false">{{languageData.parcel_dimensions_guide}}</h2>
+    <img *ngIf="isLanguageEnglish === 'en'" [src]="(commonService.isMelPlusSelected | async) === false ? './assets/view-guide.svg' : './assets/melplus2.svg'">
+    <img *ngIf="isLanguageEnglish === 'my'" [src]="(commonService.isMelPlusSelected | async) === false ? './assets/view-guide-my.svg' : './assets/melplus2-my.svg'">
+  </mat-dialog-content>
+</div>

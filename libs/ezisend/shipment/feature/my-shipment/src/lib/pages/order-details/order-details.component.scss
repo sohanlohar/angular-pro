@@ -1,0 +1,597 @@
+@use 'apps/ezisend/src/styles/variables/index'as v;
+
+.main-title {
+  font-weight: v.$font-weight-semibold;
+  font-size: v.$font_size_l;
+  text-transform: uppercase;
+  color: v.$primary_color;
+  margin-bottom: 0.6rem;
+}
+
+.container {
+  background-color: #FFFFFF;
+  color: v.$primary_color;
+  font-weight: 500;
+  padding: 2rem;
+
+  &.top {
+    background-color: #F7FBFF;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .container-store {
+    display: flex;
+    align-items: center;
+  }
+
+  .mat-icon {
+    border-radius: 50%;
+    font-size: 25px;
+    margin-right: 2rem;
+    min-width: 24px;
+    padding: 13px;
+
+    &.tracking-icon {
+      background-color: #FDEAEB;
+      color: #EA5455;
+    }
+
+    &.sender-icon {
+      background-color: rgba(40, 199, 111, 0.12);
+      color: #28C76F;
+    }
+
+    &.recipient-icon {
+      background-color: #CDE7FF;
+      color: #3993E5;
+    }
+
+    &.parcel-icon {
+      background-color: #FFEFD6;
+      color: #F39C12;
+    }
+  }
+
+  .tracking-details-container,
+  .tracking-details {
+    display: flex;
+    align-items: center !important;
+  }
+
+  &-title {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  &-subtitle {
+    font-size: 0.875rem;
+
+    &-value {
+      color: v.$teritary_color;
+      font-weight: 400;
+      word-break: break-word;
+
+      .no-tracking-id,
+      .not-scheduled,
+      .cancelled,
+      .scheduled,
+      .re-scheduled,
+      .in-transit,
+      .picked-up,
+      .to-collect,
+      .delivered,
+      .out-for-delivery,
+      .failed,
+      .returned,
+      .pending-dropoff,
+      .droppedoff,
+      .returned_assigned,
+      .return_success,
+      .partial-picked {
+        font-size: 12px;
+        font-weight: 600;
+        background-color: transparent;
+        border-radius: 0.4em;
+        // padding: 6px 7px;
+        flex-wrap: wrap;
+        display: inline-block;
+        color: #8F8F8F;
+      }
+
+      .no-tracking-id {
+        color: #FF1A1A;
+      }
+
+      .not-scheduled {
+        color: #2DCCCC;
+      }
+
+      .cancelled {
+        color: #979797;
+      }
+
+      .scheduled {
+        color: #7367C8;
+      }
+
+      .re-scheduled {
+        color: #7367C8;
+      }
+
+      .in-transit {
+        color: #FF9C00;
+      }
+
+      .delivered {
+        color: #01B248;
+      }
+
+      .failed {
+        color: #FF1A1A;
+      }
+
+      .returned {
+        color: #01B248;
+      }
+
+      .picked-up {
+        color: #FF9C00;
+      }
+
+      .out-for-delivery {
+        color: #FF9C00;
+      }
+
+      .returned_assigned {
+        color: #7367C8;
+      }
+
+      .return_success {
+        color: #01B248;
+      }
+
+      .partial-picked {
+        color: #7367C8;
+      }
+
+      .to-collect {
+        color: #006ED3;
+      }
+
+      .pending-dropoff {
+        color: #2DCCCC;
+      }
+
+      .droppedoff {
+        color: #FF9C00;
+      }
+
+
+      &-highlight {
+        color: v.$teritary_color;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .store-name {
+    margin-top: 5px;
+  }
+
+  &-custom-details {
+    padding-bottom: 2rem;
+  }
+
+  .parcel-details {
+    padding-bottom: 3rem;
+  }
+
+  .download-button {
+    padding: .25rem 3rem;
+  }
+
+  .track-order-button-container {
+    max-width: 220px;
+    width: 100%;
+
+    >a {
+      width: 100%;
+    }
+  }
+}
+
+.trackingContainer {
+  margin-top: 30px;
+}
+
+.trackingNumber {
+  margin-top: -8px;
+}
+
+.container.top {
+  display: flex;
+  flex-direction: column;
+}
+
+.anno-section-anno-content {
+  padding-top: 1rem;
+  margin: 0rem;
+  align-self: flex-start !important;
+}
+
+.track-list-holder {
+  max-width: 37.142857rem;
+  margin: auto;
+}
+
+.track-list-holder .track-section-day .track-date {
+  background-color: #fff;
+  min-width: 13.2rem;
+  padding: 0.714285rem 0.857rem;
+  margin-left: 13.5%;
+  border: 0.14285rem solid #585858;
+  border-radius: 0.357rem;
+  color: rgba(88, 88, 88, 1);
+  font-size: 16px;
+  text-align: center;
+  display: inline-block;
+  font-weight: 500;
+}
+
+.trackingStatus {
+  font-weight: 500;
+  padding-bottom: 0.2rem;
+}
+
+.trackingDate {
+  font-size: 12px;
+  font-weight: 500;
+  padding-top: 0.2rem;
+}
+
+.track-list-holder.delivered .track-section-day:first-child .track-list:first-child {
+  padding-top: 1.4285rem;
+}
+
+.track-list-holder .track-section-day .track-list {
+  padding: 0 0 2.14285rem;
+  display: flex;
+  position: relative;
+}
+
+.track-list-holder .track-section-day .track-list .track-time {
+  width: 24%;
+  font-size: 1rem;
+  color: #939393;
+  text-align: right;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 5;
+  transition: width 0.3s;
+}
+
+.track-list-holder .track-section-day .track-list .track-icon {
+  width: 4.857rem;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 5;
+  transition: width 0.3s;
+}
+
+.track-list-holder .track-section-day .track-list .track-icon .icon-inner {
+  width: 0;
+  height: 0;
+  border-bottom: 1rem solid rgba(91, 202, 103, 1);
+  border-right: 0.5rem solid #0000;
+  border-left: 0.5rem solid #0000;
+  margin-top: 0.357rem;
+  margin-left: 50%;
+  transform: translateX(-50%);
+  position: relative;
+}
+
+.track-list-holder .track-section-day:last-child .track-list:last-child .track-icon .icon-circle {
+  border-bottom: 1rem solid rgba(91, 202, 103, 1);
+  ;
+  border-radius: 50%;
+  height: -10px;
+  width: 15px;
+  margin-left: 31px;
+}
+
+.icon-re {
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.track-list-holder .track-section-day .track-list .track-details {
+  flex-grow: 1;
+  position: relative;
+  z-index: 5;
+}
+
+.track-list-holder .track-section-day .track-list .track-details .title {
+  color: #9b9b9b;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.track-list-holder .track-section-day .track-list .track-details .desc_head {
+  color: #9b9b9b;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+// .track-list-holder.delivered
+//   .track-section-day:first-child
+//   .track-list:first-child
+//   .track-icon
+//   .icon-inner {
+//   background-image: url(/assets/images/portal/icon/icon-track-tick-outline.svg);
+//   // left: -8px;
+//   border: none;
+//   background-image: url(https://tracking.pos.com.my/assets/images/portal/icon/icon-track-tick-outline.svg);
+//   background-size: unset;
+//   width: 1.7142857rem;
+//   height: 1.7142857rem;
+//   border: 0;
+//   border-radius: 50%;
+//   margin-top: 0;
+//   z-index: 1;
+//   background-color: rgba(91, 202, 103, 1);
+
+//   // animation: move-arrow 1.5s linear infinite;
+// }
+.track-list-holder.delivered .track-section-day:first-child .track-list:first-child .track-icon .icon-inner:after {
+
+  border-bottom: 1rem solid #5bca67;
+  border-right: .5rem solid #0000;
+  border-left: .5rem solid #0000;
+  opacity: 0;
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translate(-50%);
+  animation-name: aniArrow;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes aniArrow {
+  0% {
+    opacity: 0;
+    transform: translate(-50%) scale(1)
+  }
+
+  50% {
+    opacity: .7;
+    transform: translate(-50%, -25%) scale(1.25)
+  }
+
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.5)
+  }
+}
+
+// @keyframes move-arrow {
+//   from {
+//     transform: translateY(100%);
+//   }
+//   to {
+//     transform: translateY(0);
+//   }
+// }
+.track-list-holder.delivered .track-section-day:first-child .track-list:first-child .track-details .title,
+.track-list-holder.delivered .track-section-day:first-child .track-list:first-child .track-details .desc {
+  color: #000000;
+}
+
+.track-list-holder.delivered .track-section-day:first-child .track-list:first-child .track-details .desc_head {
+  color: #FF474F;
+}
+
+.track-list-holder .track-section-day .track-list .track-details .desc {
+  color: #8b8b8b;
+  font-size: 12px;
+}
+
+.track-list-holder.delivered .track-section-day:first-child .track-list:first-child:after {
+  height: calc(100% - 1.4285rem - 0.714285rem);
+  bottom: 0;
+}
+
+.track-list-holder .track-section-day .track-list:after {
+  background-color: rgba(91, 202, 103, 1);
+  width: 0.2857rem;
+  content: '';
+  position: absolute;
+  left: calc(24% + 2.4285rem);
+  transform: translateX(-50%);
+  transition: left 0.3s;
+}
+
+.track-list-holder .track-section-day .track-list:before {
+  height: 100%;
+  top: 0;
+}
+
+.track-list-holder .track-section-day .track-list:first-child {
+  padding-top: 1.857rem;
+}
+
+// .icon-item-last:last-child:before {
+//   height: 0px !important;
+// }
+
+.mat-expansion-panel .mat-expansion-panel-content .mat-expansion-panel-body {
+  margin: 0px 0px 0px -50% !important;
+}
+
+.mat-expansion-panel-content {
+  flex-direction: row !important;
+}
+
+.track-list-holder.delivered .track-section-day:first-child .track-list:first-child .track-icon .delivery-item {
+  background-image: url(https://tracking.pos.com.my/assets/images/portal/icon/icon-track-tick-outline.svg);
+  background-size: unset;
+  background-color: rgba(91, 202, 103, 1);
+  width: 1.7142857rem;
+  height: 1.7142857rem;
+  border: 0;
+  border-radius: 50%;
+  margin-top: 0;
+  z-index: 1;
+}
+
+.icon-re {
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+
+.track-list-holder.delivered .track-section-day:first-child .track-list:first-child .delivery-icon:after {
+  background-color: rgba(91, 202, 103, 1);
+  width: 1.7142857rem;
+  height: 1.7142857rem;
+  border-radius: 50%;
+  opacity: 0;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-name: aniBlink;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes aniBlink {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(1);
+  }
+
+
+  50% {
+    opacity: .7;
+    transform: translateX(-50%) scale(1.25);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) scale(1.75);
+  }
+}
+
+.track-list-holder .track-section-day .track-list{
+  &:before {
+  background-color: rgba(91, 202, 103, 1);
+  width: 0.2857rem;
+  content: '';
+  position: absolute;
+  left: calc(24% + 2.4285rem);
+  transform: translateX(-50%);
+  transition: left 0.3s;
+}
+}
+.track-section-day:first-of-type .track-list:first-child::before{
+  width: 0;
+}
+
+.track-status {
+  margin-top: 2.14285rem;
+}
+
+.track-status .title {
+  font-size: 15px;
+  font-family: sans-serif;
+}
+
+.track-status .desc {
+  margin-top: 0.714285rem;
+  font-size: 15px;
+  font-family: sans-serif;
+  line-height: 1.15em;
+}
+
+.text-upper {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.mat-button-disabled {
+  cursor: no-drop;
+
+  &:hover {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -o-transform: scale(1);
+  }
+}
+
+@media screen and(max-width:430px) {
+  .track-list-holder .track-section-day .track-date {
+    min-width: 8.2rem;
+  }
+}
+
+.mat-expansion-panel-header-title {
+  flex-grow: unset !important;
+  align-items: flex-end !important;
+  margin-right: 30px !important;
+}
+
+.mat-expansion-panel-body {
+  padding: 0 55px 16px !important;
+}
+
+.trackingBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid #00498d;
+  align-self: baseline;
+  height: 44.33px;
+  top: -15px;
+}
+
+.trackingBtn .contentCopy {
+  padding: 0px !important;
+  font-size: 16.33px !important;
+  overflow: visible !important;
+  color: #00498D !important;
+  font-weight: bold !important;
+  align-content: center !important;
+  margin: auto !important;
+}
+
+.trackingBtn img {
+  margin-left: 5px;
+}
+
+
+.download-button {
+  position: relative; /* Enable positioning for child elements */
+  display: inline-flex; /* Allow inline display with flexbox */
+  align-items: center; /* Center content vertically */
+}
+
+.login-loading-spinner {
+  position: absolute; /* Position the spinner absolutely */
+  top: 50%; /* Center spinner vertically */
+  left: 50%; /* Center spinner horizontally */
+  transform: translate(-50%, -50%); /* Adjust positioning for centering */
+  z-index: 2; /* Ensure spinner is displayed above button text */
+}
+
+.login-loading-spinner {
+  ::ng-deep circle {
+    stroke: white;
+  }
+}

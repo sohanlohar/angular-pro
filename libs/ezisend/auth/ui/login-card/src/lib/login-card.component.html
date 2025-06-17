@@ -1,0 +1,14 @@
+<div class="tabs">
+  <div class="tabs__lite" matRipple>Lite</div>
+  <div class="tabs__pro" matRipple><span>Pro</span></div>
+</div>
+<div class="card">
+  <div class="card__header">
+    <div class="card__title">{{ title }} <span>{{ pro }}</span></div>
+    <div class="card__description" [outerHTML]="description"></div>
+  </div>
+  <ng-content></ng-content>
+</div>
+<div class="createaccount" *ngIf="footerLink" (click)="trackingEvent()">
+  New to our platform? <a href="https://www.pos.com.my/send/business.html#business_submit" target="_blank">Create an account</a>
+</div>

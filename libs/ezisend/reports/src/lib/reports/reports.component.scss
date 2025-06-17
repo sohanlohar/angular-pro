@@ -1,0 +1,232 @@
+@use "apps/ezisend/src/styles/variables/index" as v;
+
+pos-page-layout {
+  padding-bottom: 0;
+}
+
+.main-title {
+  font-size: v.$font_size_l;
+  font-weight: v.$font-weight-semibold;
+  text-transform: uppercase;
+  color: v.$primary_color;
+  margin-bottom: 0.6rem;
+  height: auto;
+}
+
+::ng-deep {
+  .my-shipment-wrapper {
+    margin-top: 15px;
+
+    .margin-left {
+      margin-left: 25px;
+    }
+
+    .action-field {
+      align-items: center;
+      background-color: #f7fbff;
+      border-radius: 0px 10px 0 0 !important;
+      display: flex;
+      flex-wrap: wrap;
+      height: auto;
+      min-height: 5rem;
+      padding: 0.75rem 1.5rem;
+      row-gap: 0.5rem;
+    }
+
+    .border {
+      border-bottom: 1px solid #d3e6f8;
+    }
+
+    .action-field-hide {
+      opacity: 0;
+    }
+
+    .report {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .report-label {
+      color: #5e5873;
+      font-size: 15px;
+      margin-bottom: 0.25rem;
+    }
+
+    .report-action {
+      margin-right: 0.875rem;
+      align-items: center;
+      border-radius: 0.375rem;
+      border: 1px solid #ddd;
+      display: flex;
+      height: 2.375rem;
+      justify-content: center;
+      transition: all 0.25s linear;
+
+      .date-picker {
+        .mat-form-field-infix {
+          width: 280px;
+        }
+      }
+
+      .mat-form-field-infix {
+        width: 300px;
+      }
+    }
+
+    .container-action_address {
+      border: none;
+    }
+
+    .container-right {
+      margin-left: auto;
+    }
+  }
+
+  .col {
+    margin-right: 15px;
+  }
+
+  .ms-auto {
+    margin-left: auto;
+    margin-right: 43px;
+  }
+
+  .generate-btn {
+    color: white;
+    background: #034d91;
+    padding: 10px 21px;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 10% !important;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .generate-opacity {
+    opacity: 0.5;
+  }
+
+  .justify-end {
+    justify-content: end;
+    background-color: #ffffff !important;
+  }
+
+  .justify-between {
+    justify-content: space-between;
+  }
+
+  .bg-green {
+    background: #009b47;
+    margin: auto;
+    width: 50%;
+    color: #f7fbff;
+    padding: 20px 32px;
+    margin-top: 10%;
+
+    a {
+      color: #f7fbff;
+    }
+  }
+
+  .action-icon {
+    background-color: #d6eaff;
+    border-radius: 50%;
+    color: #00498d;
+    padding: 10px;
+    margin-right: 7px;
+    font-size: 22px;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+
+  .mat-standard-chip .mat-chip-remove,
+  .mat-standard-chip .mat-chip-trailing-icon {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  .mat-chip.mat-standard-chip.mat-chip-selected.mat-primary {
+    background-color: #3993e5 !important;
+  }
+
+  .mat-chip-remove {
+    opacity: 1 !important;
+  }
+
+  .button-disabled {
+    background: transparent;
+    border: 0;
+  }
+  .dropdown-input {
+    // min-width: 150px;
+    width: 390px;
+
+    .mat-form-field-wrapper {
+      padding-bottom: 0.7rem;
+    }
+
+    .mat-form-field-infix {
+      border-top: 0;
+      padding-top: 12px;
+    }
+
+    .mat-form-field-flex {
+      align-items: flex-end;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+
+    .mat-form-field-underline {
+      display: none;
+    }
+  }
+  .mat-chip-list-wrapper {
+    margin-top: 10px !important;
+  }
+
+  .mat-datepicker-content .mat-calendar {
+    width: 296px !important;
+  }
+}
+.wrapperReports {
+  overflow-x: auto;
+  table {
+    width: 100%;
+    margin-bottom: 36px;
+  }
+}
+@media screen and (max-width: 750px) {
+  .generate-opacity {
+    margin-right: -52px;
+  }
+  .my-shipment-wrapper .margin-left {
+    margin-left: 0px;
+  }
+
+  ::ng-deep {
+    .dropdown-input .mat-form-field-flex {
+      padding-left: 0.2rem !important;
+    }
+
+    .my-shipment-wrapper .action-field {
+      .mat-form-field-infix {
+        width: 100% !important;
+      }
+      .report-action {
+        margin-right: 0;
+        width: 100%;
+      }
+      .margin-left {
+        width: 100%;
+      }
+      .col {
+        margin-right: 0;
+        width: 100%;
+        width: 100%;
+      }
+    }
+  }
+}

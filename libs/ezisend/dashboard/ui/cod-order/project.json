@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/ezisend/dashboard/ui/cod-order/src",
+  "prefix": "pos",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ezisend/dashboard/ui/cod-order"],
+      "options": {
+        "jestConfig": "libs/ezisend/dashboard/ui/cod-order/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ezisend/dashboard/ui/cod-order/**/*.ts",
+          "libs/ezisend/dashboard/ui/cod-order/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,47 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  height: 30px;
+  left: 0px;
+  bottom: 0;
+  right: 0;
+  background: #FFFFFF;
+  box-shadow: 0px -3px 4px rgb(0 0 0 / 25%);
+  border-radius: 5px;
+  padding: 20px 50px;
+  align-items: center;
+  
+  .item {
+    width: 25%;
+    text-align: center;
+    cursor: pointer;
+  }
+  .item .icon {
+    width: 1.5rem;
+  }
+  .item .label {
+    font-size: 11px;
+  }
+  .item.active-link .icon .mat-icon,
+  .item.active-link .label {
+    color: #EA0000;
+  }
+}
+
+@media screen and (max-width: 434px) {
+  .wrapper {
+    padding: 20px 10px;
+  }
+}
+@media screen and(max-width: 381px) {
+  .item {
+    line-height: 1;
+  }
+  .item .icon .mat-icon {
+    font-size: 1.2rem;
+  }
+  .item .icon .label {
+    font-size: 9px;
+  }
+}

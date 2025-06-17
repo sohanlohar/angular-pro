@@ -1,0 +1,21 @@
+<div class="breadcrumbs">
+  <ul class="breadcrumbs__breadcrumb">
+    <ng-container *ngFor="let item of breadcrumbItems">
+      <li>
+        <a
+          [ngClass]="{ current: item.current }"
+          [routerLink]="item.routerLink"
+          [queryParams]="item?.query"
+          >{{ item.title }}</a
+        >
+      </li>
+      <mat-icon class="breadcrumb__icon" *ngIf="!item.current"
+        >chevron_right</mat-icon
+      >
+    </ng-container>
+  </ul>
+  <div class="back" *ngIf="backData">
+    <mat-icon>arrow_back</mat-icon>
+    <a [routerLink]="[backData.path]" [queryParams]="backData.query">{{ backData.label }}</a>
+  </div>
+</div>

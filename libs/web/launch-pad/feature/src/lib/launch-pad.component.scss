@@ -1,0 +1,9 @@
+$card-length: 16rem;
+.container {
+  max-width: 99rem;
+  margin: 3rem auto;
+  padding: 0 2rem;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax($card-length, 1fr));
+}

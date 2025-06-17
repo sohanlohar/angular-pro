@@ -1,0 +1,70 @@
+<pos-page-layout [breadcrumbItems]="breadcrumbItems">
+  <div class="main-title">{{data.my_shipments}}</div>
+  <mat-tab-group
+    color="transparent"
+    class="my-shipment-tab-group searchindex"
+    #stepper
+    mat-align-tabs="start"
+    animationDuration="0ms"
+    [selectedIndex]="selectedIndex"
+    (selectedTabChange)="selectTab($event, true)"
+    disableRipple>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <!-- <label class="label-total">{{shipmentSummaryTotal?.request_pickup_count}}</label> -->
+        <label>{{data.request}} <br> {{data.for_pickup}}</label>
+      </ng-template>
+      <pos-request-for-pickup
+        *ngIf="pageType === 'request-pickup' || !pageType"
+        (dataEmitter)="handleDataFromChild($event)"
+      ></pos-request-for-pickup>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <!-- <label class="label-total">{{shipmentSummaryTotal?.pending_pickup_count}}</label> -->
+        <label>{{data.pending}} <br> {{data.shipments}}</label>
+      </ng-template>
+      <pos-pending-pickup
+        *ngIf="pageType === 'pending-pickup'"
+      ></pos-pending-pickup>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <!-- <label class="label-total">{{shipmentSummaryTotal?.live_shipment_count}}</label> -->
+        <label>{{data.live}} <br> {{data.live_shipment}}</label>
+      </ng-template>
+      <pos-live-shipments
+        *ngIf="pageType === 'live-shipment'"
+      ></pos-live-shipments>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <!-- <label class="label-total">{{shipmentSummaryTotal?.delivered_shipment_count}}</label> -->
+        <label>{{data.delivered}}</label>
+      </ng-template>
+      <pos-delivered *ngIf="pageType === 'delivered'" [uiTab]="'delivered'"></pos-delivered>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <!-- <label class="label-total">{{shipmentSummaryTotal?.failed_delivery_count}}</label> -->
+        <label>{{data.failed}} <br> {{data.deliveries}}</label>
+      </ng-template>
+      <pos-fail-deliver
+        *ngIf="pageType === 'fail-delivered'"
+      ></pos-fail-deliver>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <!-- <label class="label-total">{{shipmentSummaryTotal?.return_cancelled_count}}</label> -->
+        <label>{{data.return}} <br> {{data.return_shipments}}</label>
+      </ng-template>
+      <pos-returned *ngIf="pageType === 'return'"></pos-returned>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <label>{{data.all}}</label>
+      </ng-template>
+      <pos-delivered *ngIf="pageType === 'all'" [uiTab]="'all'"></pos-delivered>
+    </mat-tab>
+  </mat-tab-group>
+</pos-page-layout>

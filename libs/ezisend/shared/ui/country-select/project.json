@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/ezisend/shared/ui/country-select/src",
+  "prefix": "pos",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ezisend/shared/ui/country-select"],
+      "options": {
+        "jestConfig": "libs/ezisend/shared/ui/country-select/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ezisend/shared/ui/country-select/src/**/*.ts",
+          "libs/ezisend/shared/ui/country-select/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

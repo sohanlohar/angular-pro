@@ -1,0 +1,15 @@
+<mat-card class="launcher-card">
+  <mat-card-header>
+    <mat-card-title>{{ launcher?.name }}</mat-card-title>
+    <mat-card-subtitle>{{ launcher?.category }}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image [src]="launcher?.image_url" alt="launcher.name" />
+  <mat-card-content>
+    <p>
+      {{ launcher?.description }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button color="secondary">Launch</button>
+  </mat-card-actions>
+</mat-card>

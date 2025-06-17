@@ -1,0 +1,102 @@
+$title-color: #034d91;
+pos-excel-reader {
+  width: 100%;
+  height: 100%;
+}
+.container {
+  margin: 2rem;
+  display: flex;
+
+  .info_box {
+    .title {
+      font-size: 1rem;
+    }
+
+    ol {
+      padding: 0rem 1rem;
+
+      li {
+        padding: 0.5rem;
+
+        .btn_container {
+          margin-top: 0rem;
+          span {
+            display: inline-block;
+            padding: 3px 10px;
+            top: 10px;
+            position: relative;
+            width: 150px;
+            font-size: 0.7rem;
+            color: $title-color;
+          }
+        }
+        .link {
+          color: $title-color;
+          cursor: pointer;
+          a {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+
+  .upload_box {
+    display: flex;
+    flex: 1;
+    align-items: baseline;
+    justify-content: center;
+    margin-left: 3rem;
+      div {
+          width: 100%;
+          height: 15rem;
+          border: 1px dashed #000;
+          border-radius: 0.5rem;
+          p {
+              margin-top: 5rem;
+              color: $title-color;
+              text-align: center;
+          }
+      }
+  }
+  
+}
+
+.important-notes {
+  background-color: #FFEFEF;
+  padding: 10px 10px;
+  border-radius: 10px;
+  margin: 2rem;
+}
+.important-notes .highlight {
+  color: #FF0000;
+  font-size: 12px;
+  text-decoration: underline;
+  padding-left: 15px;
+}
+.important-notes ol.notes{
+  line-height: 1.5;
+  padding-left: 30px;
+  font-size: 12px;
+}
+.important-notes ol.notes .bold {
+  font-weight: 600;
+}
+
+
+
+@media screen and (max-width: 1055px) {
+  .container {
+    flex-direction: column;
+  }
+  .container .upload_box {
+    margin-left: 0;
+    margin-top: 3rem;
+  }
+}
+
+@media only screen and (min-width: 1055px) {
+  .info_box {
+    max-width: 55%;
+  }
+}

@@ -1,0 +1,118 @@
+<div class="my-shipment-wrapper">
+  <div class="action-field">
+    <!-- search field -->
+    <div class="container">
+      <label class="container-label">{{languageData.search_shipments}}</label>
+      <div class="container-action">
+        <pos-search-input [placeholder]="languageData.search_shipments_placeholder"
+          (searchEvent)="onSearchEvent($event)"></pos-search-input>
+      </div>
+    </div>
+    
+    <!-- date range field -->
+    <div class="container date-range-picker">
+      <label class="container-label">{{languageData.date_range}}</label>
+      <div class="container-action date-range-picker">
+        <form [formGroup]="dateRangePickerForm">
+          <pos-date-range-picker (formChange)="onDateRangePickerFormChange($event)" [minDate]="minSelectableDate" [maxDate]="maxSelectableDate"
+          (formChange)="onDateRangePickerFormChange($event)"
+          [formGroup]="dateRangePickerForm" class="px-3"  ></pos-date-range-picker>
+        </form>
+      </div>
+    </div>
+    <!-- dropdown field -->
+    <div class="container">
+      <label class="container-label">{{languageData.order_status}}</label>
+      <div class="container-action">
+        <pos-dropdown-input [placeholder]="languageData.order_status_placeholder" [options]="dropdownOptions"
+          (selectionChange)="onSelectChange($event)" class=""></pos-dropdown-input>
+      </div>
+    </div>
+  </div>
+  <div class="action-field">
+    <div class="container">
+      <label class="container-label">{{languageData.view_by}}</label>
+      <div>
+        <mat-button-toggle-group (change)="fetchShipments()" #group="matButtonToggleGroup" [formControl]="toggleValue">
+          <mat-button-toggle value="view-by-orders">
+            {{languageData.orders}}
+          </mat-button-toggle>
+          <mat-button-toggle value="view-by-pickup-number">
+            {{languageData.pickup_number}}
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+    <div class="action-button">
+      <button mat-flat-button color="primary"
+      
+        [class.action-disabled]="(!selectedMultipleData.length || totalShipmentNotRequestPickup === 0) && !isSelectAllOrders"
+        (click)="onActionButtonIcon('print', true)">
+        {{languageData.print_label}}<span
+          *ngIf="selectedMultipleData.length && !isSelectAllOrders">({{totalShipmentNotRequestPickup}})</span>
+      </button>
+      <!-- <button mat-flat-button color="primary"
+      *ngIf="!_commonService.checkIfMobile()"
+        [class.action-disabled]="(!selectedMultipleData.length || totalShipmentNotRequestPickup === 0) && !isSelectAllOrders"
+        (click)="onActionButtonIcon('connote', true)">
+        Thermal Label (.prn) <span
+          *ngIf="selectedMultipleData.length && !isSelectAllOrders">({{totalShipmentNotRequestPickup}})</span>
+      </button> -->
+      <button mat-flat-button color="primary"  [class.action-disabled]="
+                (!selectedMultipleData.length
+                && !isSelectAllOrders)
+                || isSelectedShipmentsNoTrackingId" [matMenuTriggerFor]="menu">
+        {{languageData.download_as}}
+        <mat-icon class="material-icon-outlined" mat-icon-button>
+          arrow_drop_down
+        </mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onActionButtonIcon('connote', true)">
+          {{languageData.thermal_label}} (.prn)
+        </button>
+        <button mat-menu-item (click)="onActionButtonIcon('tallysheet', true)"  [class.action-icon_disabled]="totalShipmentNoTrackingId">
+          {{languageData.tallysheet}} (.xlsx)
+        </button>
+        <button mat-menu-item (click)="onActionButtonIcon('commercialinvoice', true)"
+          [class.action-icon_disabled]="!isShowCommercialinvoiceButton">
+          {{languageData.commercialinvoice}} (.pdf)
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+
+  <pos-my-shipment-table
+  *ngIf="totalTrackingDetails>0 && _commonService.checkIfMobile()"
+    [shipment$]="shipment$"
+    [activeTab]="activeTab"
+    [isDisabled]="false"
+    [columnsToDisplay]="columns"
+    [iconActions]="actions"
+    [isDisabled]="false"
+    (pageEvent)="onPageEvent($event)"
+    (actionIconEvent)="onActionEvent($event)"
+    (onSelectAllOrder)="isSelectAllOrders = $event"
+    (totalShipmentRecords)="totalShipmentRecords = $event"
+    (filterCheckbox)="onFilterCheckbox($event)"
+    (selectedData)="onSelectRow($event)">
+  </pos-my-shipment-table>
+  <pos-my-shipment-table
+    *ngIf="!_commonService.checkIfMobile()"
+    [shipment$]="shipment$"
+    [activeTab]="activeTab"
+    [isDisabled]="false"
+    [columnsToDisplay]="columns"
+    [iconActions]="actions"
+    (pageEvent)="onPageEvent($event)"
+    (actionIconEvent)="onActionEvent($event)"
+    (onSelectAllOrder)="isSelectAllOrders = $event"
+    (totalShipmentRecords)="totalShipmentRecords = $event"
+    (filterCheckbox)="onFilterCheckbox($event)"
+    (selectedData)="onSelectRow($event)">
+  </pos-my-shipment-table>
+<mat-progress-bar *ngIf="isLoading && _commonService.checkIfMobile()" mode="indeterminate"></mat-progress-bar>
+<mat-card style="margin-top: 10px; text-align: center;"  *ngIf="totalTrackingDetails===0 && _commonService.checkIfMobile()">
+  <mat-card-content>{{languageData.no_record_found}}</mat-card-content>
+</mat-card>
+</div>

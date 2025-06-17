@@ -1,0 +1,25 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: d02-spp-webserver
+  namespace: d02-spp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: d02-spp-webserver
+  template:
+    metadata:
+      labels:
+        app: d02-spp-webserver
+    spec:  
+          
+      containers:
+        - name: d02-spp-webserver
+          image: >-
+            972277210775.dkr.ecr.ap-southeast-1.amazonaws.com/spp-webserver:dockercicd
+          ports:
+            - name: httpport
+              containerPort: 80
+              protocol: TCP
+          imagePullPolicy: Always

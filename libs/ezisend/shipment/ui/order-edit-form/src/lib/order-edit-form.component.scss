@@ -1,0 +1,77 @@
+.top-container {
+  background-color: #EDF0F9;
+  display: grid;
+  grid-template-columns: 100%;
+  row-gap: 1rem;
+  margin-bottom: 1rem;
+
+  pos-pickup-card-list {
+    background-color: #ffffff;
+    border-radius: 6px;
+
+    ::ng-deep .pickup_list {
+      height: 290px;
+      width: 100%;
+      margin-bottom: 0.625rem;
+    }
+  }
+
+  pos-recipient-detail-form {
+    background-color: #ffffff;
+    padding: 0rem 1rem;
+    border-radius: 6px;
+  }
+}
+
+.parcel-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #EDF0F9;
+
+  pos-parcel-detail-form {
+    background-color: #ffffff;
+    border-radius: 6px;
+    padding: 0rem 1rem;
+  }
+}
+
+@media screen and (min-width: 40rem) {
+  .parcel-container>pos-parcel-detail-form {
+    padding: 0rem 2rem;
+  }
+}
+
+@media screen and (min-width: 60rem) {
+  .top-container {
+    grid-template-columns: 30% 70%;
+    row-gap: 0.5rem;
+    margin-bottom: 2rem;
+
+    pos-pickup-card-list {
+      margin-right: 0.5rem;
+      border-radius: 6px 0 0 6px;
+
+      ::ng-deep .pickup_list {
+        height: 400px;
+        width: 95%;
+      }
+    }
+
+    pos-recipient-detail-form {
+      border-radius: 0px 6px 6px 0px;
+      padding: 0rem 2rem;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .parcel-container > pos-parcel-detail-form{
+    margin-bottom: 2rem;
+  }
+}
+@media screen and (max-width: 575px) {
+  .parcel-container > pos-parcel-detail-form{
+    margin-bottom: 0rem;
+    padding: 0px;
+  }
+}

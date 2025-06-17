@@ -1,0 +1,251 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+.maintitle {
+  font-size: v.$font_size_l;
+  line-height: 1.5rem;
+  font-weight: v.$font-weight-semibold;
+  color: #034d91;
+  margin-bottom: 0.75rem;
+  margin-top: 3.3125rem;
+}
+td{
+  padding-left: 10px !important;
+}
+th{
+  padding-left: 10px !important;
+}
+
+.wrapper {
+  box-shadow: 1px 1px 12px rgba(98, 85, 85, 0.25);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+
+  .action {
+    height: 5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    background-color: white;
+    border-radius: 10px 10px 0 0;
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      margin-left: 20px;
+
+      .container-label {
+        color: #6E6B7B;
+        font-size: 0.875rem;
+        margin-bottom: .25rem;
+      }
+
+      .container-action {
+        margin-right: 0.875rem;
+        align-items: center;
+        border-radius: 0.375rem;
+        border: 1px solid #ddd;
+        display: flex;
+        height: 2.375rem;
+        justify-content: center;
+        transition: all 0.25s linear;
+      }
+    }
+
+    &__input-search {
+      margin-left: 1.5rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .input {
+        height: 2.375rem;
+        display: flex;
+        flex-direction: row;
+        border: 1px solid #ddd;
+        border-radius: 0.375rem;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.25s linear;
+        input {
+          height: 70%;
+          border-radius: 0.375rem;
+          border: none;
+          margin-left: 0.8125rem;
+          background-color: inherit;
+        }
+        input:focus {
+          outline: none;
+        }
+
+        .search-icon {
+          height: 100%;
+          width: 2.5rem;
+          border-left: 1px;
+          border-left-style: solid;
+          border-left-color: #ddd;
+          transition: all 0.25s linear;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: #5e5873;
+        }
+        .search-icon:hover {
+          cursor: pointer;
+        }
+      }
+
+      .input--focus {
+        border: 1px solid #00498d;
+        box-shadow: 0px 0px 4px 6px rgba(86, 172, 253, 0.07);
+        border-radius: 5px;
+        transition: all 0.25s linear;
+        .search-icon {
+          border-left: 1px;
+          border-left-style: solid;
+          border-left-color: #00498d;
+          transition: all 0.25s linear;
+        }
+      }
+    }
+
+    &__group-button {
+      margin-right: 1.5rem;
+      margin-left: 1.5rem;
+      display: flex;
+      flex-direction: row;
+      gap: 1.0625rem;
+      flex-wrap: wrap;
+    }
+  }
+
+  .tablewrapper {
+    width: 100%;
+    overflow-x: auto;
+
+    table {
+      width: 100%;
+      .header {
+        background: #f4f4f4;
+        height: 2.5rem;
+
+        th {
+          font-weight: 600;
+          font-size: 0.75rem;
+          line-height: 1.125rem;
+          color: #5e5873;
+        }
+      }
+
+      .row--selected {
+        background: #f7fbff;
+        transition: all 0.25s linear;
+      }
+
+      .icon--selected {
+        color: #00498d;
+        transition: all 0.25s linear;
+      }
+
+      th.mat-header-cell,
+      td.mat-cell,
+      td.mat-footer-cell {
+        border-bottom: 1px solid #e9ecef;
+        text-align: left;
+      }
+
+      th:first-child,
+      tr td:first-child {
+        text-align: left;
+      }
+
+      .mat-row {
+        height: auto;
+      }
+      .mat-cell {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+      .mat-column-select {
+        width: 4% !important;
+      }
+      .mat-column-contactPerson,
+      .mat-column-mobile,
+      .mat-column-email,
+      .mat-column-address,
+      .mat-column-companyName {
+        width: 19.2% !important;
+      }
+      .mat-cell.mat-column-address {
+        text-align: left !important;
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+
+      td {
+        color: #6e6b7b !important;
+      }
+      td > mat-icon {
+        cursor: pointer;
+        margin-right: 1.25rem;
+      }
+      a.direct-link {
+        color: #00498d;
+      }
+
+      ::ng-deep tr.my-shipment-footer-row {
+        display: none;
+        &.show {
+          display: table-row;
+        }
+
+        mat-progress-bar {
+          .mat-progress-bar-buffer {
+            background-color: #ccc;
+          }
+
+          .mat-progress-bar-fill::after {
+            background-color: v.$primary_color;
+          }
+        }
+
+        .no-data {
+          text-align: center !important;
+          padding: 1rem;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width:650px){
+  .mat-checkbox{
+    margin-right: 8px !important;
+  }
+  .wrapper .action .container{
+    margin-top: 17px;
+    margin-bottom: 18px;
+  }
+  ::ng-deep{
+    .mat-paginator-container{
+      margin-top: 30px;
+    }
+  }
+  
+}
+@media screen and (max-width:770px) {
+  .wrapper .tablewrapper table .header th{
+    text-wrap: nowrap;
+    text-align: left;
+    padding-left: 18px;
+  }
+  
+  .wrapper .tablewrapper table td.mat-cell{
+    padding-left: 18px;
+  }
+  .wrapper .tablewrapper table .mat-cell.mat-column-address{
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}

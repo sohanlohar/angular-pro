@@ -1,0 +1,74 @@
+<div class="dialogContainer" [ngStyle]="data.width && data.width.length > 0 ? {'width': data.width} : {}">
+  <div mat-dialog-title>
+    <span (click)="dialogRef.close()">
+      <mat-icon class="close" svgIcon="close_icon"></mat-icon>
+    </span>
+  </div>
+
+  <div mat-dialog-content>
+    <ng-container *ngIf="icon !== ''">
+      <div class="mat-dialog-content_logo">
+        <mat-icon [svgIcon]="icon"></mat-icon>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="data.descriptions">
+      <h1 class="mat-dialog-content_title" *ngIf="data.title !== ''">
+        {{ data.title }}
+      </h1>
+      <div class="mat-dialog-content_description" *ngIf="!data?.genCannotV3">
+        <div [innerHTML]="data.descriptions"></div>
+      </div>
+      <div class="mat-dialog-content_description" *ngIf="data?.genCannotV3">
+        <span style="color: rgb(40, 199, 111);">{{data.successCount}} {{languageData.successful}}
+        </span>
+        <p>{{languageData.note}}</p>
+        <p></p>
+        <span style="color: red">{{data.failedCount}} {{languageData.failed}}
+        </span>
+        <p>{{languageData.request_pickup}}</p>
+      </div>
+      <div class="mat-dialog-content_information" *ngIf="data.information !== ''">
+        <span [innerHTML]="data.information"></span>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="data.type === 'date'">
+      <div class="date-container">
+      <form [formGroup]="datePicker" class="date-form">
+        <mat-form-field appearance="outline">
+          <mat-label>Choose a date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="start_date" [min]="minDate">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </form>
+      <div class="date-button">
+        <button class="actionButton"
+          mat-raised-button mat-button
+          color="primary"
+          [disabled]="datePicker.invalid"
+          (click)="onSubmitDate()"
+        >{{data.actionText}}</button>
+      </div>
+
+    </div>
+    </ng-container>
+  </div>
+
+  <div mat-dialog-actions *ngIf="!data.hideAction">
+    <ng-container *ngIf="data.confirmEvent">
+      <div *ngIf="!data.deleteUserText" class="mat-dialog-actions_confirm" [class.stretch]="data.information">
+        <button class="actionButton" *ngIf="!data.actionUrl" mat-raised-button mat-button color="primary" (click)="confirmEvent.emit(true)">{{data.actionText}}</button>
+        <button class="actionButton" *ngIf="data.actionUrl" mat-raised-button mat-button color="primary" (click)="actionBtn(data.actionUrl)">{{data.actionText}}</button>
+      </div>
+      <div *ngIf="!data.deleteUserText && data.cancelText" class="mat-dialog-actions_cancel" [class.stretch]="data.information">
+        <button class="cancelButton" (click)="dialogRef.close()">{{data.cancelText}}</button>
+      </div>
+      <div *ngIf="data.deleteUserText" class="actionButtonContainer">
+       <div><button class="deleteAction " *ngIf="!data.actionUrl"
+        mat-stroked-button (click)="confirmEvent.emit(true)" color="primary">{{languageData.yes}}</button></div>
+        <div><button class="deleteActionText" *ngIf="!data.actionUrl" mat-raised-button mat-button color="primary"
+           (click)="dialogRef.close()">{{languageData.cancel}}</button></div>
+      </div>
+    </ng-container>
+  </div>
+</div>

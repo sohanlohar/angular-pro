@@ -1,0 +1,51 @@
+<div class="spinner_container" *ngIf="commonService.loading$ | async">
+  <mat-spinner class="loading-spinner"></mat-spinner>
+</div>
+
+<!-- <mat-sidenav-container class="container" (backdropClick)="sideNav.close()">
+  <mat-sidenav #sideNav [mode]="mode" [opened]="this.mode === 'over' ? false : true" disableClose>
+    <pos-nav-sidebar (navItemClicked)="mode === 'over' && sideNav.close()">
+    </pos-nav-sidebar>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <pos-nav-header (menuToggled)="sideNav.open()" class="nav-header"></pos-nav-header>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container> -->
+
+<div class="layout">
+  <div
+    class="sidebar"
+    [class.sidebar-active]="sidebarActive">
+    <pos-nav-sidebar
+      #navSidebar
+      [sidebarActive]="sidebarActive"
+      (navItemClicked)="navItemClick($event)">
+    </pos-nav-sidebar>
+    <div class="version_num">
+      <!-- <span class="version_num_text">v{{version}}</span> -->
+      <div *ngIf="!sidebarActive" class="expand_menu" (click)="expandMenu()">>></div>
+      <div *ngIf="sidebarActive" (click)="expandMenu()" class="expand_menu">
+        <span><<</span>
+        <span>Collapse</span>
+      </div>
+    </div>
+
+  </div>
+  <div class="content">
+    <pos-nav-header
+      (menuToggled)="sidebarActive = true"
+      class="nav-header">
+    </pos-nav-header>
+    <router-outlet></router-outlet>
+    <button *ngIf="showTopButton" (click)="onScrollTopClick()" class="scroll-top-button" [ngClass]="{'bottom-128': !showBottomButton}">
+      <span class="material-icons-outlined">keyboard_double_arrow_up</span>
+    </button>
+    <button *ngIf="showBottomButton" (click)="onScrollBottomClick()" class="scroll-bottom-button" [ngStyle]="{'right': showTopButton ? '125px' : '72px'}">
+      <span class="material-icons-outlined">keyboard_double_arrow_down</span>
+    </button>
+  </div>
+  <div class="nav-footer">
+    <pos-nav-footer (menuToggled)="sidebarActive = true"></pos-nav-footer>
+  </div>
+</div>

@@ -1,0 +1,166 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+.maintitle {
+    color: v.$main_title;
+    font-size: v.$font_size_l;
+    font-weight: v.$font-weight-semibold;
+    line-height: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+.second-row{
+    margin-top: 2rem;
+}
+
+.invoice-container{
+    // display: flex;
+    // justify-content: space-between;
+
+    .invoice-box{
+        background-color: #fff;
+        margin: 6px;
+        padding: 3rem 0rem 3rem 8rem;
+        box-shadow: 1px 1px 12px rgba(98, 85, 85, 0.25);
+        border-radius: 6px;
+        cursor: pointer;
+
+        .medium-title{
+            font-size: 16px;
+            font-weight: 700;
+            color: #5E5873;
+        }
+        .invoice-amount{
+            font-size: 40px;
+            font-weight: 700;
+            color: #5E5873;
+            line-height: 60px;
+        }
+        .invoice-due{
+            font-size: 16px;
+            color: #5E5873;
+        }
+
+    }
+}
+.invoice-table{
+    width: 100%;
+    box-shadow: 0px 4px 24px 0px #0000000F;
+    border-radius: 6px;
+
+    th.mat-header-cell, td.mat-cell, td.mat-footer-cell{
+        // border-bottom: none;
+        padding: 10px 10rem;
+    }
+    .invoice-date{
+       
+        align-items: center;
+        color: #00498D;
+        font-size: 16px;
+    }
+}
+.header {
+    background: #f4f4f4;
+    text-transform: uppercase;
+    height: 3rem;
+
+    th {
+      font-weight:400;
+      font-size: 12px;
+      line-height: 1.125rem;
+      color: v.$teritary_color;
+      letter-spacing: 1px;
+    }
+  }
+  td.alignLeft {
+    font-size: 14px; 
+    color: #044E92;
+    text-align: center;
+  }
+  td.status {
+      font-weight: 700;
+      font-size: 14px;
+      .paid {
+          color: #6E6B7B;
+      }
+      .pending {
+        color: #F39C12;
+      }
+      .retry {
+        color: #FF474F;
+      }
+  }
+  .table-row {
+    height: 4rem ;
+  }
+td.mat-cell:last-of-type{
+    display: table-cell !important;
+    place-content: center !important;
+}
+.alignHeaderLeft{
+    text-align: center;
+}
+
+.payment-container {
+    .payment-box {
+        display: flex;
+        gap: 50px;
+        box-shadow: 0px 4px 24px 0px #0000000F;
+        border-radius: 5px;
+        background-color: #FFFFFF;
+        padding: 30px;
+
+        .column {
+            width: 100%;
+        }
+        .description {
+            background-color: #FFEFEF;
+            border-radius: 5px;
+            padding: 20px;
+            font-size: 12px;
+
+            .title {
+                color: #FF0000;
+                text-decoration: underline;
+            }
+        }
+        .amount-container {
+            display: flex;
+            color: #5E5873;
+            font-size: 24px;
+            font-weight: 600;
+
+            div {
+                width: 100%;
+            }
+            .amount {
+                display: flex;
+                flex-direction: column;
+
+                span {
+                    font-size: 14px;
+                    font-weight: 500;
+                    line-height: 30px;
+                }
+            }
+            .total-amount {
+                display: flex;
+                justify-content: end;
+            }
+        }
+        .pay-button {
+            display: flex;
+            justify-content: end;
+            
+            button {
+                width: 140px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1080px) {
+    .invoice-container{
+        .invoice-box{
+            padding-left: 5rem;
+        }
+    }
+  }

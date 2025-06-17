@@ -1,0 +1,13 @@
+<mat-form-field class="shipping-for" appearance="outline">
+  <mat-label>What are you shipping?</mat-label>
+  <mat-select #singleSelect (selectionChange)="emitValuetoParent($event)">
+    <mat-option>
+      <ngx-mat-select-search placeholderLabel="Search" noEntriesFoundLabel="No result" [clearSearchInput]="true"
+        [enableClearOnEscapePressed]="true" [alwaysRestoreSelectedOptionsMulti]="true" [formControl]="HSCFilterCtrl">
+      </ngx-mat-select-search>
+    </mat-option>
+    <mat-option *ngFor="let item of filteredHSCList | async" [value]="item">
+      {{item.hscode}} | {{item.keyword}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

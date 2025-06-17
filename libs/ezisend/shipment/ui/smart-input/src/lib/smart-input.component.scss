@@ -1,0 +1,135 @@
+
+    .mat-accordion{
+        .mat-expansion-panel {
+            box-shadow: none;
+            border: 1px solid rgba(3, 77, 145, 1);
+            background-color: rgba(247, 251, 255, 1);
+            margin-bottom: 20px !important;
+        }
+    }
+    
+    .mat-expansion-panel-header.mat-expanded{
+        height: 48px;
+    }
+    
+    
+    .mat-expansion-panel .mat-expansion-panel-header.cdk-keyboard-focused:not([aria-disabled=true]),
+    .mat-expansion-panel .mat-expansion-panel-header.cdk-program-focused:not([aria-disabled=true]),
+    .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:hover:not([aria-disabled=true]) {
+        background-color: transparent;
+    }
+    
+    .smart-input-title {
+        color: rgba(3, 77, 145, 1);
+        justify-content: center;
+    
+        span {
+            vertical-align: -5px;
+        }
+    
+        p {
+            margin-bottom: 0px;
+        }
+    }
+    
+    .mat-panel-title {
+        p {
+            margin-bottom: 0px;
+        }
+    }
+    
+    .smart-input-container {
+        display: flex;
+        flex-direction: column;
+        border-radius: 5px;
+    
+        .smart-title {
+            display: grid;
+            grid-template-columns: 20% 60% 20%;
+            grid-template-areas: '. title down';
+            color: rgba(3, 77, 145, 1);
+        }
+    
+        .edit-order-template {
+            grid-template-columns: 100%;
+            grid-template-areas:
+                'title'
+        }
+    
+        p {
+            text-align: center;
+    
+    
+            .bulb {
+                vertical-align: -5px;
+                margin-right: 5px;
+            }
+    
+            .search {
+                vertical-align: -5px;
+            }
+        }
+    
+        textarea {
+            padding: 5px;
+            height: 120px;
+            width: 100%;
+            border: none;
+            font-family: 'Poppins';
+            font-size: .8rem;
+        }
+        textarea::placeholder {
+            font-size: .7rem;
+        }
+    
+        button {
+            margin-top: 6px;
+            margin-left: auto;
+            padding: 13px 40px 13px 40px;
+            background-color: rgba(3, 77, 145, 1);
+            color: white;
+            border-radius: 5px;
+            border: none;
+            font-size: 14px;
+        }
+        button:disabled {
+            background-color: #E2ECF5;
+        }
+        .smart-input-footer{
+            padding: 5px;
+            display: flex;
+            flex-direction: row-reverse;
+            .mat-hint  {
+                margin-top: 6px;
+                font-size: 10px;
+            }
+        }
+    }
+    
+    .title {
+        grid-area: title;
+    }
+    
+    .down {
+        grid-area: down;
+        margin-left: 100%;
+    }
+:host {
+    ::ng-deep .mat-expansion-panel-body {
+        padding: 0 15px 16px;
+    }
+}
+@media screen and (max-width:650px) {
+    .mat-accordion{
+        .mat-expansion-panel {
+            width: 92% !important;
+            margin: auto !important;
+        }}
+}
+@media screen and (max-width:360px) {
+    .mat-accordion{
+        .mat-expansion-panel {
+            width: 90% !important;
+            margin: auto !important;
+        }}
+}

@@ -1,0 +1,27 @@
+:host {
+  display: block;
+}
+
+.pos-form-control-wrapper {
+  span.error-msg {
+    color: #f44336;
+    font-size: 80%;
+  }
+}
+
+.non_txtarea {
+  position: absolute !important;
+  font-size: 75% !important;
+}
+
+.with_txtarea {
+  position: absolute !important;
+  top: 8rem;
+  font-size: 75% !important;
+}
+
+.txtarea{
+  position: absolute !important;
+  // font-size: 12px !important;
+  background-color: #fff;
+}

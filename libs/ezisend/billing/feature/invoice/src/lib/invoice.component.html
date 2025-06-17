@@ -1,0 +1,194 @@
+<pos-page-layout [breadcrumbItems]="breadcrumbItems">
+  <div>
+    <div class="maintitle second-row">
+      {{ languageData.invoices }}
+    </div>
+    <div *ngIf="loading; else content">
+      <!-- Show progress bar while loading -->
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <ng-template #content>
+      <table
+        style="width: 100%"
+        *ngIf="displayInvoiceData"
+        mat-table
+        [dataSource]="dataSource"
+      >
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <div class="filter-container">
+              <mat-checkbox
+                color="primary"
+                (change)="masterToggle($event)"
+                [checked]="isAllSelected()"
+                [indeterminate]=""
+              >
+              </mat-checkbox>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-checkbox
+              color="primary"
+              [disabled]="
+                element?.status === 'success' || element?.status === 'pending'
+              "
+              (click)="$event.stopPropagation()"
+              (change)="onSelectRow($event, element)"
+              [checked]="selection.isSelected(element['id'])"
+            >
+            </mat-checkbox>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef class="alignHeaderLeft">
+            {{ languageData.invoice_date }}
+          </th>
+          <td mat-cell *matCellDef="let element" class="alignLeft">
+            {{ formatInvoiceDate(element?.invoice_date) }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="invoiceNumber">
+          <th mat-header-cell *matHeaderCellDef class="alignHeaderLeft">
+            {{ languageData.invoice_no }}
+          </th>
+          <td mat-cell *matCellDef="let element" class="alignLeft">
+            {{ element?.invoice_number }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef class="alignHeaderLeft">
+            STATUS
+          </th>
+          <td mat-cell *matCellDef="let element" class="alignLeft status">
+            <ng-container *ngIf="element.status === 'success'">
+              <div class="paid">{{ languageData.paid }}</div>
+            </ng-container>
+            <ng-container *ngIf="element.status === 'pending'">
+              <div class="pending">{{ languageData.pending }}</div>
+            </ng-container>
+            <ng-container *ngIf="element.status === 'abort'">
+              <div class="retry">{{ languageData.failed }}</div>
+            </ng-container>
+            <ng-container *ngIf="element.status === 'fail'">
+              <div class="retry">{{ languageData.failed }}</div>
+            </ng-container>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="timestamp">
+          <th mat-header-cell *matHeaderCellDef class="alignHeaderLeft">
+            {{ languageData.date_time }}
+          </th>
+          <td mat-cell *matCellDef="let element" class="alignLeft" >
+            <ng-container *ngIf="element.status">
+              {{ formatTimestamp(element.modified_date).date }}<br />
+              {{ formatTimestamp(element.modified_date).time }}
+            </ng-container>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef class="alignHeaderLeft">
+            {{ languageData.period }}
+          </th>
+          <td mat-cell *matCellDef="let element" class="alignLeft">
+            {{ formatInvoicePeriod(element?.invoice_period) }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="period">
+          <th mat-header-cell *matHeaderCellDef class="alignHeaderLeft">
+            {{ languageData.amount }}
+          </th>
+          <td mat-cell *matCellDef="let element" class="alignLeft">
+            {{ element?.amount }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="alignHeaderLeft actionContainer"
+          >
+            {{ languageData.action }}
+          </th>
+          <td
+            mat-cell
+            class="alignLeft actionContainer"
+            *matCellDef="let element"
+            fxLayout="table-cell"
+            fxLayoutAlign="space-between"
+          >
+            <div>
+              <img
+                style="cursor: pointer"
+                [src]="downloadSvg"
+                (click)="downloadInvoice(element?.id)"
+                [matTooltip]="tooltipMessage"
+                matTooltipPosition="above"
+                alt="download"
+              />
+            </div>
+          </td>
+        </ng-container>
+        <tr
+          class="header"
+          mat-header-row
+          *matHeaderRowDef="displayedColumns"
+        ></tr>
+        <tr
+          class="table-row"
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+        ></tr>
+      </table>
+      <div *ngIf="!displayInvoiceData">
+        {{ languageData.no_data_is_available }}
+      </div>
+      <pos-paginator
+        *ngIf="displayInvoiceData"
+        #paginator
+        [length]="dataSource.data.length"
+        [currentPage]="currentPage"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        (onCurrentPage)="onPageEvent($event)"
+      >
+      </pos-paginator>
+    </ng-template>
+  </div>
+  <div class="payment-container" *ngIf="displayInvoiceData">
+    <div class="maintitle second-row">
+      {{ languageData.online_payment }}
+    </div>
+    <div class="payment-box">
+      <div class="column description">
+        <div class="title">{{ languageData.important_notice }}</div>
+        <ol>
+          <li>{{ languageData.please_select_invoice }}</li>
+          <li>{{ languageData.payment_note }}</li>
+          <li>{{ languageData.payment_status }}</li>
+        </ol>
+      </div>
+      <div class="column">
+        <div class="amount-container">
+          <div class="amount">
+            {{ languageData.amount }}
+            <span
+              >({{ this.selectedRows.length }}
+              {{ languageData.invoice_selected }})</span
+            >
+          </div>
+          <div class="total-amount">RM{{ this.totalAmount.toFixed(2) }}</div>
+        </div>
+        <div class="pay-button">
+          <button
+            mat-flat-button
+            color="primary"
+            (click)="pay()"
+            [disabled]="this.selection.isEmpty() || this.disablePayment"
+          >
+            {{ languageData.pay_now }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</pos-page-layout>

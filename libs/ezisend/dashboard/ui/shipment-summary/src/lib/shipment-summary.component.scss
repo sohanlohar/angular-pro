@@ -1,0 +1,143 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+.container {
+  position: relative;
+
+
+  .nameClass {
+    opacity: 0.5;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  &__title-wrapper {
+    display: flex;
+    margin-bottom: 0.75rem;
+    align-items: baseline;
+  }
+
+  &__title {
+    font-size: v.$font_size_l;
+    line-height: 1.5rem;
+    font-weight: v.$font-weight-semibold;
+    color: #034d91;
+  }
+
+  &__day {
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+    font-weight: 500;
+    color: #bdbdbd;
+    margin-left: 8px;
+  }
+
+  &__orders {
+    background-color: #ffffff;
+    border-radius: 6px;
+    box-shadow: 1px 1px 12px rgb(98 85 85 / 25%);
+    color: v.$teritary_color;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+    padding: 1.5rem;
+
+    .dashboard-datepicker {
+      > span {
+        font-size: 13px;
+      }
+      > form {
+        margin-top: 3px;
+        width: 250px!important;
+      }
+
+      ::ng-deep .mat-form-field-appearance-standard .mat-form-field-flex {
+        border: 1px solid #cbcbcb;
+        border-radius: 5px;
+        padding: 0 .4rem;
+      }
+    }
+
+    &-title {
+      font-size: v.$font_size_s;
+      font-weight: v.$font-weight-medium;
+    }
+
+    .horizontal-line {
+      background-color: #e1e1e1;
+      height: 1px;
+      width: 100%;
+    }
+  }
+
+  &__shipment-summary {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+  &__shipment-summary span {
+    width: 20%;
+  }
+
+  &__cod-orders {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+    gap: 1rem;
+  }
+}
+
+.spinner {
+  transform: scale(0.6);
+  margin: 0 auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 2;
+}
+
+@media screen and (max-width: 1126px) {
+  .container__shipment-summary span {
+    width: 33.3%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .container__shipment-summary span {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container__shipment-summary {
+    flex-direction: column;
+  }
+  .container__shipment-summary span {
+    width: 100%;
+  }
+}
+
+:host ::ng-deep{
+  .last-tile .container {
+    margin-right: 0px !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container__shipment-summary > * {
+    flex-basis: 33.333%; /* Adjust this based on your needs */
+    flex-direction: row;
+  }
+  
+  .container__shipment-summary > :nth-child(3) {
+    break-after: always; /* CSS break after the third item */
+  }
+}
+@media screen and (max-width: 575px) {
+  .container{
+  .container {
+    &__orders {
+      padding: 1rem;
+    }
+  }
+  }  
+}

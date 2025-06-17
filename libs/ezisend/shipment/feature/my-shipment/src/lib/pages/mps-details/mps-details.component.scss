@@ -1,0 +1,209 @@
+
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+.main-title {
+  font-weight: v.$font-weight-semibold;
+  font-size: v.$font_size_l;
+  text-transform: uppercase;
+  color: v.$primary_color;
+  margin-bottom: 0.6rem;
+}
+
+.container {
+  background-color: #FFFFFF;
+  color: v.$primary_color;
+  font-weight: 500;
+  padding: 2rem;
+
+  &.top {
+    background-color: #F7FBFF;
+    border-radius: 5px 5px 0 0;
+  }
+
+  .mat-icon {
+    border-radius: 50%;
+    font-size: 25px;
+    margin-right: 2rem;
+    min-width: 24px;
+    padding: 13px;
+
+    &.tracking-icon {
+      background-color: #FDEAEB;
+      color: #EA5455;
+    }
+
+    &.sender-icon {
+      background-color: rgba(40, 199, 111, 0.12);
+      color: #28C76F;
+    }
+
+    &.recipient-icon {
+      background-color: #CDE7FF;
+      color: #3993E5;
+    }
+
+    &.parcel-icon {
+      background-color: #FFEFD6;
+      color: #F39C12;
+    }
+  }
+
+  &-title {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  &-subtitle {
+    font-size: 0.875rem;
+
+    &-value {
+      color: v.$teritary_color;
+      font-weight: 400;
+      word-break: break-word;
+
+      &-highlight {
+        color: v.$teritary_color;
+        font-weight: 500;
+      }
+    }
+  }
+  .store-name{
+    margin-left: 10px;
+  }
+
+  &-custom-details {
+    padding-bottom: 2rem;
+  }
+
+  .parcel-details {
+    padding-bottom: 3rem;
+  }
+
+  .download-button {
+    padding: .25rem 3rem;
+  }
+
+  .track-order-button-container {
+    max-width: 220px;
+    width: 100%;
+
+    >a {
+      width: 100%;
+    }
+  }
+}
+
+
+.wrapper {
+    margin-top: 15px;
+    .action-button,
+    .action-field {
+      height: 5rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: end;
+      align-items: center;
+      flex-wrap: wrap;
+      background-color: white;
+      border-radius: 10px 10px 0 0;
+    }
+  
+    .action {
+      &-disabled {
+        opacity: 0.2;
+        pointer-events: none;
+      }
+  
+      &__input-search {
+        margin-left: 1.5rem;
+        margin-top: 10px;
+        margin-right: 6px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+  
+        mat-form-field.search {
+          margin-right: 10px;
+        }
+        mat-form-field.search mat-icon.mat-icon {
+          cursor: pointer;
+        }
+        .input {
+          margin-right: 0.875rem;
+        }
+  
+        .input,
+        .date {
+          height: 2.375rem;
+          display: flex;
+          flex-direction: row;
+          border: 1px solid #ddd;
+          border-radius: 0.375rem;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.25s linear;
+  
+          input {
+            height: 70%;
+            border-radius: 0.375rem;
+            border: none;
+            // margin-left: 0.8125rem;
+            background-color: inherit;
+          }
+  
+          input:focus {
+            outline: none;
+          }
+  
+          .search-icon {
+            height: 100%;
+            width: 2.5rem;
+            border-left: 1px;
+            border-left-style: solid;
+            border-left-color: #ddd;
+            transition: all 0.25s linear;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #5e5873;
+          }
+  
+          .search-icon:hover {
+            cursor: pointer;
+          }
+        }
+  
+        .input--focus {
+          border: 1px solid #00498d;
+          box-shadow: 0px 0px 4px 6px rgba(86, 172, 253, 0.07);
+          border-radius: 5px;
+          transition: all 0.25s linear;
+  
+          .search-icon {
+            border-left: 1px;
+            border-left-style: solid;
+            border-left-color: #00498d;
+            transition: all 0.25s linear;
+          }
+        }
+      }
+  
+      &__group-button {
+        align-items: center;
+        margin-right: 1.5rem;
+        margin-left: 1.5rem;
+        display: flex;
+        flex-direction: row;
+        gap: 0.8em;
+        flex-wrap: wrap;
+      }
+    }
+  
+    .action-button {
+      border-radius: 0;
+  
+      &_warn {
+        margin-left: 8px;
+      }
+    }
+  }

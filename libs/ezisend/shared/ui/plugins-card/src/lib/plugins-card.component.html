@@ -1,0 +1,11 @@
+<div class="plugin-name" (click)="onSelect(pluginName)">{{pluginName}}</div>
+<div class="plugins-container" [ngStyle]="{'background-color': isSelected ? selectedColor : defaultColor}" (click)="onSelect(pluginName)">
+    <!-- <div class="top">
+        <div class="plugin-name">{{pluginName}}</div>
+        <div class="button"><button (click)="onNavigate(pluginName)"><span><i class="material-icons">link</i></span>Connect Now</button></div>
+    </div> -->
+    <div class="bottom">
+        <div class="logo-box"><img [src]="pluginName === 'shopify' ? shopifyLogoPath : Logo"/></div>
+        <!-- <div class="desc">{{pluginDesc}}</div> -->
+    </div>
+</div>

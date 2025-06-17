@@ -1,0 +1,279 @@
+.recipient-container {
+  margin-top: 1.5rem;
+
+  .title {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+    color: #5E5873;
+    margin-bottom: 1.06rem;
+  }
+
+  .form-group {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 24% 23% 23% 23%;
+    grid-template-areas:
+      'search search . .'
+      'smart-input smart-input . .'
+      'recipient-name recipient-name company-name company-name'
+      'tel tel email email'
+      'address address address address'
+      'disclaimer disclaimer disclaimer disclaimer'
+      'country postcode state city'
+      '. . save-contacts button-next';
+
+    // grid-template-columns: repeat(1, auto);
+    gap: 0.1rem 1rem;
+    margin-bottom: 1.25rem;
+
+    .address {
+      textarea {
+        height: 1rem;
+      }
+      ::ng-deep .mat-form-field-subscript-wrapper {
+        top: 50px;
+      }
+    }
+
+    .save-contacts {
+      text-align: right;
+      margin-top: 0.4rem;
+    }
+
+    .save_contact_label {
+      color: #5E5873;
+      line-height: 8px;
+    }
+
+  }
+
+  .edit-order-template {
+    grid-template-columns: 100%;
+    grid-template-areas:
+      'search'
+      'recipient-name'
+      'company-name'
+      'tel'
+      'address'
+      'email'
+      'country'
+      'postcode'
+      'state'
+      'city'
+  }
+}
+
+//Grid-areas
+
+.search {
+  grid-area: search;
+}
+
+.smart-input {
+  grid-area: smart-input;
+}
+
+.recipient-name {
+  grid-area: recipient-name;
+}
+.company-name {
+  grid-area: company-name;
+}
+
+.tel {
+  grid-area: tel;
+}
+
+.email {
+  grid-area: email;
+}
+.address {
+  grid-area: address;
+  padding-bottom: 0;
+
+  ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: 0px;
+  }
+}
+
+.disclaimer {
+  grid-area: disclaimer;
+  font-size: 12px;
+  color: #A6A6A6;
+  margin-bottom: 15px;
+  position: relative;
+
+}
+
+.postcode {
+  grid-area: postcode;
+}
+.city {
+  grid-area: city;
+}
+.state {
+  grid-area: state;
+}
+.country {
+  grid-area: country;
+}
+
+.save-contacts {
+  grid-area: save-contacts;
+}
+
+.button-next {
+  grid-area: button-next;
+}
+
+@media screen and (min-width: 40rem) {
+  .form-group {
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  }
+
+  .recipient-container > .edit-order-template {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-areas:
+      'search search . .'
+      'recipient-name recipient-name company-name company-name'
+      'tel tel email email'
+      'address address address address'
+      'disclaimer disclaimer disclaimer disclaimer'
+      'country postcode state city';
+  }
+}
+
+::ng-deep .address-autocomplete {
+  border: 3px solid black;
+}
+
+::ng-deep .contact-autocomplete {
+  border: 1px solid #034D91;
+  border-radius: 5px;
+  margin-top: 0.25rem;
+
+  .contact-option {
+    background-color: #FFFFFF !important;
+    border-bottom: 1px solid #CCCCCC;
+    font-size: 0.875rem;
+    height: unset !important;
+    line-height: 24px !important;
+    padding: 1rem 1rem !important;
+
+    &:hover {
+      background: #F7FBFF !important;
+      color: #034D91;
+      border-bottom-color: #D7ECFF;
+    }
+
+    .contact-container {
+      display: flex;
+      flex-direction: column;
+
+      .contact-person {
+        font-weight: 500;
+      }
+
+      .contact-address {
+        white-space: normal;
+        margin: 1rem 0rem;
+      }
+      .address {
+        white-space: normal;
+      }
+    }
+  }
+
+}
+ @media screen and (max-width: 767px) {
+  .recipient-container {
+    padding: 0 1rem;
+  }
+}
+@media screen and (max-width:668px){
+  .recipient-name{
+    margin-top: 1em;
+  }
+ .address{
+  margin-bottom: 18px;
+ }
+.disclaimer{
+  padding-left: 17px;
+  top:0px;
+}
+  .recipient-container {
+    .form-group {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    overflow: auto;
+    .save-contacts {
+      margin-top: 0px;
+    }
+  }
+}
+.button-next{
+  position: sticky;
+  margin-left: 4%;
+}
+.recipient-container .form-group .save-contacts{
+  margin:0.25em 1em !important;
+}
+.recipient-container .title{
+  margin: 0.25em 0em !important;
+}
+
+}
+
+.button-next button{
+  width: 100%;
+  cursor: pointer !important;
+}
+
+::ng-deep .mat-option.mat-active {
+  background: #F7FBFF !important;
+  color: #034D91;
+  border-bottom-color: #D7ECFF;
+}
+
+::ng-deep .txtarea {
+  position: absolute !important;
+  font-size: 75% !important;
+  top: 3rem !important;
+  left: -10px !important;
+}
+
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  :host ::ng-deep .form-group {
+  grid-template-areas:
+    'search search . .'
+    'smart-input smart-input . .'
+    'recipient-name recipient-name company-name company-name'
+    'tel tel email email'
+    'address address address address'
+    'disclaimer disclaimer disclaimer disclaimer'
+    'country postcode state city'
+    '. save-contacts . button-next' !important;
+  }
+
+  .disclaimer{
+    text-align: center;
+    padding-top: 8px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 567px){
+.disclaimer {
+  text-align: center;
+  padding-left: 0px;
+  top: 0px;
+}
+}
+
+.mat-form-field input {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

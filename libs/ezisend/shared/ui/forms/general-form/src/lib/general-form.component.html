@@ -1,0 +1,290 @@
+<div class="form-container">
+  <div class="title" *ngIf="title">{{ title }}</div>
+  <form class="form-group" [formGroup]="form">
+    <!-- field name -->
+    <mat-form-field class="name" appearance="outline">
+      <mat-label>{{ formConfig['name'].label }}</mat-label>
+      <pos-form-control-wrapper
+        [name]="formConfig['name'].label"
+        [control]="form.controls['name']"
+        [customErrorMessages]="{
+          required: languageForm.required_pickup
+        }"
+      >
+        <input matInput formControlName="name" minlength="3" maxlength="50" />
+      </pos-form-control-wrapper>
+    </mat-form-field>
+    <!-- field Nick name -->
+    <mat-form-field class="nickName" appearance="outline">
+      <mat-label>{{ formConfig['nick_name'].label }}</mat-label>
+      <pos-form-control-wrapper
+        [name]="formConfig['nick_name'].label"
+        [control]="form.controls['nick_name']"
+      >
+        <input
+          matInput
+          formControlName="nick_name"
+          minlength="5"
+          maxlength="50"
+        />
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <!-- field phone -->
+    <div class="phone-wrapper">
+      <!-- <ng-container *ngIf="!form.disabled; else inputFieldPhone"> -->
+        <mat-form-field appearance="outline" class="tel">
+          <mat-label>{{languageForm.code}}</mat-label>
+          <mat-select formControlName="dialCode" matInput #singleSelect>
+            <mat-option>
+              <ngx-mat-select-search
+                [placeholderLabel]="languageForm.search"
+                [noEntriesFoundLabel]="languageForm.no_result"
+                [clearSearchInput]="false"
+                [enableClearOnEscapePressed]="true"
+                [alwaysRestoreSelectedOptionsMulti]="true"
+                [formControl]="dialFilterCtrl"
+              >
+              </ngx-mat-select-search>
+            </mat-option>
+            <mat-option
+              *ngFor="let val of filteredCountries | async"
+              [value]="val"
+            >
+              <img
+                class="flag"
+                aria-hidden
+                [src]="loadFlagImage(val.code)"
+                height="25"
+              />
+
+              <span *ngIf="singleSelect.panelOpen">{{ val.country }} | </span>
+              <small>{{ val.calling_code }}</small>
+            </mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="
+              dialCodeControl.touched && dialCodeControl.hasError('required')
+            "
+            >{{languageForm.required_code}}</mat-error
+          >
+        </mat-form-field>
+        <mat-form-field class="phone" appearance="outline">
+          <mat-label>{{languageForm.phone}}</mat-label>
+          <pos-form-control-wrapper
+            [name]="formConfig['phone_no'].label"
+            [control]="form.controls['phone_no']"
+            [customErrorMessages]="{
+              required: languageForm.required_phone,
+              pattern: languageForm.required_valid_phone,
+              minlength: (languageForm.minlength +' '+ languageForm.eight +' '+ languageForm.characters)
+            }"
+          >
+            <input
+              matInput
+              formControlName="phone_no"
+              minlength="8"
+              maxlength="15"
+            />
+          </pos-form-control-wrapper>
+        </mat-form-field>
+      <!-- </ng-container> -->
+      <!-- <ng-template #inputFieldPhone>
+        <mat-form-field class="phone-view" appearance="outline">
+          <mat-label>{{ formConfig['phone_no'].label }}</mat-label>
+          <input matInput formControlName="phone_no" />
+        </mat-form-field>
+      </ng-template> -->
+    </div>
+    <!-- field email -->
+    <mat-form-field class="email" appearance="outline">
+      <mat-label>{{ formConfig['email'].label }}</mat-label>
+      <pos-form-control-wrapper
+        [name]="formConfig['email'].label"
+        [control]="form.controls['email']"
+        [customErrorMessages]="{
+          pattern: languageForm.required_valid_email
+        }"
+      >
+        <input matInput formControlName="email" minlength="3" maxlength="100" />
+      </pos-form-control-wrapper>
+    </mat-form-field>
+    <!-- field address -->
+    <mat-form-field class="address" appearance="outline">
+      <mat-label>{{ formConfig['address'].label }}</mat-label>
+      <pos-form-control-wrapper
+        [name]="formConfig['address'].label"
+        [control]="form.controls['address']"
+        [customErrorMessages]="{
+          required: languageForm.required_receipent,
+          minlength: (languageForm.minlength +' '+ languageForm.ten +' '+ languageForm.characters)
+        }"
+      >
+        <textarea
+          #address
+          matInput
+          formControlName="address"
+          minlength="10"
+          maxlength="200"
+        ></textarea>
+      </pos-form-control-wrapper>
+      <mat-hint [align]="matHintAlign">{{ form.value.address.length }} / 200</mat-hint>
+    </mat-form-field>
+    <!-- field country -->
+    <mat-form-field class="country" appearance="outline">
+      <mat-label>{{ formConfig['country'].label }}</mat-label>
+      <div *ngIf="!form.disabled; else inputFieldCountry">
+        <pos-form-control-wrapper
+          [name]="formConfig['country'].label"
+          [control]="form.controls['country']"
+        >
+          <mat-select
+            formControlName="country"
+            matInput
+            #singleSelect
+            (selectionChange)="getSelectedCountry($event)"
+          >
+            <mat-option>
+              <ngx-mat-select-search
+                placeholderLabel="Search"
+                noEntriesFoundLabel="No result"
+                [clearSearchInput]="false"
+                [enableClearOnEscapePressed]="true"
+                [alwaysRestoreSelectedOptionsMulti]="true"
+                [formControl]="dialFilterCtrl"
+              >
+              </ngx-mat-select-search>
+            </mat-option>
+            <mat-option
+              *ngFor="let val of filteredCountries | async"
+              [value]="val"
+            >
+              <img
+                class="flag"
+                aria-hidden
+                [src]="loadFlagImage(val.code)"
+                height="25"
+              />
+
+              <span>{{ val.country }}</span>
+              <small *ngIf="singleSelect.panelOpen"> | {{ val.code }}</small>
+            </mat-option>
+          </mat-select>
+        </pos-form-control-wrapper>
+      </div>
+      <ng-template #inputFieldCountry>
+        <input matInput formControlName="country" />
+      </ng-template>
+    </mat-form-field>
+    <!-- field postcode -->
+    <mat-form-field class="postcode" appearance="outline">
+      <mat-label>{{ formConfig['postcode'].label }}</mat-label>
+      <pos-form-control-wrapper
+        [name]="formConfig['postcode'].label"
+        [control]="form.controls['postcode']"
+        [customErrorMessages]="{
+          required: languageForm.required_pickup_postcode,
+          postcode_not_found: languageForm.invalid_postcode
+        }"
+      >
+        <input
+          pattern="[a-zA-Z0-9]+"
+          matInput
+          minlength="3"
+          maxlength="10"
+          formControlName="postcode"
+          placeholder="Enter 0000 if there is no postcode"
+          *ngIf="(_commonService.getCurrentIsCountryMY$ | async) === false"
+        />
+        <input
+          pattern="[0-9]\d*"
+          matInput
+          (ngModelChange)="getValidPostcode($event)"
+          minlength="5"
+          maxlength="5"
+          formControlName="postcode"
+          *ngIf="(_commonService.getCurrentIsCountryMY$ | async) === true"
+        />
+      </pos-form-control-wrapper>
+    </mat-form-field>
+    <!-- field state -->
+    <mat-form-field class="state" appearance="outline">
+      <mat-label>{{ formConfig['state'].label }}</mat-label>
+
+      <div *ngIf="!form.disabled; else inputFieldState">
+        <pos-form-control-wrapper
+          [name]="formConfig['state'].label"
+          [control]="form.controls['state']"
+        >
+          <input
+            matInput
+            formControlName="state"
+            minlength="3"
+            maxlength="50"
+            *ngIf="(_commonService.getCurrentIsCountryMY$ | async) === false"
+          />
+          <mat-select
+            *ngIf="(_commonService.getCurrentIsCountryMY$ | async) === true"
+            formControlName="state"
+            [disabled]="true"
+            (selectionChange)="getCitiesByState($event.value)"
+          >
+            <mat-option *ngFor="let state of getState" [value]="state">
+              {{ state.state_name }}
+            </mat-option>
+          </mat-select>
+        </pos-form-control-wrapper>
+      </div>
+      <ng-template #inputFieldState>
+        <input matInput formControlName="state" />
+      </ng-template>
+    </mat-form-field>
+    <!-- field city -->
+    <mat-form-field class="city" appearance="outline">
+      <mat-label>{{ formConfig['city'].label }}</mat-label>
+      <div *ngIf="!form.disabled; else inputFieldCity">
+        <pos-form-control-wrapper
+          [name]="formConfig['city'].label"
+          [control]="form.controls['city']"
+        >
+          <input
+            matInput
+            formControlName="city"
+            minlength="3"
+            maxlength="50"
+            *ngIf="(_commonService.getCurrentIsCountryMY$ | async) === false"
+          />
+          <mat-select
+            formControlName="city"
+            *ngIf="(_commonService.getCurrentIsCountryMY$ | async) === true"
+          >
+            <mat-option *ngFor="let city of getCities" [value]="city">
+              {{ city.city_name }}
+            </mat-option>
+          </mat-select>
+        </pos-form-control-wrapper>
+      </div>
+      <ng-template #inputFieldCity>
+        <input matInput formControlName="city" />
+      </ng-template>
+    </mat-form-field>
+
+    <!-- field checkbox save -->
+    <div class="save-contacts" *ngIf="formConfig['saveCheckbox'].isShow">
+      <mat-checkbox color="primary" formControlName="is_default">{{
+        formConfig['saveCheckbox'].label
+      }}</mat-checkbox>
+    </div>
+    <!-- field confirm/save button -->
+    <div class="button-next" *ngIf="formConfig['saveButton'].isShow">
+      <button
+        (click)="save()"
+        [disabled]="!form.valid || OnSubmitButton"
+        mat-flat-button
+        color="primary">
+        {{ formConfig['saveButton'].label }}
+        <mat-spinner *ngIf="OnSubmitButton" [diameter]="20" class="login-loading-spinner"></mat-spinner>
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,97 @@
+<pos-page-layout [breadcrumbItems]="breadcrumbItems">
+    <div class="main-title">{{languageData.generate_a_report}}</div>
+</pos-page-layout>
+
+<div class="my-shipment-wrapper">
+    <form [formGroup]="dateRangePickerForm">
+        <div class="action-field border">
+            <!-- date range field -->
+            <div class="report">
+                <div class="col">
+                    <label class="report-label">{{languageData.select_date_range}}</label>
+                </div>
+                <div class="col">
+                    <div class="report-action">
+                        <pos-date-range-picker [maxDate]="maxDate" [minDate]="minDate" class="date-picker px-3"
+                            (formChange)="onDateRangePickerFormChange($event)" ></pos-date-range-picker>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="action-field">
+            <!-- dropdown field -->
+            <div class="report">
+                <div class="col">
+                    <label class="report-label">{{languageData.filter_by_status}}</label>
+                </div>
+                <div class="margin-left">
+                    <div class="report-action">
+                        <mat-form-field class="dropdown-input" appearance="standard">
+                            <mat-select formControlName="status" disableRipple [placeholder]="languageData.required_filter"
+                                (selectionChange)="onSelectChange($event)" multiple="true">
+                                <mat-option [value]="option.value" *ngFor="let option of dropdownOptions">{{
+                                    option.viewValue }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col">
+                    <mat-chip-list aria-label="Fish selection">
+                        <mat-chip color="primary" selected *ngFor="let item of matChipArray; let i = index;">
+                            <button matChipRemove (click)="removeChip(i)">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                            &nbsp;{{item.viewValue}}
+                        </mat-chip>
+                    </mat-chip-list>
+                </div>
+            </div>
+        </div>
+        <div class="action-field justify-end">
+            <div class="report">
+                <div class="ms-auto">
+                    <button [ngClass]="{'generate-opacity': !dateRangePickerForm.valid || !this.matChipArray.length || loading}"
+                        [disabled]="!dateRangePickerForm.valid || !this.matChipArray.length || loading" (click)="generateReport()"
+                        class="generate-btn">{{languageData.generate_report}}</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<br>
+<br>
+<br>
+<div class="main-title" *ngIf="reportList.length">{{languageData.result}}</div>
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+<div class="wrapperReports">
+<table mat-table [dataSource]="reportList" *ngIf="reportList.length" class="mat-elevation-z8 report">
+    <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef> {{languageData.date}} </th>
+        <td mat-cell *matCellDef="let element"> {{element.reportDate | date : 'd MMM, y hh:mm a'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> {{languageData.file_name}} </th>
+        <td mat-cell *matCellDef="let element">
+            <span *ngIf="element.fileName == '' || element.filename == ''">
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </span>
+            <span *ngIf="element.fileName !== '' && element.filename !== ''">
+                {{element.fileName}}
+            </span>
+        </td>
+    </ng-container>
+    <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> {{languageData.action}} </th>
+        <td mat-cell *matCellDef="let element">
+            <button class="button-disabled" (click)="downloadReport(element)"
+                [ngClass]="{'generate-opacity': element.fileName == '' || element.filename == ''}"
+                [disabled]="element.fileName == '' || element.filename == ''"><mat-icon
+                    class="material-symbols-outlined action-icon">download</mat-icon></button>
+        </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+</div>
+<br>
+<br>

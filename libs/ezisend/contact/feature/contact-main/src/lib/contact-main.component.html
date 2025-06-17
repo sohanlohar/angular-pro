@@ -1,0 +1,12 @@
+<pos-page-layout [breadcrumbItems]="breadcrumbItems">
+  <pos-action-tile [action]="actionTiles"></pos-action-tile>
+  <pos-contact-table
+    [contacts$]="contactList$"
+    [currentPage]="currentPage"
+    [pageSize]="pageSize"
+    (searchEvent)="onSearchEvent($event)"
+    (deleteIdsEvent)="onDeleteIdsEvent($event)"
+    (pageEvent)="onPageEvent($event)"
+  ></pos-contact-table>
+
+</pos-page-layout>

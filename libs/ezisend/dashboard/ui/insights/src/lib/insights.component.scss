@@ -1,0 +1,243 @@
+@use 'apps/ezisend/src/styles/variables/index'as v;
+
+.advance-pie-chart {
+  line-height: normal;
+}
+.d-none{
+  display: none;
+}
+
+.full-width-chart {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+}
+
+:host ::ng-deep {
+  .npx-product-chart {
+    .npx-charts {
+      width: 100%;
+      height: 100%;
+    }
+
+    .chart-legend {
+      overflow: visible;
+      max-width: 100%;
+      > div{
+          max-width: 10rem !important;
+          width: auto;
+      }
+    }
+  }
+}
+
+.npx-chart-parent{
+  margin-bottom: 4rem;
+  .chart_container{
+    margin: 0.5rem 0;
+    &.mr-2{
+      margin-right: .3rem;
+    }
+    &.ml-2{
+      margin-left: .3rem;
+    }
+    ::ng-deep{
+      .ngx-charts .grid-panel.odd rect {
+        fill: none !important; 
+   }
+   .chart-legend{
+    .legend-title{
+      display: none;
+    }
+   }
+    }
+  }
+}
+.title {
+  margin: 2.5rem 0 0.75rem;
+  align-items: baseline;
+  font-size: v.$font_size_l;
+  line-height: 1.5rem;
+  font-weight: v.$font-weight-semibold;
+  color: #034d91;
+}
+
+.color-box {
+  padding: 2px 25px;
+  margin-right: 10px;
+  border-radius: 3px;
+}
+
+.align-left {
+  text-align: left !important;
+}
+.insights_container {
+  background-color: #FFFFFF;
+  padding: 1.5rem;
+
+  .description {
+    font-size: 16px;
+    font-weight: v.$font-weight-medium;
+    margin-bottom: 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    color: #5E5873;
+    line-height: 24px;
+    .end {
+      color: #5E5873;
+      font-size: 14px;
+    }
+  }
+}
+
+.total-count{
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 36px;
+}
+
+.pl-10{
+  padding-left: 10px;
+}
+
+.advance-pie-chart{
+  line-height: unset;
+}
+
+.chart_container {
+  position: relative;
+  margin-bottom: 5rem;
+  box-shadow: 0px 2px 4px 2px #00000012;
+  padding: 2rem 3rem 2rem 3rem;
+}
+
+.pie_container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  gap: 2rem;
+
+  .pieChart {
+    display: flex;
+    flex-basis: 100px;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .pieTable {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    ::ng-deep .mat-table {
+      box-shadow: none;
+      border: 1px solid #E1E1E1;
+      text-align: center;
+      border-radius: 5px;
+      // height: 100%;
+
+      .mat-header-cell {
+        color: #5E5873;
+        background-color: #F4F4F4;
+        text-align: center;
+      }
+
+      .mat-row {
+        // height: 80px;
+      }
+    }
+  }
+}
+
+.custom-tooltip {
+  position: absolute;
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #ddd;
+  padding: 5px;
+  font-size: 12px;
+  opacity: 0.8;
+  pointer-events: none;
+  width: 85px;
+  z-index: 10;
+  text-align: center;
+}
+
+.doughnut_container{
+  min-height: 645px !important;
+}
+
+.mb-5{
+  margin-bottom: 15px !important;
+}
+
+.insights_container-parent{
+  background-color: #FFFFFF;
+}
+
+.nowrap{
+  white-space: nowrap;
+}
+
+@media (min-width: 1200px) {
+  .insights_container {
+    max-width: 1200px;
+  }
+}
+@media (min-width: 1600px) {
+  .insights_container {
+    max-width: initial;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1119px) {
+  .insights_container{
+    max-width: 848px;
+  }
+}
+
+@media (min-width: 768) and (max-width: 1023px) {
+  .insights_container{
+    max-width: 592px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .doughnut_container{
+    min-height: fit-content !important;
+  }
+
+  .scrollable{
+    overflow-x: scroll;
+  }
+
+  .mobile-chart{
+    min-width: 700px !important;
+    min-height: 390px !important;
+  }
+
+  .bar-chart{
+    min-width: 605px !important;
+    min-height: 250px !important;
+    overflow: scroll !important;
+  }
+}
+
+@media (min-width: 960px) and (max-width: 1200px) {
+  .pie_container .pieTable{
+    max-width: fit-content !important;
+    overflow-x: scroll !important;
+  }
+}
+@media screen and (max-width: 575px) {
+  .insights_container{
+  .chart_container {
+    padding: 1.5rem;
+  }
+    padding: .5rem;
+  }
+}

@@ -1,0 +1,159 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+.main-title {
+  font-size: v.$font_size_l;
+  font-weight: v.$font-weight-semibold;
+  text-transform: uppercase;
+  color: v.$primary_color;
+  margin-bottom: 0.6rem;
+}
+
+::ng-deep {
+  .mat-tab-label-content span {
+    padding: 100%;
+    .mat-tab-label {
+      position: relative;
+    }
+  }
+
+  .my-shipment-wrapper {
+    margin-top: 15px;
+
+    .action-field {
+      align-items: center;
+      background-color: white;
+      border-radius: 0px 10px 0 0 !important;
+      display: flex;
+      flex-wrap: wrap;
+      height: auto;
+      min-height: 5rem;
+      padding: 0.75rem 1.5rem;
+      row-gap: 0.5rem;
+    }
+    .action-field-hide {
+      opacity: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+
+      .container-label {
+        color: #6e6b7b;
+        font-size: 13px;
+        margin-bottom: 0.25rem;
+      }
+
+      .container-action,
+      .container-action_address {
+        margin-right: 0.875rem;
+        align-items: center;
+        border-radius: 0.375rem;
+        border: 1px solid #ddd;
+        display: flex;
+        height: 2.375rem;
+        justify-content: center;
+        transition: all 0.25s linear;
+      }
+      .container-action_address {
+        border: none;
+      }
+    }
+
+    .container-right {
+      margin-left: auto;
+    }
+  }
+
+  .my-shipment-tab-group {
+    .mat-tab-header {
+      border-bottom: none;
+    }
+
+    .mat-tab-labels {
+      column-gap: 0.4rem;
+
+      .mat-tab-label {
+        background-color: #d1d1d1;
+        border-radius: 5px 5px 0px 0px;
+        height: 55px;
+        min-width: 120px;
+        opacity: 1;
+
+        &-active {
+          background-color: #ffffff;
+          opacity: 1;
+        }
+
+        .mat-tab-label-content > label {
+          color: v.$teritary_color;
+          font-size: v.$font_size_xs;
+          font-weight: v.$font-weight-medium;
+          letter-spacing: 1px;
+          line-height: 1rem;
+          cursor: pointer;
+        }
+        .mat-tab-label-content > label.label-total {
+          position: absolute;
+          top: 2px;
+          right: 2px;
+          z-index: 99999999999999;
+          background: #f86262;
+          color: #fff;
+          border-radius: 50%;
+          height: 25px;
+          width: 25px;
+          justify-content: center;
+          align-items: center;
+          display: flex;
+        }
+      }
+    }
+
+    .mat-tab-body {
+      top: -16px;
+    }
+  }
+  .searchindex {
+    position: relative;
+    z-index: 0;
+  }
+
+  .mat-tab-body-content {
+    height: 100%;
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .mat-tab-body-content::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+
+
+@media screen and (max-width: 435px) {
+  .my-shipment-wrapper .container .container-action {
+    width: 100% !important;
+    margin-right: 0;
+  }
+  .my-shipment-wrapper .container-right {
+    padding-top: 25px;
+  }
+  .my-shipment-wrapper {
+    .action-field {
+      padding: 1rem 1.5rem 0rem !important;
+    }
+  }
+  .my-shipment-wrapper .container .container-action_address {
+    background-color: #d3e6f8;
+    margin-right: 0;
+    padding: 10px;
+  }
+}
+@media screen and (max-width: 700px) {
+  .my-shipment-wrapper .action-field {
+    flex-wrap: wrap !important;
+  }
+}

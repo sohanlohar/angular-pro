@@ -1,0 +1,17 @@
+<pos-page-layout [breadcrumbItems]="breadcrumbItems">
+  <div class="title">CONTACT DETAILS PAGE</div>
+    <pos-contact-form
+      [contactDetails]="contactDetails"
+      (contactFormStatus)="onContactFormStatus($event)"
+      (formSubmit)="onContactFormSubmit($event)"
+    >
+      <button confirmButton
+        class="button"
+        disabled="{{ isButtonDisabled }}"
+        mat-flat-button
+        color="primary"
+      >
+        Update Contact
+      </button>
+    </pos-contact-form>
+</pos-page-layout>

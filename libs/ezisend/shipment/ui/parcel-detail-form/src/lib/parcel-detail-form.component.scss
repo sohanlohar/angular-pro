@@ -1,0 +1,802 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+.parcel-container {
+  margin-top: 1.5rem;
+
+  .title {
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: #5e5873;
+    margin-bottom: 1.06rem;
+  }
+
+  .flex-display {
+    display: flex;
+  }
+
+  .highlightText {
+    color: #00498d;
+  }
+
+  .importantText {
+    color: red;
+  }
+  .cardContainer {
+    background-color: rgba(255, 239, 239, 1);
+    border-radius: 10px;
+    box-shadow: none;
+    margin-right: 40px;
+  }
+  .mt-0 {
+    margin-top: 0;
+  }
+  .noteContainer {
+    font-family: Poppins;
+    font-size: 12px;
+    line-height: 18.6px;
+    text-align: left;
+  }
+  .noteText {
+    font-weight: 500;
+    color: red;
+    text-decoration: underline;
+  }
+  .spacer {
+    height: 2rem;
+  }
+
+  .insurance-notes {
+    p {
+      font-size: 14px;
+    }
+  }
+  .weight-dimension-alert {
+    grid-area: wM;
+    .warning-message {
+      background-color: #edf0f9;
+      padding: 10px;
+      color: v.$primary_color;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      display: inline-flex;
+      .info_style {
+        color: #00498d;
+      }
+      p {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0;
+        gap: 8px;
+        line-height: 1.6;
+        font-weight: 500;
+        padding: 0 0.5rem 0 0.7rem;
+      }
+    }
+  }
+
+  .form-group-my {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-auto-flow: column;
+    gap: 1rem;
+    row-gap: 0.1rem;
+    grid-template-areas:
+      'pT'
+      'dW'
+      'dL'
+      'dH'
+      'dWe'
+      'vW'
+      'cW'
+      'wM'
+      'dC'
+      'cD'
+      'cE'
+      'pB'
+      'sB';
+
+    .button-previous {
+      margin: 1rem 0rem 0rem 0rem;
+      display: grid;
+      grid: 2;
+      gap: 10rem 10rem;
+      place-items: center;
+      button {
+        justify-self: stretch;
+      }
+    }
+
+    .button-submit {
+      margin: 1rem 0rem 1rem 0rem;
+      display: grid;
+      grid-area: sB;
+      gap: 2rem 10rem;
+      place-items: center;
+      button {
+        justify-self: stretch;
+      }
+    }
+
+    button {
+      mat-spinner {
+        margin: 0 auto;
+      }
+
+      .login-loading-spinner {
+        ::ng-deep circle {
+          stroke: white;
+        }
+      }
+    }
+  }
+
+  .edit-order-template-my {
+    grid-template-areas:
+      'cA'
+      'dW'
+      'dL'
+      'dH'
+      'dWe'
+      'vW'
+      'cW'
+      'wM'
+      'dC'
+      'pN'
+      'cL'
+      'cC'
+      'aM'
+      'iL'
+      'iC'
+      'iN'
+      'SI'
+      'pM'
+      'sB';
+  }
+
+  .form-group {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-auto-flow: column;
+    gap: 1rem;
+    row-gap: 0.1rem;
+    grid-template-areas:
+      'pT'
+      'dW'
+      'dL'
+      'dH'
+      'dWe'
+      'vW'
+      'cW'
+      'wM'
+      'dC'
+      'sR'
+      'rR'
+      'cD'
+      'cE'
+      'pB'
+      'sB';
+
+    .button-previous {
+      margin: 1rem 0rem 0rem 0rem;
+      display: grid;
+      grid: 2;
+      gap: 10rem 10rem;
+      place-items: center;
+      button {
+        justify-self: stretch;
+      }
+    }
+
+    .button-submit {
+      margin: 1rem 0rem 1rem 0rem;
+      display: grid;
+      grid-area: sB;
+      gap: 10rem 10rem;
+      place-items: center;
+      button {
+        justify-self: stretch;
+      }
+    }
+
+    .customs_form {
+      .customs_container {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-auto-flow: column;
+        gap: 1rem;
+        padding: 1rem 0 0 0;
+        row-gap: 0.1rem;
+        grid-template-areas:
+          'paT'
+          'cuDe'
+          'cuWe'
+          'cuQu'
+          'cuVa'
+          'cuCo'
+          'deCu';
+
+        .delete_custom {
+          place-items: end;
+          margin-top: 0;
+        }
+      }
+    }
+
+    button {
+      mat-spinner {
+        margin: 0 auto;
+      }
+
+      .login-loading-spinner {
+        ::ng-deep circle {
+          stroke: white;
+        }
+      }
+    }
+  }
+
+  .edit-order-template {
+    grid-template-areas:
+      'pR'
+      'cA'
+      'cD'
+      'dW'
+      'dL'
+      'dH'
+      'dWe'
+      'vW'
+      'cW'
+      'pN'
+      'iL'
+      'iN'
+      'SI'
+      'pM'
+      'deL'
+      'cuF'
+      'pB'
+      'sB';
+  }
+  .insurance_notes {
+    .info_style {
+      height: 18px;
+      width: 18px;
+      font-size: 18px;
+    }
+  }
+  .pos_coverage_text {
+    white-space: normal;
+    min-width: 40vw;
+    display: block !important;
+  }
+
+  @media screen and (min-width: 40rem) {
+    .form-group {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 15% 15% 15% 15% 15% 15% 15%;
+      grid-auto-flow: column;
+      gap: 1rem;
+      row-gap: 0.1rem;
+      grid-template-areas:
+        'pR pR cA cA cD cD'
+        'dW dL dH dWe vW cW'
+        'sRn sRn sRn sRn sRn sRn'
+        'pN pN pN pN pN pN'
+        'iL iL iC iC iC .'
+        'iN iN iN iN iN iN'
+        'SI SI pM pM . .'
+        'deL deL . . . .'
+        'cuF cuF cuF cuF cuF cuF'
+        'pB pB pB sB sB sB';
+
+      .button-previous {
+        margin: 1rem 0rem 1rem 0rem;
+        grid-area: pB;
+        justify-items: left;
+        display: grid;
+
+        button {
+          justify-self: left;
+          width: 7rem;
+          height: 2.9rem;
+        }
+      }
+
+      .button-submit {
+        margin: 1rem 0rem 1rem 0rem;
+        grid-area: sB;
+        justify-items: right;
+        display: grid;
+
+        button {
+          justify-self: right;
+          min-width: 7rem;
+          height: 2.9rem;
+        }
+      }
+
+      .customs_form {
+        .customs_container {
+          width: 100%;
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr)) 90px;
+          grid-auto-flow: column;
+          gap: 0rem;
+          row-gap: 0.1rem;
+          grid-template-areas:
+            'paT paT cuDe cuDe deCu'
+            'cuWe cuQu cuVa cuCo deCu';
+
+          .mat-form-field,
+          pos-country-select {
+            padding-left: 1rem;
+          }
+
+          .delete_custom {
+            align-items: flex-end;
+            padding-bottom: 0.5rem;
+            place-items: center;
+          }
+        }
+      }
+      button {
+        mat-spinner {
+          margin: 0 auto;
+        }
+
+        .login-loading-spinner {
+          ::ng-deep circle {
+            stroke: white;
+          }
+        }
+      }
+    }
+
+    .form-group-my {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(13, 1fr);
+      gap: 1rem;
+      row-gap: 0.1rem;
+      grid-template-areas:
+        '. . . . . . . dG dG dG dG dG dG'
+        'cA cA cA cA dW dW dW dL dL dL dH dH dH'
+        'dWe dWe dWe dWe vW vW vW cW cW cW . . .'
+        'mps mps mps mps mps mps mps mps mps mps mps mps mps'
+        'wM wM wM wM wM wM wM wM wM wM wM wM wM '
+        'dC dC dC dC dC dC dC sRn sRn sRn sRn sRn sRn'
+        // "sRn sRn sRn sRn sRn sRn sRn "
+        'pN pN pN pN pN pN pN pN pN pN pN pN pN'
+        'cL cL cL cL cC cC cC cC cC cC . . .'
+        'aM aM aM aM . . . . . . . . .'
+        'iL iL iL iL iC iC iC iC iC iC . . .'
+        'iN iN iN iN iN iN iN iN iN iN iN iN iN'
+        'SI SI SI SI pM pM pM pM pM pM . . .'
+        'pB pB pB pB sB sB sB sB sB sB sB sB sB';
+
+      .button-previous {
+        margin: 1rem 0rem 1rem 0rem;
+        grid-area: pB;
+        justify-items: left;
+        display: grid;
+
+        button {
+          justify-self: left;
+          width: 7rem;
+          height: 2.9rem;
+        }
+      }
+
+      .button-submit {
+        margin: 1rem 0rem 1rem 0rem;
+        grid-area: sB;
+        justify-items: right;
+        display: grid;
+
+        button {
+          justify-self: right;
+          min-width: 12rem;
+          height: 2.9rem;
+          cursor: pointer;
+        }
+      }
+      button {
+        mat-spinner {
+          margin: 0 auto;
+        }
+
+        .login-loading-spinner {
+          ::ng-deep circle {
+            stroke: white;
+          }
+        }
+      }
+    }
+
+    .edit-order-template {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-template-areas:
+        'cA cA cA . . .'
+        'dW dL dH dWe vW vW cW cW'
+        'wM wM wM wM wM wM'
+        'dC dC dC dC dC dC'
+        'pN pN pN sRn sRn sRn'
+        'cL cL cC cC . .'
+        'aM aM . . . .'
+        'iL iL iC iC . .'
+        'iN iN iN iN iN iN'
+        'SI SI pM pM . .'
+        '. . . sB sB sB';
+    }
+
+    .edit-order-template-my {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      grid-template-areas:
+        'cA cA cA . . .'
+        'dW dL dH dWe vW vW cW cW'
+        'wM wM wM wM wM wM'
+        'dC dC dC dC dC dC'
+        'pN pN pN sRn sRn sRn'
+        'cL cL cC cC . .'
+        'aM aM . . . .'
+        'iL iL iC iC . .'
+        'iN iN iN iN iN iN'
+        'SI SI pM pM . .'
+        '. . . sB sB sB';
+    }
+  }
+}
+.dimensionGuide {
+  font-size: 0.8rem;
+  text-align: right;
+  cursor: pointer;
+}
+
+//Grid-areas
+
+.dimensionGuide {
+  grid-area: dG;
+}
+
+.category {
+  grid-area: cA;
+}
+
+.category-details {
+  grid-area: cD;
+}
+
+.product {
+  grid-area: pR;
+}
+
+.category-detail {
+  grid-area: cD;
+}
+
+.dimensionWidth {
+  grid-area: dW;
+}
+
+.dimensionLength {
+  grid-area: dL;
+}
+
+.dimensionHeight {
+  grid-area: dH;
+}
+
+.dimensionWeight {
+  grid-area: dWe;
+}
+
+.volumetricWeight {
+  grid-area: vW;
+}
+
+.chargeableWeight {
+  grid-area: cW;
+}
+
+.descriptionContent {
+  grid-area: dC;
+}
+
+.senderRefNo {
+  grid-area: sRn;
+}
+
+.parcelNotes {
+  grid-area: pN;
+}
+
+.cod-label {
+  grid-area: cL;
+  height: 2.5rem;
+
+  mat-label {
+    font-weight: v.$font-weight-medium;
+  }
+}
+
+.cod-check {
+  grid-area: cC;
+}
+
+.amount {
+  grid-area: aM;
+}
+
+.insurance-label {
+  grid-area: iL;
+  height: 2.5rem;
+
+  mat-label {
+    font-weight: v.$font-weight-medium;
+  }
+}
+
+.declaration-label {
+  grid-area: deL;
+  height: 2.5rem;
+}
+
+.customs_form {
+  grid-area: cuF;
+
+  div {
+    display: grid;
+    grid-gap: 0rem 0.5rem;
+    margin: 1rem 0rem;
+    background: #f7fbff;
+    border-radius: 0.5rem;
+    padding: 0 0.5rem;
+
+    .delete_custom {
+      grid-area: deCu;
+      place-items: center;
+    }
+
+    .parcel_type {
+      grid-area: paT;
+      padding-left: 0rem;
+    }
+
+    .description {
+      grid-area: cuDe;
+    }
+
+    .weight {
+      grid-area: cuWe;
+    }
+
+    .quantity {
+      grid-area: cuQu;
+    }
+
+    .value {
+      grid-area: cuVa;
+    }
+
+    .country {
+      grid-area: cuCo;
+    }
+  }
+
+  .add_btn {
+    grid-row: 4;
+  }
+}
+
+.weight {
+  grid-area: cuWe;
+}
+
+.insurance-check {
+  grid-area: iC;
+
+  ::ng-deep .mat-checkbox .mat-checkbox-inner-container {
+    margin: 5px auto 0 !important;
+  }
+
+  ::ng-deep .mat-checkbox .mat-checkbox-layout {
+    align-items: flex-start !important;
+    gap: 15px;
+  }
+}
+
+.insurance-notes {
+  grid-area: iN;
+}
+
+.sumInsured {
+  grid-area: SI;
+}
+
+.premiumAmt {
+  grid-area: pM;
+}
+
+.info_style {
+  color: #848484;
+}
+
+.mps {
+  grid-area: mps;
+}
+.parcel-container1 {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+}
+@media screen and (max-width: 760px) {
+  .button-submit {
+    margin-bottom: 30px;
+    margin-top: 10px;
+    button {
+      width: 100%;
+      margin-top: 15px;
+    }
+  }
+  ::ng-deep {
+    .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+      // margin-left: 51% !important;
+    }
+  }
+  .parcel-container1 {
+    margin-left: 1%;
+    margin-right: 1%;
+  }
+  .posWrapper {
+    width: 52%;
+    margin-left: -17px;
+  }
+  .mat-form-field {
+    width: 100%;
+  }
+
+  .weight {
+    grid-area: auto;
+  }
+  .customs_form {
+    div {
+      display: flex;
+      flex-direction: column;
+      .country {
+        grid-area: auto;
+      }
+      .value {
+        grid-area: auto;
+      }
+      .quantity {
+        grid-area: auto;
+      }
+      .weight {
+        grid-area: auto;
+      }
+      .delete_custom {
+        grid-area: auto;
+        place-items: inherit;
+      }
+    }
+  }
+  .parcel-container1 {
+    padding: 0 1rem;
+  }
+  .cod-label {
+    height: 1.5rem;
+  }
+  .insurance-label {
+    height: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 435px) {
+  // .dimensionContainer {
+  //   display: flex ;
+  // }
+  // .dimensionField {
+  //   width: 50% ;
+  // }{
+  .title {
+    margin: 0.25em 0 !important;
+  }
+  .dimensionGuide {
+    margin: 0.25em 1em !important;
+  }
+  .cod-label {
+    margin: 0.25em 0 !important;
+  }
+  .cod-check {
+    margin: 0.25em 0 !important;
+  }
+  .insurance-label {
+    margin: 0.25em 0 !important;
+  }
+  .insurance-check {
+    margin: 0.25em 0 !important;
+  }
+  .insurance-notes {
+    margin: 0 16px;
+  }
+  .dimensionWidth {
+    width: 100%;
+  }
+
+  .dimensionLength {
+    width: 100%;
+  }
+  .dimensionHeight {
+    width: 100%;
+  }
+  .dimensionWeight {
+    width: 100%;
+  }
+
+  .button-previous,
+  .add_btn {
+    display: block;
+    width: fit-content;
+    margin-right: 10px; // Add some spacing between the buttons
+  }
+  label .mat-checkbox-layout {
+    white-space: normal !important;
+    width: 10%;
+  }
+  .pos_coverage_text {
+    white-space: normal;
+    min-width: auto;
+  }
+  .parcel-container1 .mat-checkbox-layout {
+    white-space: normal !important;
+  }
+}
+
+.mat-checkbox .mat-checkbox-layout .mat-checkbox-label {
+  white-space: normal !important;
+  color: aqua !important;
+}
+@media screen and(max-width:750px) {
+  .mat-checkbox-layout {
+    white-space: normal !important;
+  }
+  :ng-deep {
+    .mat-form-field-flex {
+      width: 93% !important;
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .parcel-container .form-group-my {
+    row-gap: 1rem !important;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 568px) {
+  .mat-form-field {
+    margin-bottom: 0;
+  }
+  .shipping-insurance {
+    margin-left: 0px !important;
+  }
+  .insurance-label {
+    padding-top: 20px !important;
+  }
+}
+
+.mat-form-field input {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.disabled-input {
+  pointer-events: none !important;
+  background-color: #f5f5f5;
+  opacity: 0.6;
+  cursor: not-allowed;
+}

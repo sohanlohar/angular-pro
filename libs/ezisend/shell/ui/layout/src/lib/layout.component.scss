@@ -1,0 +1,228 @@
+// .container {
+//   background-color: #FFFFFF;
+//   width: 100vw;
+//   height: 100%;
+// }
+
+// .mat-drawer-side {
+//   border-right: none !important;
+//   margin-left: -20rem;
+//   z-index: 0 !important;
+// }
+
+// .mat-drawer-content {
+//   background-color: #EDF0F9;
+//   margin-left: 0rem !important;
+//   will-change: margin-left;
+//   transition: margin-left 0.5s ease-in-out;
+// }
+
+// .is-expanded {
+//   margin-left: 4rem !important;
+//   transition: margin-left 0.5s ease-in;
+// }
+
+// .is-collapse {
+//   margin-left: 19rem !important;
+//   transition: margin-left 0.5s ease-out;
+// }
+
+// .nav-header {
+//   padding: 1rem 0rem 0rem 0rem;
+//   margin: 0px 1rem;
+//   display: block;
+// }
+// :host {
+//   ::ng-deep {
+//     mat-sidenav-container {
+//       mat-sidenav .mat-drawer-inner-container {
+//         background-color: #fff;
+//       }
+//     }
+//   }
+// }
+
+// @media screen and (min-width: 1326px) {
+//   .mat-drawer-side {
+//     margin-left: 0rem;
+//   }
+
+//   .mat-drawer-content {
+//     margin-left: 16rem !important;
+//   }
+// }
+
+/* revamp sidebar */
+.layout {
+  overflow: unset;
+  display: block;
+  position: relative;
+  height: auto;
+  background: #edf0f9;
+  .sidebar {
+    position: sticky;
+    height: 100vh;
+    float: left;
+    top: 0;
+    bottom: 0;
+    width: 8em;
+    background: linear-gradient(90deg, #104485 0%, #0068C8 100%);
+    .version_num {
+      text-align: center;
+      bottom: 0px;
+      position: absolute;
+      right: 0;
+      left: 0;
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      padding: 10px;
+
+     .version_num_text {
+      font-size: 12px;
+      color: #5ca0df;
+     }
+
+     .expand_menu {
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+     }
+    }
+
+  }
+  .sidebar-active {
+    // animation: sidebar-enlarge 1s forwards;
+    position: fixed;
+    width: 20em;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    transition: width 300ms ease-in-out;
+
+  }
+  .content {
+    margin-left: 10em;
+    margin-right: 2em;
+    padding-top: 2rem;
+    background: #edf0f9;
+  }
+  .nav-footer {
+    display: none;
+    z-index: 999;
+    position: absolute;
+  }
+
+}
+.scroll-top-button, .scroll-bottom-button {
+  position: fixed;
+    bottom: 18px;
+    right: 72px;
+    opacity: 0.8;
+    transition: all 0.2s ease-in-out;
+    background-color: #0261bc;
+    border: none;
+    color: white;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    display: flex    ;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-top-button:hover, .scroll-bottom-button:hover {
+  opacity: 1;
+}
+
+.scroll-bottom-button {
+  right: 125px;
+}
+@keyframes sidebar-enlarge {
+  from {width: 8em;}
+  to {width: 20em;}
+}
+/* revamp sidebar */
+
+
+.spinner_container {
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  position: fixed;
+  z-index: 9999;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .loading-spinner {
+    transform: scale(0.6);
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .layout .content{
+    overflow: hidden;
+    padding-top: 1rem;
+  }
+
+  .sidebar {
+    width: 0 !important;
+    display: none;
+  }
+  .sidebar-active {
+    width: 20em !important;
+    display: block;
+  }
+  .content {
+    margin-left: .5em !important;
+    margin-right: .5em !important;
+  }
+  .nav-footer {
+    display: block !important;
+  }
+
+  .scroll-top-button{
+    bottom: 192px !important;
+    z-index: 9999;
+    right: 20px !important;
+  }
+
+  .scroll-bottom-button{
+    // z-index: 9999;
+    // right: 70px !important;
+    bottom: 138px !important;
+    z-index: 9999;
+    right: 20px !important;
+  }
+
+  .bottom-128{
+    bottom: 138px !important;
+  }
+}
+
+@media screen and (max-width:760px) {
+  .layout{
+    overflow-x: hidden;
+  }
+}
+@media screen and (max-width:575px) {
+  .scroll-top-button, .scroll-bottom-button{
+    width: 35px;
+    height: 35px;
+    .material-icons-outlined{
+      font-size: 16px;
+    }
+  }
+  .scroll-top-button {
+    bottom: 180px !important;
+}
+}
+

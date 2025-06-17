@@ -1,0 +1,14 @@
+<pos-page-layout [breadcrumbItems]="breadcrumbItems">
+  <pos-banner class="banner" [bannerObj]="commonService.checkIfMobile() ? bannerObj?.mobile : bannerObj?.desktop"></pos-banner>
+  <div class="container">
+    <pos-dashboard-main-tile></pos-dashboard-main-tile>
+  </div>
+
+  <div class="summaryshipment">
+    <pos-shipment-summary></pos-shipment-summary>
+  </div>
+  <div class="insights">
+    <pos-insights></pos-insights>
+  </div>
+  <pos-news-promo></pos-news-promo>
+</pos-page-layout>

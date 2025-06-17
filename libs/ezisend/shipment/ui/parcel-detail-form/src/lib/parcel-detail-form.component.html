@@ -1,0 +1,563 @@
+<div [ngClass]="commonService.checkIfMobile() ? 'parcel-container1' : 'parcel-container'">
+
+  <div class="title">{{ isEditOrder ? languageData.edit : '' }} {{languageData.parcel_detail}}</div>
+  <!-- Malaysia -->
+  <form class="form-group-my" [class.edit-order-template-my]="(isEditOrder || isReturnOrder) && !isMPS " [formGroup]="parcelDetailsForm"
+    *ngIf="(commonService.getCurrentIsCountryMY$ | async) === true">
+    <div *ngIf="(!isEditOrder && !isReturnOrder) && !isMPS" class="dimensionGuide" (click)="openViewGuideDialog(dialog,isMelPlus)">
+      {{languageData.view_guide}}
+    </div>
+    <mat-form-field class="category" appearance="outline">
+      <mat-label>{{languageForm.category}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.category"
+        [control]="parcelDetailsForm.controls['category']"
+        [customErrorMessages]="{
+          required: languageForm.required_category
+        }">
+        <mat-select [(value)]="selected_category" formControlName="category" (selectionChange)="getCategory($event.value)">
+          <!-- <mat-option value="Merchandise">Merchandise</mat-option> -->
+          <mat-option *ngIf="(commonService.isCODUbat | async) === false" value="Document">{{languageData.document}}</mat-option>
+          <mat-option *ngIf="(commonService.isCODUbat | async) === false" value="Parcel">{{languageData.parcel}}</mat-option>
+          <mat-option *ngIf="(commonService.isMPS| async) === true" value="MPS">{{languageData.mps}}</mat-option>
+          <mat-option *ngIf="(commonService.isCODUbat | async) === true" value="Ubat">{{languageData.ubat}}</mat-option>
+          <mat-option *ngIf="(commonService.isMelPlus | async) === true" value="MelPlus">{{languageData.mel_plus}}</mat-option>
+        </mat-select>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <mat-form-field class="dimensionWidth " appearance="outline" *ngIf="isMPS" [formGroup]="mpsDetailsForm">
+      <mat-label>{{languageForm.no_of_shipments}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.no_of_shipments"
+        [control]="mpsDetailsForm.controls['noShipments']">
+        <input matInput formControlName="noShipments"/>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+    <mat-form-field class="dimensionWidth " appearance="outline" *ngIf="!isMPS">
+      <mat-label>{{languageForm.width}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.width"
+        [control]="parcelDetailsForm.controls['width']"
+        [customErrorMessages]="{
+          required: languageForm.required_width,
+          pattern: languageForm.required_valid_width
+        }">
+        <input matInput formControlName="width" maxlength="6"/>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <mat-form-field class="dimensionLength " appearance="outline" *ngIf="!isMPS">
+      <mat-label>{{languageForm.length}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.length"
+        [control]="parcelDetailsForm.controls['length']"
+        [customErrorMessages]="{
+          required: languageForm.required_length,
+          pattern: languageForm.required_valid_length
+        }">
+        <input matInput formControlName="length" maxlength="6"/>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <mat-form-field class="dimensionHeight " appearance="outline" *ngIf="!isMPS">
+      <mat-label>{{languageForm.height}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.height"
+        [control]="parcelDetailsForm.controls['height']"
+        [customErrorMessages]="{
+          required: languageForm.required_height,
+          pattern: languageForm.required_valid_height
+        }">
+        <input matInput formControlName="height" maxlength="6"/>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <mat-form-field class="dimensionWeight " appearance="outline" *ngIf="!isMPS">
+      <mat-label>{{languageForm.weigth}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.weigth"
+        [control]="parcelDetailsForm.controls['weight']"
+        [customErrorMessages]="{
+          required: languageForm.required_weight,
+          pattern: languageForm.required_valid_weight
+        }">
+        <input matInput formControlName="weight" maxlength="6"/>
+      </pos-form-control-wrapper>
+      <mat-icon class="info_style" matSuffix matTooltipPosition="right" [matTooltip]="isMelPlus ? melplusTooltip : weightTooltip">info_outline</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="volumetricWeight" appearance="outline" *ngIf="!isMPS">
+      <mat-label>{{languageForm.volumetric_weight}}</mat-label>
+      <input matInput formControlName="volumetricWeight" maxlength="7"/>
+      <mat-error *ngIf="errorHandler('volumetricWeight', 'required')">
+        {{languageForm.required_volumetric_weight}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="chargeableWeight " appearance="outline" *ngIf="!isMPS">
+      <mat-label>{{languageForm.chargeable_weight}}</mat-label>
+      <input matInput formControlName="chargeableWeight" maxlength="7"/>
+      <mat-error *ngIf="errorHandler('chargeableWeight', 'required')">
+        {{languageForm.required_chargeable_weight}}
+      </mat-error>
+    </mat-form-field>
+    <div *ngIf="showWarning" appearance="outline" class="weight-dimension-alert">
+    <div  class="warning-message">
+      <p> <mat-icon class="info_style" matSuffix primary >info</mat-icon> {{ warningMessage }}</p>
+    </div>
+  </div>
+    <mat-form-field class="descriptionContent" appearance="outline" *ngIf="!isMPS">
+      <mat-label>{{languageForm.description_content}}</mat-label>
+
+      <pos-form-control-wrapper
+        [name]="'Content'"
+        [control]="parcelDetailsForm.controls['content']"
+        [customErrorMessages]="{
+          required: languageForm.required_description_content,
+          minlength: (languageForm.minlength +' '+ languageForm.five +' '+ languageForm.characters)
+        }">
+        <input #content matInput formControlName="content" minlength="5" maxlength="100" />
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <mat-form-field class="senderRefNo" appearance="outline" *ngIf="!isMPS">
+      <mat-label>{{languageForm.sender_ref}}</mat-label>
+
+      <pos-form-control-wrapper
+        [name]="'SenderRefNo'"
+        [control]="parcelDetailsForm.controls['sender_ref']"
+        >
+        <input #content matInput formControlName="sender_ref" maxlength="50" />
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <mat-form-field class="parcelNotes" appearance="outline" *ngIf="!isMPS">
+      <mat-label>{{languageData.parcel_note}}</mat-label>
+      <input #parcel matInput formControlName="parcelNotes" maxlength="200" />
+    </mat-form-field>
+    <div class="cod-label" *ngIf="showCOD() || (isMelPlus && isMelPlusCod && isfetaureMelPlus)">
+      <mat-label><b>{{languageData.cash_on_delivery}}</b></mat-label>
+    </div>
+    <div class="cod-check" *ngIf="showCOD() || (isMelPlus && isMelPlusCod && isfetaureMelPlus)">
+      <mat-checkbox formControlName="codCheck" color="primary"
+        [checked]="isCOD || isFeatureCODChecked"
+        (change)="OnChangeCODCheckbox($event)"
+        [disabled]="(isPendingPickup && isEditOrder)">
+        {{ languageData.my_parcel_requires }}
+        <span class="highlightText"><b>{{languageData.cash_on_delivery2}}</b></span>
+      </mat-checkbox>
+    </div>
+
+    <mat-form-field class="amount" appearance="outline" *ngIf="(isCOD && !isMelPlus && !isMPS) || (isMelPlus && isMelPlusCod && isFeatureCODChecked && isfetaureMelPlus)">
+      <mat-label>{{languageForm.amount}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.amount"
+        [control]="parcelDetailsForm.controls['amount']"
+        [customErrorMessages]="{
+          required: languageForm.required_amount,
+          pattern: languageForm.required_valid_amount,
+          min: languageForm.required_min_amount,
+          maxAmountExceeded: languageForm.required_max_amount_exceeds_limit
+        }">
+        <input matInput formControlName="amount" maxlength="8" (blur)="roundAmount()" 
+        [readonly]="isPendingPickup && isEditOrder" 
+        [ngClass]="{ 'disabled-input': isPendingPickup && isEditOrder }"/>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <div class="insurance-label" *ngIf="(commonService.isCODUbat | async) === false && !isMelPlus && !isMPS">
+      <mat-label class="shipping-insurance"> <b> {{languageData.shipping_insurance}} </b></mat-label>
+    </div>
+    <div class="insurance-check" *ngIf="(commonService.isCODUbat | async) === false && !isMelPlus && !isMPS">
+      <mat-checkbox formControlName="insuranceCheck" [checked]="isIssuredDOM" color="primary" (change)="getInsuranceValDOM($event)"
+      [disabled]="(isPendingPickup && isEditOrder)">
+      <div class="pos_coverage_text"> {{languageData.shipping_note1}}
+        <span  class="highlightText">{{languageData.shipping_note2}}</span></div></mat-checkbox>
+    </div>
+
+    <div class="insurance-notes" *ngIf="isIssuredDOM && !isMPS && !isMelPlus">
+      <p> <b>{{languageData.insurance_note1_bold}}</b> {{languageData.insurance_note1}} <a [href]="insuranceUrl" target="_blank">{{languageData.insurance_note2}}</a>.</p>
+        <div>
+          <ul class="insurance_notes mt-0">
+            <li>
+             <b>{{languageData.insurance_note4_1_bold}}</b> {{languageData.insurance_note4_1}} <mat-icon class="info_style" matSuffix matTooltip="{{languageData.insurance_note4_1_tootlTip}}">info_outline</mat-icon>
+            </li>
+            <li>
+             <b>{{languageData.insurance_note4_2_bold}}</b> {{languageData.insurance_note4_2}} <mat-icon class="info_style" matSuffix matTooltip="{{languageData.insurance_note4_2_tootlTip}}">info_outline</mat-icon>
+            </li>
+          </ul>
+      </div>
+    </div>
+
+    <mat-form-field class="sumInsured" appearance="outline" *ngIf="isIssuredDOM && !isMPS && !isMelPlus">
+      <mat-label>{{languageForm.sum_insured}} </mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.sum_insured"
+        [control]="parcelDetailsForm.controls['sum_insured']"
+        [customErrorMessages]="{
+          required: languageForm.required_sum_insured,
+          pattern: languageForm.required_valid_sum_insured,
+          min: languageForm.required_min_sum_insured,
+          max: languageForm.required_max_sum_insured
+        }">
+        <input matInput formControlName="sum_insured" maxlength="8" 
+              [readonly]="isPendingPickup && isEditOrder" 
+              [ngClass]="{ 'disabled-input': isPendingPickup && isEditOrder }"/>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <mat-form-field class="premiumAmt" appearance="outline" *ngIf="isIssuredDOM && !isMPS && !isMelPlus">
+      <mat-label>{{languageForm.premium_amount}}</mat-label>
+      <input matInput formControlName="premiumAmt" />
+      <mat-error *ngIf="errorHandler('premiumAmt', 'pattern')">
+        {{languageForm.required_valid_premium_amount}}
+      </mat-error>
+    </mat-form-field>
+
+
+    <pos-mps-shipment-details class="mps" *ngIf="isMPS" [isEditOrder]="isEditOrder" [isPendingPickup]="isPendingPickup" [parcelDetailsForm]="mpsDetailsForm" [isCountryMY]="isCountryMY"></pos-mps-shipment-details>
+
+    <div class="button-previous" *ngIf="(!isEditOrder|| !isReturnOrder) && !commonService.checkIfMobile">
+      <button mat-button color="primary" matStepperPrevious type="button">
+        <mat-icon aria-hidden="false" class="material-icons-outlined">
+          arrow_back
+        </mat-icon> {{languageForm.back}}
+      </button>
+    </div>
+
+    <div class="button-submit" >
+      <div [ngClass]="{ 'flex-display': isReturnOrder }">
+      <mat-card *ngIf="isReturnOrder" class="cardContainer" >
+        <mat-card-content class="noteContainer"><span class="noteText">Important Note :</span><span style="font-weight: 400; margin-left: 3px;" >Please ensure that the consignment note is shared with the Recipient</span></mat-card-content>
+      </mat-card>
+      <button (click)="VaidatedSenderPostcode(true,isMPS)" [disabled]="(isReturnOrder  && isconfirmOrderEnable)?false:isSubmitDisabled(!isMPS ? parcelDetailsForm.valid : mpsDetailsForm.valid)" type="submit"  mat-flat-button color="primary">
+        <mat-spinner *ngIf="isSubmitting" [diameter]="25" class="login-loading-spinner"></mat-spinner>
+        <ng-container *ngIf="!isSubmitting">{{ handleLabel() }}</ng-container>
+      </button>
+    </div>
+    </div>
+  </form>
+  <!-- <div class="button-submit" *ngIf="commonService.checkIfMobile()">
+    <button (click)="submit_shipment(true,isMPS)" [disabled]="isSubmitDisabled(!isMPS ? parcelDetailsForm.valid : mpsDetailsForm.valid)" type="submit"  mat-flat-button color="primary">
+      <mat-spinner *ngIf="isSubmitting" [diameter]="25" class="login-loading-spinner"></mat-spinner>
+      <ng-container *ngIf="!isSubmitting">{{ isEditOrder ? 'Save Changes' : 'Complete' }}</ng-container>
+    </button>
+  </div> -->
+   <!-- Abroad-->
+  <form class="form-group" [class.edit-order-template]="isEditOrder || isReturnOrder" [formGroup]="parcelAbroadForm"
+    *ngIf="(commonService.getCurrentIsCountryMY$ | async) === false">
+    <mat-form-field class="product" appearance="outline">
+      <mat-label>{{languageForm.product}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.product"
+        [control]="parcelAbroadForm.controls['product']"
+        [customErrorMessages]="{
+          required: languageForm.select_product
+        }">
+        <mat-select [(ngModel)]="product_category" formControlName="product" (selectionChange)="getProduct($event)">
+          <mat-option *ngFor="let product of product_categories" [value]="product" [disabled]="getDisabledCountry(product)">{{product}}</mat-option>
+        </mat-select>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <mat-form-field class="category" appearance="outline">
+      <mat-label>{{languageForm.category}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.category"
+        [control]="parcelAbroadForm.controls['category']"
+        [customErrorMessages]="{
+          required: languageForm.required_category
+        }">
+        <mat-select [(ngModel)]="category_item" [(value)]="selected_category" formControlName="category">
+          <mat-option *ngFor="let category of item_categories" [value]="category.name">{{category.value}}</mat-option>
+        </mat-select>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <mat-form-field class="category-detail" appearance="outline">
+      <mat-label>{{languageForm.category_detail}}</mat-label>
+      <pos-form-control-wrapper [name]="languageForm.category_detail" [control]="parcelAbroadForm.controls['category_details']"
+        [customErrorMessages]="{
+          required: languageForm.required_category_detail
+        }">
+        <mat-select [(ngModel)]="category_detail" [(value)]="selected_category_detail"
+          formControlName="category_details">
+          <mat-option *ngFor="let category of category_details" [value]="category.name">{{category.value}}</mat-option>
+        </mat-select>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <mat-form-field class="dimensionWidth" appearance="outline">
+      <mat-label>{{languageForm.width}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.width"
+        [control]="parcelAbroadForm.controls['width']"
+        [customErrorMessages]="{
+          required: languageForm.required_width,
+          pattern: languageForm.required_valid_width
+        }">
+        <input matInput formControlName="width" maxlength="6"/>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <mat-form-field class="dimensionLength " appearance="outline">
+      <mat-label>{{languageForm.length}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.length"
+        [control]="parcelAbroadForm.controls['length']"
+        [customErrorMessages]="{
+          required: languageForm.required_length,
+          pattern: languageForm.required_valid_length
+        }">
+        <input matInput formControlName="length" maxlength="6"/>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <mat-form-field class="dimensionHeight " appearance="outline">
+      <mat-label>{{languageForm.height}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.height"
+        [control]="parcelAbroadForm.controls['height']"
+        [customErrorMessages]="{
+          required: languageForm.required_height,
+          pattern: languageForm.required_valid_height
+        }">
+        <input matInput formControlName="height" maxlength="6"/>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <mat-form-field class="dimensionWeight " appearance="outline">
+      <mat-label>{{languageForm.weigth}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.weigth"
+        [control]="parcelAbroadForm.controls['weight']"
+        [customErrorMessages]="{
+          required: languageForm.required_weight,
+          pattern: languageForm.required_valid_weight
+        }">
+        <input matInput formControlName="weight" maxlength="6"/>
+      </pos-form-control-wrapper>
+      <mat-icon class="info_style" matSuffix matTooltip="Shipment rate will be calculated based on parcel weight or volumetric weight whichever is higher">info_outline</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="volumetricWeight" appearance="outline">
+      <mat-label>{{languageForm.volumetric_weight}}</mat-label>
+      <input matInput formControlName="volumetricWeight"/>
+      <mat-error *ngIf="errorHandlerParcelAbrd('volumetricWeight', 'required')">
+        {{languageForm.required_volumetric_weight}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="chargeableWeight" appearance="outline">
+      <mat-label>{{languageForm.chargeable_weight}}</mat-label>
+      <input matInput formControlName="chargeableWeight" />
+      <mat-error *ngIf="errorHandlerParcelAbrd('chargeableWeight', 'required')">
+        {{languageForm.required_chargeable_weight}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="parcelNotes" appearance="outline">
+      <mat-label>{{languageData.parcel_note}}</mat-label>
+      <input #parcel matInput formControlName="parcelNotes" maxlength="200" />
+    </mat-form-field>
+    <mat-form-field class="senderRefNo" appearance="outline" *ngIf="!isMPS">
+      <mat-label>{{languageForm.sender_ref}}</mat-label>
+
+      <pos-form-control-wrapper
+        [name]="'SenderRefNo'"
+        [control]="parcelAbroadForm.controls['sender_ref']"
+        >
+        <input #content matInput formControlName="sender_ref" maxlength="50" />
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <div class="insurance-label">
+      <mat-label> <b>{{languageData.shipping_insurance}}</b></mat-label>
+    </div>
+    <div class="insurance-check">
+      <mat-checkbox formControlName="insuranceCheck" [checked]="isIssuredIntl" color="primary" (change)="getInsuranceValIntl($event)" 
+       [disabled]="(isPendingPickup && isEditOrder)">
+      <div class="pos_coverage_text"> {{languageData.shipping_note1}}
+        <span class="highlightText">{{languageData.shipping_note2}}</span></div></mat-checkbox
+      >
+    </div>
+
+    <div class="insurance-notes" *ngIf="isIssuredIntl">
+      <p><b>{{languageData.insurance_note1_bold}}</b> {{languageData.insurance_note1}} <a [href]="insuranceUrl" target="_blank">{{languageData.insurance_note2}}</a>.</p>
+      <div>
+        <ul class="insurance_notes mt-0">
+          <li>
+            <b>{{languageData.insurance_note4_1_bold}}</b> {{languageData.insurance_note4_1}} 
+          </li>
+          <li>
+            <b>{{languageData.insurance_note4_2_bold}}</b> {{languageData.insurance_note4_2}} 
+          </li>
+        </ul>
+    </div>
+    </div>
+
+    <mat-form-field class="sumInsured" appearance="outline" *ngIf="isIssuredIntl">
+      <mat-label>{{languageForm.sum_insured}}</mat-label>
+      <pos-form-control-wrapper
+        [name]="languageForm.sum_insured"
+        [control]="parcelAbroadForm.controls['sum_insured']"
+        [customErrorMessages]="{
+          required: languageForm.required_sum_insured,
+          pattern: languageForm.required_valid_sum_insured,
+          min: languageForm.required_min_sum_insured,
+          max: languageForm.required_max_sum_insured
+        }">
+        <input matInput formControlName="sum_insured" maxlength="8"
+            [readonly]="isPendingPickup && isEditOrder" 
+            [ngClass]="{ 'disabled-input': isPendingPickup && isEditOrder }"/>
+      </pos-form-control-wrapper>
+    </mat-form-field>
+
+    <mat-form-field class="premiumAmt" appearance="outline" *ngIf="isIssuredIntl">
+      <mat-label>{{languageForm.premium_amount}}</mat-label>
+      <input matInput formControlName="premiumAmt" maxlength="8"/>
+      <mat-error *ngIf="errorHandlerParcelAbrd('premiumAmt', 'pattern')">
+        {{languageForm.required_valid_premium_amount}}
+      </mat-error>
+    </mat-form-field>
+
+    <div class="spacer"></div>
+    <div class="declaration-label">
+      <mat-label class="title">{{languageData.custom_declaration_form}}</mat-label>
+    </div>
+    <div formArrayName="customs_declarations" class="customs_form">
+      <ng-container *ngIf="!customDeclarationsIsLoading">
+        <div class="customs_container" *ngFor="let a of customs_declarations.controls; let i = index" [formGroupName]="i">
+          <mat-form-field class="parcel_type" appearance="outline">
+            <mat-label>{{languageData.what_are_you_shipping}}</mat-label>
+            <!-- <pos-form-control-wrapper
+            class="posWrapper"
+              [name]="'Parcel Type'"
+              [control]="customs_declarations.controls[i].get('parcel_type')"
+              [customErrorMessages]="{
+                required: 'Parcel type required'
+              }" >  -->
+              <!-- <pos-shipping-select-box [hsc_list]="hsc_list" (getValue)="setParcelType($event,i)"></pos-shipping-select-box> -->
+              <mat-select formControlName="parcel_type" #singleSelect>
+                <mat-option>
+                  <ngx-mat-select-search
+                    [placeholderLabel]="languageForm.search"
+                    [noEntriesFoundLabel]="languageForm.no_result"
+                    [clearSearchInput]="true"
+                    [enableClearOnEscapePressed]="true"
+                    [alwaysRestoreSelectedOptionsMulti]="true"
+                    [formControl]="HSCFilterCtrl">
+                  </ngx-mat-select-search>
+                </mat-option>
+
+                <mat-option *ngFor="let item of filteredHSCList | async" [value]="item">
+                  {{item.hscode}} | {{item.keyword}}
+                </mat-option>
+              </mat-select>
+            <!-- </pos-form-control-wrapper> -->
+          </mat-form-field>
+
+          <mat-form-field class="description" appearance="outline">
+            <mat-label>{{languageForm.item_description}}</mat-label>
+            <pos-form-control-wrapper
+              [name]="languageForm.item_description"
+              [control]="customs_declarations.controls[i].get('item_description')"
+              [customErrorMessages]="{
+                required: languageForm.required_item_description
+              }">
+              <input matInput formControlName="item_description" maxlength="200"/>
+            </pos-form-control-wrapper>
+          </mat-form-field>
+
+          <mat-form-field class="weight" appearance="outline">
+            <mat-label>{{languageForm.weigth}}</mat-label>
+            <pos-form-control-wrapper
+              [name]="languageForm.weight"
+              [control]="customs_declarations.controls[i].get('weight')"
+              [customErrorMessages]="{
+                required: languageForm.required_weight,
+                pattern: languageForm.required_valid_weight
+              }">
+              <input matInput formControlName="weight" maxlength="6"/>
+            </pos-form-control-wrapper>
+            <mat-icon class="info_style" matSuffix [matTooltip]="languageData.shipment_rate_note">info_outline</mat-icon>
+          </mat-form-field>
+
+          <mat-form-field class="quantity" appearance="outline">
+            <mat-label>{{languageForm.quantity}}</mat-label>
+            <pos-form-control-wrapper
+              [name]="languageForm.quantity"
+              [control]="customs_declarations.controls[i].get('quantity')"
+              [customErrorMessages]="{
+                required: languageForm.required_quantity,
+                pattern: languageForm.required_valid_quantity
+              }">
+              <input matInput formControlName="quantity" maxlength="7"/>
+            </pos-form-control-wrapper>
+          </mat-form-field>
+
+          <mat-form-field class="value" appearance="outline">
+            <mat-label>{{languageForm.value}}</mat-label>
+            <pos-form-control-wrapper
+              [name]="languageForm.value"
+              [control]="customs_declarations.controls[i].get('value')"
+              [customErrorMessages]="{
+                required: languageForm.required_value,
+                pattern: languageForm.required_valid_value
+              }">
+              <input matInput formControlName="value" maxlength="8"/>
+            </pos-form-control-wrapper>
+          </mat-form-field>
+
+          <pos-country-select
+            formControlName="country"
+            class="country"
+            [isLabel]="custom_title"
+            [setCode]="
+              (customs_declarations.controls[i] && customs_declarations.controls[i].value.country && customs_declarations.controls[i].value.country.countryCode)
+              ? customs_declarations.controls[i].value.country.countryCode
+              : 'MY'"
+            [data]="commonService.countryList$"
+            [isParcel]="true">
+          </pos-country-select>
+
+          <div class="delete_custom">
+            <button mat-mini-fab color="primary" type="button" [disabled]="isDisable" (click)="removeCustom(i)">
+              <mat-icon aria-hidden="false" class="material-icons-outlined">
+                delete
+              </mat-icon>
+            </button>
+          </div>
+        </div>
+        <button class="add_btn" mat-stroked-button color="primary" type="button" (click)="addItem()">
+          <mat-icon aria-hidden="false" class="material-icons-outlined">
+            add
+          </mat-icon> {{languageData.declare_more_item}}
+        </button>
+      </ng-container>
+      <ng-container *ngIf="customDeclarationsIsLoading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </ng-container>
+    </div>
+
+    <div class="button-previous" *ngIf="(!isEditOrder || !isReturnOrder) && !commonService.checkIfMobile()">
+      <button mat-button color="primary" matStepperPrevious type="button">
+        <mat-icon aria-hidden="false" class="material-icons-outlined">
+          arrow_back
+        </mat-icon> {{languageForm.back}}
+      </button>
+    </div>
+    <div class="button-previous" *ngIf="(!isEditOrder || !isReturnOrder) && commonService.checkIfMobile()">
+      <button (click)="onBackButtonClick()" mat-button color="primary" type="button">
+        <mat-icon aria-hidden="false" class="material-icons-outlined">
+          arrow_back
+        </mat-icon> {{languageForm.back}}
+      </button>
+    </div>
+    <div class="button-submit">
+      <button type="submit" (click)="VaidatedSenderPostcode(false,isMPS)" [disabled]="(isReturnOrder  && isconfirmOrderEnable)?false:isSubmitDisabled(parcelAbroadForm.valid)" mat-flat-button color="primary">
+        <mat-spinner *ngIf="isSubmitting" [diameter]="25" class="login-loading-spinner"></mat-spinner>
+        <ng-container *ngIf="!isSubmitting">{{ handleLabel() }}</ng-container>
+      </button>
+    </div>
+  </form>
+</div>

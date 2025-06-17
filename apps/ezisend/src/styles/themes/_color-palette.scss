@@ -1,0 +1,62 @@
+@use 'sass:map';
+
+$dark-primary-text: rgba(black, 0.87);
+$light-primary-text: white;
+
+$red-pos-palette: (
+  50: #ffedf0,
+  100: #ffd2d8,
+  200: #f3a2a5,
+  300: #eb7f82,
+  400: #f86262,
+  500: #fd534a,
+  600: #f04c49,
+  700: #dd4242,
+  800: #d03c3b,
+  900: #c13230,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $light-primary-text,
+    400: $light-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  ),
+);
+
+$blue-pos-palette: (
+  50: #e3f2fa,
+  100: #bbddf3,
+  200: #91c9ed,
+  300: #69b4e5,
+  400: #4aa4e1,
+  500: #2d95dc,
+  600: #2488cf,
+  700: #1976bd,
+  800: #1166ac,
+  900: #00498d,
+  contrast: (
+    50: $dark-primary-text,
+    100: $dark-primary-text,
+    200: $dark-primary-text,
+    300: $dark-primary-text,
+    400: $dark-primary-text,
+    500: $light-primary-text,
+    600: $light-primary-text,
+    700: $light-primary-text,
+    800: $light-primary-text,
+    900: $light-primary-text,
+    A100: $dark-primary-text,
+    A200: $light-primary-text,
+    A400: $light-primary-text,
+    A700: $light-primary-text,
+  ),
+);

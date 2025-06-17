@@ -1,0 +1,27 @@
+<!-- <p>rate-calc-feature works!</p> --> 
+<pos-page-layout [breadcrumbItems]="breadcrumbItems">
+<div class="rate-calc__accordion">
+  <div class="main-title">{{languageData.pos_laju_shipment_rate_calculator}}</div>
+  <mat-accordion>
+    <mat-expansion-panel  [expanded]="panelOpenState === 'shipment'" (closed)="setPanelOpenState('none')">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{languageData.shipment_rate_calculator}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <pos-rate-calc-ui [showShipmentCalculator]="true" [showRateCard]="false"></pos-rate-calc-ui>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <!-- shipment-rate calculator-panel  -->
+  <mat-accordion class="rate-calc__accordion__rate-card">
+    <mat-expansion-panel  [expanded]="panelOpenState === 'rateCard'" (opened)="setPanelOpenState('rateCard')" (closed)="setPanelOpenState('none')">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{languageData.rate_card}}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <pos-rate-calc-ui [showShipmentCalculator]="false" [showRateCard]="true"></pos-rate-calc-ui>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <!-- Rate card panel  -->
+</div>

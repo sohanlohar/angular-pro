@@ -1,0 +1,273 @@
+<pos-page-layout [breadcrumbItems]="breadcrumbItems" [backData]="(detail?.channel_order | keyvalue)?.length ? '' : backData">
+  <div class="main-title">{{languageData.order_details}}</div>
+  <div fxLayout="column" fxFlexFill>
+    <div class="container top">
+      <div class="container-title">{{languageData.tracking_details}}</div>
+      <div class="tracking-details-container" fxLayout="row" fxLayoutAlign="center">
+        <mat-icon class="tracking-icon material-icons-outlined">location_on</mat-icon>
+        <div class="tracking-details" fxLayout="row wrap" fxLayout.lt-sm="column" fxFlex="auto" fxLayoutGap="1rem" fxLayoutGap.lt-md="0.5rem grid" fxLayoutAlign="center">
+          <div fxLayout="column" fxFlex="auto" class="trackingContainer" >
+            <span class="container-subtitle trackingNumber">{{languageData.tracking_no}}</span><br>
+              <a (click)="copyToClipboard(detail?.tracking_id)" *ngIf="detail?.tracking_id" class="trackingBtn"
+                target="_blank" color="primary" mat-stroked-button color="primary">
+                <span>{{ detail?.tracking_id }}</span>
+                <img width="16px" height="16px" [src]="'./assets/share.svg'" alt="share"/>
+              </a>
+            <span class="container-subtitle-value-highlight" *ngIf="!detail?.tracking_id">-</span>
+          </div>
+          <div fxLayout="column" fxFlex="auto">
+            <span class="container-subtitle">{{languageData.store_info}}</span>
+            <span class="container-store" *ngIf="(detail?.channel_order | keyvalue)?.length">
+              <img [src]="getLogo(detail?.channel_order?.channel)" width="20" height="20" alt="logo">&nbsp;
+              <span class="container-subtitle-value">
+                <span>{{ (detail?.channel_order?.store_name ?? '') | slice:0:10 }}</span>
+                <span *ngIf="getStringLength(detail?.channel_order?.store_name)">...</span>
+              </span>
+            </span>
+            <span class="container-subtitle-value store-name"  *ngIf="(detail?.channel_order | keyvalue)?.length">{{ detail?.id || '-'}}</span>
+            <span *ngIf="!(detail?.channel_order | keyvalue)?.length">-</span>
+          </div>
+          <div fxLayout="column" fxFlex="auto">
+            <span class="container-subtitle">{{languageData.order_date}}</span>
+            <span class="container-subtitle-value">{{ detail?.uiOrderDate || '-' }}</span>
+          </div>
+          <div fxLayout="column" fxFlex="auto">
+            <span class="container-subtitle">{{languageData.order_time}}</span>
+            <span class="container-subtitle-value">{{ detail?.uiOrderTime || '-' }}</span>
+          </div>
+          <div class="track-order-button-container" fxLayout="column" fxLayoutGap="0.5rem">
+            <button (click)="navigateToReturn()"
+              *ngIf="!isDisabled()"
+              target="_blank" style="border: 2px solid #00498d;" color="primary" mat-stroked-button color="primary">
+              {{languageData.create_reverse_pick_up}}
+            </button>
+            <button
+            (click)="confirmConvertToNonCOD()"
+            [disabled]="!detail?.parcel_details?.is_cod || !statusButtonConvertToNonCOD(detail?.status!)"
+             color="primary" mat-flat-button class="convert-to-non-cod">
+            {{languageData.convert_to_non_cod}}
+          </button>
+
+            <button (click)="onDownloadAsAndPrintButton(detail?.id)" target="_blank" color="primary"
+              mat-flat-button>{{languageData.print}}</button>
+            <button (click)="cancelShipment(detail?.tracking_id)" [disabled]="disableCancelShipment(detail?.status)" target="_blank" color="primary"
+              mat-flat-button class="cancel-shipment-btn">{{languageData.delete_shipment}}</button>
+            <!-- <a [href]="trackingUrl + detail?.tracking_id" target="_blank" color="primary" mat-flat-button>{{languageData.track_order}}</a> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="container top">
+      <div>
+        <div class="container-title">{{languageData.tracking_history}}
+          <mat-expansion-panel *ngIf="detail?.tracking_detail?.tracking_data !==null" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+            style="align-items: flex-start; margin-top: 20px;">
+
+            <mat-expansion-panel-header style="height: max-content !important;padding-bottom: 20px; background: #fff;">
+              <mat-panel-title>
+                <svg width="50" height="52" viewBox="0 0 50 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <ellipse cx="25" cy="26.0926" rx="25" ry="25.1786" fill="#FAEAFD"/>
+                  <path d="M15.0701 20.0149C15.8701 16.5549 21.0801 16.5549 21.8701 20.0149C22.3401 22.0449 21.0501 23.7649 19.9301 24.8349C19.1101 25.6149 17.8201 25.6049 17.0001 24.8349C15.8901 23.7649 14.6001 22.0449 15.0701 20.0149Z" stroke="#A951B9" stroke-width="2"/>
+                  <path d="M28.07 32.0149C28.87 28.5549 34.11 28.5549 34.91 32.0149C35.38 34.0449 34.09 35.7649 32.96 36.8349C32.14 37.6149 30.84 37.6049 30.02 36.8349C28.89 35.7649 27.6 34.0449 28.07 32.0149Z" stroke="#A951B9" stroke-width="2"/>
+                  <path d="M24.9999 20.4141H27.6799C29.5299 20.4141 30.3899 22.7041 28.9999 23.9241L21.0099 30.9141C19.6199 32.1241 20.4799 34.4141 22.3199 34.4141H24.9999" stroke="#A951B9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M18.4862 20.9141H18.4978" stroke="#A951B9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M31.4862 32.9141H31.4978" stroke="#A951B9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+
+              </mat-panel-title>
+              <mat-panel-title>
+                <div class="track-status">
+                  <div class="trackingStatus">{{languageData.status}}:</div>
+                  <div>
+                    <ng-container>
+                      <div class="text-upper" [ngStyle]="{'color': getStatusColor()}">{{detail?.tracking_detail?.process_status}}</div>
+                    </ng-container>
+                    <div *ngIf="currentTrackingDate" class="trackingDate">({{languageData.updated_on}} {{ currentTrackingDate }})</div>
+                  </div>
+                </div>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div style="display: flex; flex-direction: column;">
+            <div *ngIf="imgUrl" class="button-section" style="margin-left: 5rem;">
+              <button  mat-raised-button color="primary" (click)="proofActionEvent()"><a style="text-decoration: none; color: white;" [href]="imgUrl" target="_blank">{{languageData.proof_of_delivery}}</a></button>
+            </div>
+            <div class="anno-section-anno-content">
+              <div class="track-list-holder delivered">
+                <div class="track-section-day ng-star-inserted" *ngFor="let day of groupedTrackingData; let parentlast = last">
+                  <div class="track-date">{{ day.date | date:'EEE, d MMM. y' }}</div>
+                  <div class="track-inner-list-holder">
+                    <div class="track-list ng-star-inserted" *ngFor="let entry of day.items; let childlast = last"
+                        [ngClass]="{'icon-item-last': parentlast && childlast}">
+                      <div class="track-time">{{ entry.time }}</div>
+                      <div class="track-icon" [ngClass]="{'delivery-icon': entry.title === 'Delivery completed'}">
+                        <div class="icon-re icon-inner"  *ngIf="!(parentlast && childlast)"
+                          [ngClass]="{'delivery-item': entry.title === 'Delivery completed'}"></div>
+                        <div class="icon-circle" *ngIf="parentlast && childlast"></div>
+                      </div>
+                      <div class="track-details">
+                        <div class="desc_head ng-star-inserted">{{entry.descriptions[0]}}</div>
+                        <div class="title ng-star-inserted" [innerHTML]="entry.title"></div>
+                        <div class="desc ng-star-inserted" *ngIf="entry.office">({{entry.office}})</div>
+                        <div class="desc ng-star-inserted" *ngIf="entry.reason">{{languageData.reason}}: {{entry.reason}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          </mat-expansion-panel>
+        </div>
+        <div *ngIf="detail?.tracking_detail?.tracking_data == null">
+          <mat-card>
+            <mat-card-content style="text-align: center;">{{languageData.no_record_found}}</mat-card-content>
+          </mat-card>
+        </div>
+
+      </div>
+
+    </div>
+    <mat-divider></mat-divider>
+    <div class="container">
+      <div class="container-title">{{languageData.sender_details}}</div>
+      <div fxLayout>
+        <mat-icon class="sender-icon material-icons-outlined">how_to_reg</mat-icon>
+        <div fxLayout="column" fxLayoutGap="0.3rem">
+          <span class="container-subtitle-value-highlight">{{ detail?.sender_details?.name || '-' }}</span>
+          <span *ngIf="detail?.sender_details?.company_name" class="container-subtitle-value-highlight">{{ detail?.sender_details?.company_name }}</span>
+          <span class="container-subtitle-value">{{ detail?.sender_details?.address || '-' }}</span>
+          <span class="container-subtitle-value">{{ detail?.sender_details?.city || '-' }} {{ detail?.sender_details?.postcode || '-' }} {{ detail?.sender_details?.state || '-' }}</span>
+          <span class="container-subtitle-value">{{ detail?.sender_details?.email || '-' }}</span>
+          <span class="container-subtitle-value">{{ detail?.uiSenderPhoneNumber || '-' }}</span>
+        </div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="container">
+      <div class="container-title">{{languageData.recipient_details}}</div>
+      <div fxLayout>
+        <mat-icon class="recipient-icon material-icons-outlined">how_to_reg</mat-icon>
+        <div fxLayout="column" fxLayoutGap="0.3rem">
+          <span class="container-subtitle-value-highlight">{{ detail?.recipient_details?.name || '-' }}</span>
+          <span *ngIf="detail?.recipient_details?.company_name" class="container-subtitle-value-highlight">{{ detail?.recipient_details?.company_name }}</span>
+          <span class="container-subtitle-value">{{ detail?.recipient_details?.address || '-' }}</span>
+          <span class="container-subtitle-value">{{ detail?.recipient_details?.city || '-' }} {{ detail?.recipient_details?.postcode || '-' }} {{ detail?.recipient_details?.state || '-' }} {{ detail?.recipient_details?.country || '-' }}</span>
+          <span class="container-subtitle-value">{{ detail?.recipient_details?.email || '-' }}</span>
+          <span class="container-subtitle-value">{{ detail?.uiRecipientPhoneNumber || '-' }}</span>
+        </div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="container">
+      <div class="container-title">{{languageData.parcel_details}}</div>
+      <div fxLayout class="parcel-details">
+        <mat-icon class="parcel-icon material-icons-outlined">how_to_reg</mat-icon>
+        <div fxLayout="row wrap" fxLayout.lt-sm="column" fxFlex="auto" fxLayoutGap="2rem grid">
+          <div fxFlex="25%" fxLayout="column" *ngIf="detail?.parcel_details?.product">
+            <div class="container-subtitle">{{languageData.product_name}}</div>
+            <div class="container-subtitle-value">{{ detail?.parcel_details?.product }}</div>
+          </div>
+          <div fxFlex="25%" fxLayout="column" *ngIf="detail?.parcel_details?.category">
+            <div class="container-subtitle">{{languageData.category}}</div>
+            <div class="container-subtitle-value">{{ detail?.parcel_details?.category || '-'}}</div>
+          </div>
+          <div fxFlex="25%" fxLayout="column" *ngIf="detail?.parcel_details?.category_details">
+            <div class="container-subtitle">{{languageData.category_details}}</div>
+            <div class="container-subtitle-value">{{ detail?.parcel_details?.category_details || '-'}}</div>
+          </div>
+          <div fxFlex="25%" fxLayout="column">
+            <div class="container-subtitle">{{languageData.dimensions}}</div>
+            <div class="container-subtitle-value">{{ detail?.uiParcelDimension || '-'}}</div>
+          </div>
+          <div fxFlex="25%" fxLayout="column">
+            <div class="container-subtitle">{{languageData.parcel_weight}}</div>
+            <div class="container-subtitle-value">{{ detail?.parcel_details?.weight || '-' }}</div>
+          </div>
+          <div fxFlex="25%" fxLayout="column">
+            <div class="container-subtitle">{{languageData.volumetric_weight}}</div>
+            <div class="container-subtitle-value">{{ detail?.parcel_details?.volumetric_weight || '-' }}</div>
+          </div>
+          <div fxFlex="25%" fxLayout="column">
+            <div class="container-subtitle">{{languageData.sum_insured}}</div>
+            <div class="container-subtitle-value">{{ detail?.parcel_details?.sum_insured !== 0 ? (detail?.parcel_details?.sum_insured | number: '.2-2') : '-' }}</div>
+          </div>
+          <div fxFlex="25%" fxLayout="column">
+            <div class="container-subtitle">{{languageData.insurance_premium}}</div>
+            <div class="container-subtitle-value">{{ detail?.parcel_details?.insured_premium !== 0 ? (detail?.parcel_details?.insured_premium | number: '.2-2') : '-' }}</div>
+          </div>
+          <div fxFlex="25%" fxLayout="column" *ngIf="detail?.parcel_details?.sender_ref">
+            <div class="container-subtitle">{{languageData.sender_ref}}</div>
+            <div class="container-subtitle-value">{{ detail?.parcel_details?.sender_ref || '-' }}</div>
+          </div>
+
+          <div fxFlex="25%" fxLayout="column" *ngIf="detail?.parcel_details?.cod_amount">
+            <div class="container-subtitle">{{languageData.cod_amount}}</div>
+            <div class="container-subtitle-value">{{ (detail?.parcel_details?.cod_amount | number: '.2-2') || '-' }}</div>
+          </div>
+          <div fxFlex="100%" fxLayout="column" *ngIf="detail?.parcel_details?.description">
+            <div class="container-subtitle">{{languageData.item_description}}</div>
+            <div class="container-subtitle-value">{{ detail?.parcel_details?.description || '-' }}</div>
+          </div>
+
+          <div fxFlex="100%" fxLayout="column" *ngIf="detail?.parcel_details?.notes">
+            <div class="container-subtitle">{{languageData.parcel_notes}}</div>
+            <div class="container-subtitle-value">{{ detail?.parcel_details?.notes || '-' }}</div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="container" *ngIf="detail && detail.custom_details && detail.custom_details.length > 0">
+      <div class="container-title">{{languageData.custom_declarations}}</div>
+      <div class="container-custom-details" fxLayout *ngFor="let custom of detail.custom_details; let i = index" fxLayoutGap="3rem" fxLayoutGap.lt-md="1.5rem">
+        <div fxFlex="5%" style="text-align: center">{{ i + 1 }}.</div>
+        <div fxLayout="row wrap" fxLayout.lt-sm="column" fxFlex="80%" fxLayoutGap="2rem grid"  fxLayoutGap.lt-md="1rem grid">
+          <div fxFlex="33%" fxLayout="column">
+            <div class="container-subtitle">{{languageData.category}}</div>
+            <div class="container-subtitle-value">{{ custom.item_category }}</div>
+          </div>
+          <div fxFlex="33%" fxLayout="column">
+            <div class="container-subtitle">{{languageData.weight}}</div>
+            <div class="container-subtitle-value">{{ custom.weight }}</div>
+          </div>
+          <div fxFlex="30%" fxLayout="column">
+            <div class="container-subtitle">{{languageData.Quantity}}</div>
+            <div class="container-subtitle-value">{{ custom.quantity }}</div>
+          </div>
+          <div fxFlex="33%" fxLayout="column">
+            <div class="container-subtitle">{{languageData.hs_code}}</div>
+            <div class="container-subtitle-value">{{ custom.hscode }}</div>
+          </div>
+
+          <div fxFlex="33%" fxLayout="column">
+            <div class="container-subtitle">{{languageData.value_rm}}</div>
+            <div class="container-subtitle-value">{{ custom.value | number: '.2-2' }}</div>
+          </div>
+          <div fxFlex="30%" fxLayout="column">
+            <div class="container-subtitle">{{languageData.country_of_origin}}</div>
+            <div class="container-subtitle-value">{{ custom.country_of_origin }}</div>
+          </div>
+          <div fxFlex="100%" fxLayout="column">
+            <div class="container-subtitle">{{languageData.item_description}}</div>
+            <div class="container-subtitle-value">{{ custom.parcel_description }}</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="container" *ngIf="!commonService.checkIfMobile()">
+      <div fxLayout fxLayoutAlign="end">
+        <button class="download-button" mat-flat-button color="primary" (click)="downloadOrder()" [disabled]="isDownloadSubmitting">
+          {{languageData.download}}
+          <mat-spinner *ngIf="isDownloadSubmitting" [diameter]="20" class="login-loading-spinner"></mat-spinner>
+        </button>
+      </div>
+    </div>
+  </div>
+</pos-page-layout>
+<pos-loading-spinner *ngIf="isLoading"></pos-loading-spinner>

@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/ezisend/billing/feature/invoice/src",
+  "prefix": "pos",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ezisend/billing/feature/invoice"],
+      "options": {
+        "jestConfig": "libs/ezisend/billing/feature/invoice/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ezisend/billing/feature/invoice/**/*.ts",
+          "libs/ezisend/billing/feature/invoice/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

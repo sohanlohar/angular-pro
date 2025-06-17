@@ -1,0 +1,27 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: d03-spp-webserver
+  namespace: d03-spp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: d03-spp-webserver
+  template:
+    metadata:
+      labels:
+        app: d03-spp-webserver
+    spec:
+      # imagePullSecrets:
+      #   - name: aws-ecr    
+          
+      containers:
+        - name: d03-spp-webserver
+          image: >-
+            972277210775.dkr.ecr.ap-southeast-1.amazonaws.com/spp-webserver:dockercicd
+          ports:
+            - name: httpport
+              containerPort: 80
+              protocol: TCP
+          imagePullPolicy: Always

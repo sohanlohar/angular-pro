@@ -1,0 +1,74 @@
+.header-note {
+  margin-block: 1rem;
+}
+.button-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-group {
+  margin-block: 2rem;
+  padding-right: 1rem;
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas:
+    'name name'
+    'mobile email'
+    'addr1 addr1'
+    'addr2 addr2'
+    'state postcode'
+    'city city';
+  gap: 1rem;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+@media screen and (min-width: 82rem) {
+  .form-group {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+      'name name mobile email'
+      'addr1 addr1 addr2 addr2'
+      'state postcode city city';
+  }
+  .footer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 2rem;
+  }
+}
+
+//Grid-areas
+
+.name {
+  grid-area: name;
+}
+.mobile {
+  grid-area: mobile;
+}
+.email {
+  grid-area: email;
+}
+.addr1 {
+  grid-area: addr1;
+}
+.addr2 {
+  grid-area: addr2;
+}
+.state {
+  grid-area: state;
+}
+.postcode {
+  grid-area: postcode;
+}

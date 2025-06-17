@@ -1,0 +1,431 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+.mps-shipment-container {
+
+    .title{
+        padding-top: 1.5rem;
+        margin-bottom: 10px;
+        border-top: 1px solid #8BB5DC;
+    }
+    .child-title{
+        padding-top: 1.5rem;
+        font-size: 15px;
+        color: #5E5873;
+        // border-top: 1px solid #8BB5DC;
+    }
+
+    .form-group-my {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 15% 15% 15% 15% 15% 15%;
+        grid-auto-flow: column;
+        gap: 1rem;
+        row-gap: 0.1rem;
+        grid-template-areas:
+            'tW tW tH tH tpa tpa'
+            'pS pS pS . . .'
+            'dWe dWe dWe dWi dL dH '
+            'vW vW vW . . .'
+             'dC dC dC sRn sRn sRn'
+            'cL cL cC cC . .'
+            'aM aM . . . .'
+            'iL iL iC iC . .'
+            'iN iN iN iN iN iN'
+            'SI SI pM pM . .'
+            'deL deL deL deL deL deL'
+            'cuF cuF cuF cuF cuF cuF'
+            'pB pB pB sB sB sB';
+
+        .button-previous {
+            margin: 1rem 0rem 1rem 0rem;
+            grid-area: pB;
+            justify-items: left;
+            display: grid;
+
+            button {
+                justify-self: left;
+                width: 7rem;
+                height: 2.9rem;
+            }
+        }
+
+        .parentShipment{
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .button-submit {
+            margin: 1rem 0rem 1rem 0rem;
+            grid-area: sB;
+            justify-items: right;
+            display: grid;
+
+            button {
+                justify-self: right;
+                min-width: 7rem;
+                height: 2.9rem;
+            }
+        }
+
+        button {
+            mat-spinner {
+                margin: 0 auto;
+            }
+
+            .login-loading-spinner {
+                ::ng-deep circle {
+                    stroke: v.$primary_color;
+                }
+            }
+        }
+    }
+
+    .customs_form {
+
+        .d-none {
+            display: none;
+            background-color: black;
+        }
+
+        .customs_container {
+          width: 100%;
+          display: grid;
+          grid-template-columns: 15% 15% 15% 15% 15% 15%;
+          grid-auto-flow: column;
+          gap: 1rem;
+          padding: 1rem 0 0 0;
+          row-gap: 0.1rem;
+          grid-template-areas:
+          "cac cac cac cac cac cac";
+          margin: 0px;
+
+          .delete_custom {
+            place-items: end;
+            margin-top: 0;
+            background-color: transparent;
+
+            button{
+                background-color: white;
+                border: 2px solid #F86262;
+                border-radius: 5px;
+                padding: 10px 40px;
+                color: #F86262;
+                cursor: pointer;
+            }
+            button:disabled{
+                border: 2px solid #696969;
+                border-radius: 5px;
+                padding: 10px 40px;
+                color: #696969;
+            }
+          }
+
+          .declaration-label {
+            grid-area: deL;
+          }
+        }
+    }
+
+    .dimensionGuide {
+        grid-area: dG;
+    }
+
+    .mps {
+        grid-area: mps;
+    }
+
+    .category {
+        grid-area: cA;
+    }
+
+    .product {
+        grid-area: pR;
+    }
+
+    .totalWeight {
+        grid-area: tW;
+    }
+
+    .totalCod {
+        grid-area: tL;
+    }
+
+    .totalInsured {
+        grid-area: tH;
+
+        ::ng-deep .mat-form-field-flex{
+            pointer-events: none;
+            background: #f8f8f8;
+            color: #9a9a9a;
+        }
+    }
+
+    .totalPremiumAmount {
+        grid-area: tpa;
+    }
+
+    .dimensionWeight {
+        grid-area: dWe;
+    }
+
+    .dimensionWidth{
+        grid-area: dWi;
+    }
+
+    .dimensionLength{
+        grid-area: dL;
+    }
+
+    .dimensionHeight{
+        grid-area: dH;
+    }
+
+    .volumetricWeight {
+        grid-area: vW;
+    }
+
+    .senderRefNo {
+      grid-area: sRn;
+    }
+
+    .descriptionContent {
+        grid-area: dC;
+    }
+
+    .parcelNotes {
+        grid-area: pN;
+    }
+
+    .amount {
+        grid-area: aM;
+    }
+
+    .insurance-label {
+        grid-area: iL;
+        height: 2.5rem;
+
+        mat-label {
+            font-weight: v.$font-weight-medium;
+        }
+    }
+
+    .declaration-label {
+        grid-area: deL;
+        height: 2.5rem;
+    }
+
+    .weight {
+        grid-area: cuWe;
+    }
+
+    .insurance-check {
+        grid-area: iC;
+    }
+
+    .insurance-notes {
+        font-size: 14px;
+        grid-area: iN;
+        .importantText{
+            color: red;
+        }
+    }
+
+    .sumInsured {
+        grid-area: SI;
+    }
+
+    .premiumAmt {
+        grid-area: pM;
+    }
+
+    .info_style {
+        color: #848484;
+    }
+
+    .parentShipment{
+        grid-area: pS;
+    }
+
+    .customs_form {
+        grid-area: cuF;
+        border-top: 1px solid #8BB5DC;
+        div {
+          display: grid;
+          grid-gap: 0rem 0.5rem;
+          margin: 1rem 0rem;
+          background: #ffff;
+          border-radius: 0.5rem;
+          padding: 0 0.5rem;
+          .delete_custom {
+            grid-area: deCu;
+            place-items: center;
+          }
+
+          .add_btn {
+            grid-area: cuCo;
+          }
+          mat-expantion-panel {
+            &.child_accordions {
+              .mat-expansion-panel-content {
+                background-color: red; /* should now work */
+                margin: 0;
+              }
+            }
+         }
+
+          .child_accordions {
+            grid-area: cac;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 15% 15% 15% 15% 15% 15%;
+            grid-auto-flow: column;
+            gap: 1rem;
+            row-gap: 0.1rem;
+            grid-template-areas:
+            "ach ach ach ach ach ach"
+            "mbc mbc mbc mbc mbc mbc"
+            "acbd acbd acbd acbd acbd acbd"
+            "mb mb mb mb mb mb"
+            "paT paT paT cuDe cuWe cuQu"
+            "cuVa cuVa cuVa . . ."
+            "cd cd cd cd cd cd"
+            "cil cil cic cic cic cic"
+            "ciN ciN ciN ciN ciN ciN"
+            "csI csI cpA cpA . .";
+
+            ::ng-deep .mat-expansion-panel-content {
+                grid-area: mbc;
+            }
+
+            ::ng-deep .mat-expansion-panel-body {
+                grid-area: acbd;
+                display: grid;
+                grid-template-columns: 15% 15% 15% 15% 15% 15%;
+                grid-auto-flow: column;
+                gap: 1rem;
+                row-gap: 0.1rem;
+                grid-template-areas:
+                "mb mb mb mb mb mb"
+                "paT paT paT cuDe cuWe cuQu"
+                "cbX cbX cbX cuVa cuVa cuVa"
+                "cd cd cd cd cd cd"
+                "cil cil cic cic cic cic"
+                "ciN ciN ciN ciN ciN ciN"
+                "csI csI cpA cpA . ."
+                ". . . . deCu deCu";
+              }
+
+            .accordion-header {
+                grid-area: ach;
+            }
+            .accordion-header:hover {
+                background-color: white;
+            }
+
+            .child_weight {
+                grid-area: paT;
+              }
+
+              .child_width {
+                grid-area: cuDe;
+              }
+
+              .child_length {
+                grid-area: cuWe;
+              }
+
+              .child_height {
+                grid-area: cuQu;
+              }
+
+              .child_volumetricWeight {
+                grid-area: cuVa;
+              }
+              .child_checkMe {
+                grid-area: cbX;
+                align-items: center;
+                display: flex;
+              }
+
+              .child_description {
+                grid-area: cd;
+              }
+
+              .child-insurance-label{
+                grid-area: cil;
+              }
+
+              .child-insurance-check{
+                grid-area: cic;
+              }
+
+              .child-insurance-notes {
+                font-size: 14px;
+                grid-area: ciN;
+                .importantText{
+                    color: red;
+                }
+              }
+
+              .child-sumInsured {
+                grid-area: csI;
+              }
+
+              .child-premiumAmt {
+                grid-area: cpA;
+              }
+          }
+          .child_accordions > div{
+            background-color: red;
+          }
+        }
+        .add_btn {
+          grid-row: 4;
+          margin-top: 1rem;
+        }
+    }
+}
+.insurance_notes{
+    .info_style {
+      height: 18px;
+      width: 18px;
+      font-size: 18px;
+    }
+  }
+  .pos_coverage_text{
+    white-space: normal;
+    min-width: 40vw;
+    display: block !important;
+  }
+@media screen and (max-width:750px) {
+    .mps-shipment-container .form-group-my{
+        display: flex;
+        flex-direction: column;
+    }
+    .mps-shipment-container .customs_form div .child_accordions  ::ng-deep .mat-expansion-panel-body {
+        display: flex !important;
+        flex-direction:column !important;
+        width: 81%;
+    }
+    .mat-checkbox-layout{
+    white-space: normal !important;
+}
+  ::ng-deep{ .mat-checkbox-layout{
+    margin: 5px;
+  white-space: normal !important;
+   }
+}
+.mps-shipment-container{
+    margin: 5px;
+}
+.pos_coverage_text{
+    white-space: normal;
+    min-width: auto;
+  }
+}
+.disabled-input {
+  pointer-events: none !important;
+  background-color: #f5f5f5; 
+  opacity: 0.6;
+  cursor: not-allowed; 
+}

@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/ezisend/profile/feature/pickup-address/src",
+  "prefix": "pos",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ezisend/profile/feature/pickup-address"],
+      "options": {
+        "jestConfig": "libs/ezisend/profile/feature/pickup-address/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ezisend/profile/feature/pickup-address/**/*.ts",
+          "libs/ezisend/profile/feature/pickup-address/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

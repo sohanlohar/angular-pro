@@ -1,0 +1,217 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+.dialogContainer {
+  font-family: 'Poppins', Helvetica, sans-serif;
+  width: 25rem;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  .mat-dialog-title {
+    font-size: v.$font_size_xs;
+    margin: 0;
+    span {
+      position: absolute;
+      top: -12px;
+      right: -12px;
+      mat-icon.close {
+        width: 100%;
+        cursor: pointer;
+        height: 3.5em;
+      }
+    }
+  }
+
+  .mat-dialog-container {
+    width: 10rem;
+    padding: 3rem 2rem;
+    .title {
+      text-align: center;
+      font-weight: 400;
+      margin: 0.5rem 0rem;
+    }
+  }
+
+  .mat-dialog-content {
+    &_logo,
+    &_description {
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+    &_description {
+      color: #000000;
+      font-size:  v.$font_size_s;
+      padding-top: 0.2rem;
+
+      span.font-bold {
+        color: #00498D!important;
+        font-weight: 600!important;
+      }
+
+      span.convert {
+        color: #5E5873!important;
+        font-weight: 600!important;
+      }
+    }
+    &_title {
+      font-size: v.$font_size_l;
+    }
+
+    &_information {
+      color: v.$teritary_color;
+      line-height: 25px;
+      text-align: center;
+    }
+
+    &_logo mat-icon {
+      width: 100%;
+      font-size: 40px;
+      height: 3em;
+    }
+    .cdk-overlay-pane {
+      width: 400px !important;
+      height: 400px;
+    }
+
+    .date-container {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      align-items: center;
+      justify-content: center;
+
+        .date-form {
+          height: 60px!important;
+
+          .mat-form-field-infix {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+            align-items: center;
+            padding: 0!important;
+          }
+
+          .mat-form-field-appearance-outline .mat-form-field-flex {
+            margin-top: 0!important
+          }
+      }
+
+      .date-button {
+        width: 200px!important;
+      }
+    }
+  }
+
+  .mat-dialog-actions {
+    display: block;
+    &_confirm {
+      margin-top: 22px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    &_cancel {
+      margin-top: 18px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    &_confirm button {
+      background: #00498d;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 0.5em;
+      font-size: 14px;
+      // width: 140.25px;
+      cursor: pointer;
+      justify-content: center;
+
+    }
+
+    .cancelButton{
+      background: transparent!important;
+      color: #00498d;
+      border: none!important;
+      text-decoration: underline;
+      font-weight: 500;
+      font-size: 14px;
+
+      &:hover{
+        cursor: pointer;
+      }
+    }
+
+    .stretch {
+      margin-top: 8px;
+
+      >button {
+        width: 80%;
+      }
+    }
+  }
+}
+.actionButton{
+  height: 2.5rem;
+      margin: auto;
+      text-align: center;
+      display: flex;
+      align-items: center;
+}
+.deleteAction{
+  width: 172px !important;
+  height: 2.5rem;
+  margin: auto;
+   font-family: Poppins !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  line-height: 21px !important;
+  letter-spacing: 0.4px !important;
+  text-align: center;
+  border: 1.5px solid rgba(0, 73, 141, 1) !important;
+}
+.actionButtonContainer{
+  display: flex; justify-content: space-around; margin-top: 10px;
+}
+.deleteActionText{
+  font-family: Poppins;
+  height: 2.5rem;
+  margin: auto;
+  font-size: 14px;
+  width: 203px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: 0.4x;
+  text-align: center;
+}
+@media screen  and (max-width:700px) {
+  .dialogContainer{
+    width: 82%;
+  }
+
+  .dialogContainer .mat-dialog-content .date-container{
+    flex-direction: column !important;
+  }
+
+  .actionButtonContainer{
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.mat-dialog-actions .mat-button-base+.mat-button-base, .mat-dialog-actions .mat-mdc-button-base+.mat-mdc-button-base {
+  margin-left: none!important;
+}
+
+.mat-dialog-content::-webkit-scrollbar{
+  display: none;
+}

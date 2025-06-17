@@ -1,0 +1,55 @@
+@use 'apps/ezisend/src/styles/variables/index' as v;
+
+.username,
+.password {
+  width: 100%;
+}
+
+.bottom-box {
+  display: grid;
+  .check-remember {
+    grid-column: 1;
+    text-align: left;
+  }
+  .link-forgot {
+    grid-column: 2;
+    text-align: right;
+    a {
+      text-decoration: none;
+    }
+  }
+  .link-email-activation {
+    grid-column: 2;
+    text-align: left;
+    margin-top: 1rem;
+    a {
+      text-decoration: underline;
+    }
+  }
+}
+
+.form-actions {
+  grid-column: span 2;
+  margin-top: 2rem;
+  button {
+    display: block;
+    flex-grow: 1;
+    width: 100%;
+    min-height: 2.25rem;
+
+    mat-spinner {
+      margin: 0 auto;
+    }
+
+    .login-loading-spinner {
+      ::ng-deep circle {
+        stroke: #FFFFFF;
+      }
+    }
+
+    &:disabled {
+      background-color: #ccc;
+    }
+  }
+}
+

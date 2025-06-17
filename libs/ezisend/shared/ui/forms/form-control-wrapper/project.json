@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/ezisend/shared/ui/forms/form-control-wrapper/src",
+  "prefix": "pos",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/ezisend/shared/ui/forms/form-control-wrapper"],
+      "options": {
+        "jestConfig": "libs/ezisend/shared/ui/forms/form-control-wrapper/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/ezisend/shared/ui/forms/form-control-wrapper/**/*.ts",
+          "libs/ezisend/shared/ui/forms/form-control-wrapper/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
