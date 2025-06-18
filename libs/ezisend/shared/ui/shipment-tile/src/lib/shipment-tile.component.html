@@ -1,9 +1,7 @@
-<div class="container" (click)="routeUrl(summaryTile.link)">
+<div class="container" (click)="routeUrl(summaryTile.link)" [style.height]="boxHeight">
     <div class="container__icon">
-        <div class="container__count">
-            {{summaryTile.count}}
-        </div>
-        <mat-icon class="material-icons-outlined" [ngClass]="{
+        <mat-icon class="material-icons-outlined" 
+            [ngClass]="{
                 'green-theme-color':summaryTile.color === 'green-theme-color' ,
                 'yellow-theme-color':summaryTile.color === 'yellow-theme-color',
                 'orange-theme-color':summaryTile.color === 'orange-theme-color',
@@ -12,11 +10,13 @@
                 'purple-theme-color':summaryTile.color === 'purple-theme-color',
                 'gray-theme-color':summaryTile.color === 'gray-theme-color'
 
-            }">
-            {{summaryTile.image}}</mat-icon>
+            }" > 
+        {{summaryTile.image}}</mat-icon>
     </div>
     <div class="container__summary">
-
+        <div class="container__count">
+            {{summaryTile.count}}
+        </div>
         <div class="container__title">
             <span>{{summaryTile.title}}</span>
             <mat-icon class="arrow-icon">chevron_right</mat-icon>
